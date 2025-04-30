@@ -1081,6 +1081,193 @@
                 padding: 0.18rem 0.5rem;
             }
         }
+
+.growth-story {
+  padding: 80px 0;
+  /* background-color: #f9f9f9; */
+}
+
+.growth-story .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.growth-story .section-title {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.growth-story .section-title h2 {
+  font-size: 2.5rem;
+  color: #333;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 15px;
+}
+
+.growth-story .section-title h2::after {
+  content: '';
+  position: absolute;
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, #6c5ce7, #a29bfe);
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* 타임라인 스타일링 */
+.growth-timeline {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* 중앙 선 */
+.growth-timeline::before {
+  content: '';
+  position: absolute;
+  width: 4px;
+  background-color: #ddd;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+
+/* 카드 스타일링 */
+.growth-card {
+  position: relative;
+  background-color: white;
+  border-radius: 12px;
+  padding: 30px;
+  width: calc(50% - 50px);
+  margin-bottom: 40px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.growth-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* 짝수/홀수 카드 위치 설정 */
+.growth-card:nth-child(odd) {
+  float: left;
+  clear: both;
+}
+
+.growth-card:nth-child(even) {
+  float: right;
+  clear: both;
+}
+
+/* 화살표 디자인 */
+.growth-card::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  right: -10px;
+  top: 30px;
+  background-color: white;
+  transform: rotate(45deg);
+  box-shadow: 3px -3px 5px rgba(0, 0, 0, 0.05);
+}
+
+.growth-card:nth-child(even)::after {
+  left: -10px;
+  right: auto;
+  box-shadow: -3px 3px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* 원형 포인트 */
+.growth-card::before {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background-color: #6c5ce7;
+  border-radius: 50%;
+  top: 30px;
+  z-index: 1;
+}
+
+.growth-card:nth-child(odd)::before {
+  right: -59px;
+}
+
+.growth-card:nth-child(even)::before {
+  left: -59px;
+}
+
+/* 연도 스타일 */
+.growth-year {
+  display: inline-block;
+  padding: 5px 15px;
+  background: linear-gradient(90deg, #6c5ce7, #a29bfe);
+  color: white;
+  border-radius: 20px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+}
+
+/* 제목 스타일 */
+.growth-title {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+/* 설명 스타일 */
+.growth-desc {
+  line-height: 1.6;
+  color: #666;
+}
+
+/* 클리어픽스 */
+.growth-timeline::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* 반응형 디자인 */
+@media screen and (max-width: 768px) {
+  .growth-timeline::before {
+    left: 40px;
+  }
+  
+  .growth-card {
+    width: calc(100% - 90px);
+    float: right;
+    margin-left: 90px;
+  }
+  
+  .growth-card::before {
+    left: -49px;
+  }
+  
+  .growth-card::after {
+    left: -10px;
+    box-shadow: -3px 3px 5px rgba(0, 0, 0, 0.05);
+  }
+  
+  .growth-card:nth-child(odd)::before {
+    right: auto;
+    left: -49px;
+  }
+  
+  .growth-card:nth-child(odd)::after {
+    right: auto;
+    left: -10px;
+  }
+}
     </style>
     <script>
       document.addEventListener('DOMContentLoaded', function() {
@@ -1120,9 +1307,7 @@
             <div class="hero-text">
                 <h1>멍개 (박정태)</h1>
                 <p>10년차 벡엔드 개발자</p>
-                <p>
-                  
-                </p>
+                <p></p>
                 <div class="about-main-card">
                   <div class="about-main-content">
                     <div class="about-experience">
@@ -1534,6 +1719,46 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <section id="growth-story" class="growth-story">
+        <div class="container">
+          <div class="section-title"><h2>성장 스토리</h2></div>
+          <div class="growth-timeline">
+            <div class="growth-card">
+                <div class="growth-year">2012 ~</div>
+                <div class="growth-title">지식 공유와 커뮤니티</div>
+                <div class="growth-desc">강의, 저서, 오픈소스, 블로그 등 다양한 방식으로 지식을 나누며, 개발자로서의 영향력을 확장.</div>
+              </div>
+
+            <div class="growth-card">
+              <div class="growth-year">2015 ~</div>
+              <div class="growth-title">데이터/자동화에 눈뜨다</div>
+              <div class="growth-desc">다양한 크롤러와 데이터 파이프라인을 직접 설계하며, 데이터 기반 문제 해결의 재미와 중요성을 깨달음.</div>
+            </div>
+            <div class="growth-card">
+              <div class="growth-year">2017 ~</div>
+              <div class="growth-title">신기술과 아키텍처 도전</div>
+              <div class="growth-desc">블록체인, AI, MLOps, IaC 등 최신 기술을 빠르게 습득하고, 실무에 적용하며 성장.</div>
+            </div>
+            <div class="growth-card">
+              <div class="growth-year">2019 ~</div>
+              <div class="growth-title">대규모 서비스와 인프라 경험</div>
+              <div class="growth-desc">거래소, 금융, 블록체인 등 실서비스 백엔드/인프라를 구축하며, 대규모 트래픽과 장애 대응, DevOps의 필요성을 체감.</div>
+            </div>
+            <div class="growth-card">
+              <div class="growth-year">2019 ~</div>
+              <div class="growth-title">리더십과 협업</div>
+              <div class="growth-desc">팀 리딩, 멘토링, 디자인 시스템 도입 등 협업과 리더십 경험을 통해 더 큰 임팩트를 만들어냄.</div>
+            </div>
+            <div class="growth-card">
+              <div class="growth-year">2024 ~</div>
+              <div class="growth-title">인공지능과 에이전트</div>
+              <div class="growth-desc">인공지능과 에이전트를 활용한 문제 해결, 자동화 시스템 구축.</div>
+            </div>
+
+          </div>
         </div>
     </section>
 
