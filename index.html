@@ -647,29 +647,33 @@
         }
 
         @media (max-width: 768px) {
+            .header-container {
+                flex-direction: row;
+                padding: 1rem 1rem;
+            }
             .mobile-menu-btn {
                 display: block;
+                margin-left: auto;
             }
-
             nav ul {
                 display: none;
                 position: absolute;
                 top: 100%;
                 left: 0;
-                width: 100%;
+                width: 100vw;
                 background-color: var(--white);
                 flex-direction: column;
                 padding: 1rem 0;
                 box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                z-index: 2000;
             }
-
             nav ul.show {
                 display: flex;
             }
-
             nav ul li {
                 margin: 0;
-                padding: 0.5rem 2rem;
+                padding: 0.7rem 2rem;
+                text-align: left;
             }
 
             .hero-content {
@@ -1078,6 +1082,17 @@
             }
         }
     </style>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var menuBtn = document.getElementById('menuBtn');
+        var menu = document.getElementById('menu');
+        if(menuBtn && menu) {
+          menuBtn.onclick = function() {
+            menu.classList.toggle('show');
+          };
+        }
+      });
+    </script>
 </head>
 <body>
     <header>
