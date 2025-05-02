@@ -1334,6 +1334,126 @@
             color: var(--primary-color);
             transform: translateY(-3px);
         }
+
+        /* Contact 섹션 스타일 개선 */
+        .contact {
+            background-color: var(--bg-color);
+            padding: 5rem 0;
+            position: relative;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .contact-card {
+            background-color: var(--white);
+            padding: 2.5rem 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-card i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .contact-link {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.2s ease;
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+        }
+
+        .contact-link:hover {
+            background-color: var(--highlight);
+            color: var(--primary-color);
+        }
+
+        /* Footer 스타일 개선 */
+        footer {
+            background-color: var(--white);
+            padding: 3rem 0;
+            margin-top: 2rem;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-social a {
+            color: var(--text-color);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            padding: 0.8rem;
+            border-radius: 50%;
+            background-color: var(--bg-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem;
+            height: 3rem;
+        }
+
+        .footer-social a:hover {
+            color: var(--primary-color);
+            background-color: var(--highlight);
+            transform: translateY(-3px);
+        }
+
+        .footer-copyright {
+            color: var(--dark-gray);
+            font-size: 0.95rem;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+                padding: 0 1rem;
+            }
+
+            .footer-social {
+                gap: 1rem;
+            }
+
+            .footer-social a {
+                font-size: 1.3rem;
+                width: 2.5rem;
+                height: 2.5rem;
+            }
+        }
     </style>
     <script>
       document.addEventListener('DOMContentLoaded', function() {
@@ -1527,129 +1647,6 @@
                     </div>
                     <div class="skill-desc" style="margin-top:1rem; color:var(--dark-gray); font-size:0.97rem;">
                         데이터 분석, 주문/매출 관리, 대용량 데이터 처리 및 최적화 경험
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="npm-packages" class="npm-packages">
-        <div class="container">
-            <div class="section-title"><h2>npm 패키지</h2></div>
-
-            <div class="npm-packages-list">
-                <div class="npm-package-card">
-                    <div class="npm-package-header">
-                        <a href="https://www.npmjs.com/package/@namulabsdev/farcaster-sdk" target="_blank" class="npm-package-name">@namulabsdev/farcaster-sdk</a>
-                        <img src="https://img.shields.io/npm/v/@namulabsdev/farcaster-sdk?color=2563eb" alt="npm version" />
-                    </div>
-                    <div class="npm-package-desc">
-                        Farcaster SDK<br>
-                        <span class="npm-package-meta">2024, 나무랩스</span>
-                    </div>
-                </div>
-
-                <div class="npm-package-card">
-                    <div class="npm-package-header">
-                        <a href="https://www.npmjs.com/package/storybook-ghpage-deploy" target="_blank" class="npm-package-name">storybook-ghpage-deploy</a>
-                        <img src="https://img.shields.io/npm/v/storybook-ghpage-deploy?color=2563eb" alt="npm version" />
-                    </div>
-                    <div class="npm-package-desc">
-                        깃허브 페이지를 통해 storybook을 배포하는 샘플<br>
-                        <span class="npm-package-meta">2022, 박정태</span>
-                    </div>
-                </div>
-                <div class="npm-package-card">
-                    <div class="npm-package-header">
-                        <a href="https://www.npmjs.com/package/mungrever" target="_blank" class="npm-package-name">mungrever</a>
-                        <img src="https://img.shields.io/npm/v/mungrever?color=2563eb" alt="npm version" />
-                    </div>
-                    <div class="npm-package-desc">
-                        forever 형태의 프로세스 관리 도구<br>
-                        <span class="npm-package-meta">2022, 박정태</span>
-                    </div>
-                </div>
-
-                <div class="npm-package-card">
-                    <div class="npm-package-header">
-                        <a href="https://www.npmjs.com/package/orderbook-match-engine" target="_blank" class="npm-package-name">orderbook-match-engine</a>
-                        <img src="https://img.shields.io/npm/v/orderbook-match-engine?color=2563eb" alt="npm version" />
-                    </div>
-                    <div class="npm-package-desc">
-                        오더북 매칭 엔진<br>
-                        <span class="npm-package-meta">2022, 박정태</span>
-                    </div>
-                </div>
-
-                <div class="npm-package-card">
-                    <div class="npm-package-header">
-                        <a href="https://www.npmjs.com/package/@dominantlab/clt-blockchain-sdk" target="_blank" class="npm-package-name">@dominantlab/clt-blockchain-sdk</a>
-                        <img src="https://img.shields.io/npm/v/@dominantlab/clt-blockchain-sdk?color=2563eb" alt="npm version" />
-                    </div>
-                    <div class="npm-package-desc">
-                        SDK for IO-Blockchain(IOB)<br>
-                        <span class="npm-package-meta">2019, 도미넌트랩</span>
-                    </div>
-                </div>
-
-                <div class="npm-package-card">
-                    <div class="npm-package-header">
-                        <a href="https://www.npmjs.com/package/@mung-office/redux-socket" target="_blank" class="npm-package-name">@mung-office/redux-socket</a>
-                        <img src="https://img.shields.io/npm/v/@mung-office/redux-socket?color=2563eb" alt="npm version" />
-                    </div>
-                    <div class="npm-package-desc">
-                        redux 기반의 소켓 연동 라이브러리<br>
-                        <span class="npm-package-meta">2020, 박정태</span>
-                    </div>
-                </div>
-
-                <div class="npm-package-card">
-                    <div class="npm-package-header">
-                        <a href="https://www.npmjs.com/package/@mung-office/calendar" target="_blank" class="npm-package-name">@mung-office/calendar</a>
-                        <img src="https://img.shields.io/npm/v/@mung-office/calendar?color=2563eb" alt="npm version" />
-                    </div>
-                    <div class="npm-package-desc">
-                        캘린더 컴포넌트<br>
-                        <span class="npm-package-meta">2022, 박정태</span>
-                    </div>
-                </div>
-
-                <div class="npm-package-card">
-                    <div class="npm-package-header">
-                        <a href="https://www.npmjs.com/package/@flescompany/design-system" target="_blank" class="npm-package-name">@flescompany/design-system</a>
-                        <img src="https://img.shields.io/npm/v/@flescompany/design-system?color=2563eb" alt="npm version" />
-                    </div>
-                    <div class="npm-package-desc">
-                        React 기반 디자인 시스템 UI 컴포넌트 라이브러리<br>
-                        <span class="npm-package-meta">2021, fles</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="pypi-packages" class="pypi-packages">
-        <div class="container">
-            <div class="section-title"><h2>PyPI 패키지</h2></div>
-            <div class="pypi-packages-list">
-                <div class="pypi-package-card">
-                    <div class="pypi-package-header">
-                        <a href="https://pypi.org/project/bpb/" target="_blank" class="pypi-package-name">bpb</a>
-                        <img src="https://img.shields.io/pypi/v/bpb?color=2563eb" alt="pypi version" />
-                    </div>
-                    <div class="pypi-package-desc">
-                        마크다운 문서를 파싱하여 네이버 블로그 포스팅 봇<br>
-                        <span class="pypi-package-meta">PyPI, 박정태</span>
-                    </div>
-                </div>
-                <div class="pypi-package-card">
-                    <div class="pypi-package-header">
-                        <a href="https://pypi.org/project/EITRI/" target="_blank" class="pypi-package-name">EITRI</a>
-                        <img src="https://img.shields.io/pypi/v/EITRI?color=2563eb" alt="pypi version" />
-                    </div>
-                    <div class="pypi-package-desc">
-                        SDK for IO-Blockchain(IOB) <br>
-                        <span class="pypi-package-meta">PyPI, 박정태</span>
                     </div>
                 </div>
             </div>
@@ -1923,6 +1920,129 @@
         </div>
     </section>
 
+    <section id="npm-packages" class="npm-packages">
+        <div class="container">
+            <div class="section-title"><h2>npm 패키지</h2></div>
+
+            <div class="npm-packages-list">
+                <div class="npm-package-card">
+                    <div class="npm-package-header">
+                        <a href="https://www.npmjs.com/package/@namulabsdev/farcaster-sdk" target="_blank" class="npm-package-name">@namulabsdev/farcaster-sdk</a>
+                        <img src="https://img.shields.io/npm/v/@namulabsdev/farcaster-sdk?color=2563eb" alt="npm version" />
+                    </div>
+                    <div class="npm-package-desc">
+                        Farcaster SDK<br>
+                        <span class="npm-package-meta">2024, 나무랩스</span>
+                    </div>
+                </div>
+
+                <div class="npm-package-card">
+                    <div class="npm-package-header">
+                        <a href="https://www.npmjs.com/package/storybook-ghpage-deploy" target="_blank" class="npm-package-name">storybook-ghpage-deploy</a>
+                        <img src="https://img.shields.io/npm/v/storybook-ghpage-deploy?color=2563eb" alt="npm version" />
+                    </div>
+                    <div class="npm-package-desc">
+                        깃허브 페이지를 통해 storybook을 배포하는 샘플<br>
+                        <span class="npm-package-meta">2022, 박정태</span>
+                    </div>
+                </div>
+                <div class="npm-package-card">
+                    <div class="npm-package-header">
+                        <a href="https://www.npmjs.com/package/mungrever" target="_blank" class="npm-package-name">mungrever</a>
+                        <img src="https://img.shields.io/npm/v/mungrever?color=2563eb" alt="npm version" />
+                    </div>
+                    <div class="npm-package-desc">
+                        forever 형태의 프로세스 관리 도구<br>
+                        <span class="npm-package-meta">2022, 박정태</span>
+                    </div>
+                </div>
+
+                <div class="npm-package-card">
+                    <div class="npm-package-header">
+                        <a href="https://www.npmjs.com/package/orderbook-match-engine" target="_blank" class="npm-package-name">orderbook-match-engine</a>
+                        <img src="https://img.shields.io/npm/v/orderbook-match-engine?color=2563eb" alt="npm version" />
+                    </div>
+                    <div class="npm-package-desc">
+                        오더북 매칭 엔진<br>
+                        <span class="npm-package-meta">2022, 박정태</span>
+                    </div>
+                </div>
+
+                <div class="npm-package-card">
+                    <div class="npm-package-header">
+                        <a href="https://www.npmjs.com/package/@dominantlab/clt-blockchain-sdk" target="_blank" class="npm-package-name">@dominantlab/clt-blockchain-sdk</a>
+                        <img src="https://img.shields.io/npm/v/@dominantlab/clt-blockchain-sdk?color=2563eb" alt="npm version" />
+                    </div>
+                    <div class="npm-package-desc">
+                        SDK for IO-Blockchain(IOB)<br>
+                        <span class="npm-package-meta">2019, 도미넌트랩</span>
+                    </div>
+                </div>
+
+                <div class="npm-package-card">
+                    <div class="npm-package-header">
+                        <a href="https://www.npmjs.com/package/@mung-office/redux-socket" target="_blank" class="npm-package-name">@mung-office/redux-socket</a>
+                        <img src="https://img.shields.io/npm/v/@mung-office/redux-socket?color=2563eb" alt="npm version" />
+                    </div>
+                    <div class="npm-package-desc">
+                        redux 기반의 소켓 연동 라이브러리<br>
+                        <span class="npm-package-meta">2020, 박정태</span>
+                    </div>
+                </div>
+
+                <div class="npm-package-card">
+                    <div class="npm-package-header">
+                        <a href="https://www.npmjs.com/package/@mung-office/calendar" target="_blank" class="npm-package-name">@mung-office/calendar</a>
+                        <img src="https://img.shields.io/npm/v/@mung-office/calendar?color=2563eb" alt="npm version" />
+                    </div>
+                    <div class="npm-package-desc">
+                        캘린더 컴포넌트<br>
+                        <span class="npm-package-meta">2022, 박정태</span>
+                    </div>
+                </div>
+
+                <div class="npm-package-card">
+                    <div class="npm-package-header">
+                        <a href="https://www.npmjs.com/package/@flescompany/design-system" target="_blank" class="npm-package-name">@flescompany/design-system</a>
+                        <img src="https://img.shields.io/npm/v/@flescompany/design-system?color=2563eb" alt="npm version" />
+                    </div>
+                    <div class="npm-package-desc">
+                        React 기반 디자인 시스템 UI 컴포넌트 라이브러리<br>
+                        <span class="npm-package-meta">2021, fles</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pypi-packages" class="pypi-packages">
+        <div class="container">
+            <div class="section-title"><h2>PyPI 패키지</h2></div>
+            <div class="pypi-packages-list">
+                <div class="pypi-package-card">
+                    <div class="pypi-package-header">
+                        <a href="https://pypi.org/project/bpb/" target="_blank" class="pypi-package-name">bpb</a>
+                        <img src="https://img.shields.io/pypi/v/bpb?color=2563eb" alt="pypi version" />
+                    </div>
+                    <div class="pypi-package-desc">
+                        마크다운 문서를 파싱하여 네이버 블로그 포스팅 봇<br>
+                        <span class="pypi-package-meta">PyPI, 박정태</span>
+                    </div>
+                </div>
+                <div class="pypi-package-card">
+                    <div class="pypi-package-header">
+                        <a href="https://pypi.org/project/EITRI/" target="_blank" class="pypi-package-name">EITRI</a>
+                        <img src="https://img.shields.io/pypi/v/EITRI?color=2563eb" alt="pypi version" />
+                    </div>
+                    <div class="pypi-package-desc">
+                        SDK for IO-Blockchain(IOB) <br>
+                        <span class="pypi-package-meta">PyPI, 박정태</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="publications" class="publications">
         <div class="container">
             <div class="section-title"><h2>저서/출판</h2></div>
@@ -2158,20 +2278,25 @@
                 <div class="contact-card">
                     <i class="fas fa-envelope"></i>
                     <h3>Email</h3>
-                    <p><a href="mailto:pjt3591oo@gmail.com">pjt3591oo@gmail.com</a></p>
+                    <p><a href="mailto:pjt3591oo@gmail.com" class="contact-link">pjt3591oo@gmail.com</a></p>
                 </div>
                 <div class="contact-card">
                     <i class="fas fa-envelope"></i>
                     <h3>Email</h3>
-                    <p><a href="mailto:pjt3591oo@naver.com">pjt3591oo@naver.com</a></p>
+                    <p><a href="mailto:pjt3591oo@naver.com" class="contact-link">pjt3591oo@naver.com</a></p>
                 </div>
             </div>
         </div>
     </section>
 
     <footer>
-        <div class="container">
-            <p>&copy; 2025 박정태(멍개). All rights reserved.</p>
+        <div class="container footer-content">
+            <div class="footer-social">
+                <a href="https://blog.naver.com/pjt3591oo" target="_blank" title="기술 블로그"><i class="fas fa-blog"></i></a>
+                <a href="https://github.com/pjt3591oo" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://stackoverflow.com/users/8667760/멍개-mung" target="_blank" title="Stack Overflow"><i class="fab fa-stack-overflow"></i></a>
+            </div>
+            <p class="footer-copyright">&copy; 2025 박정태(멍개). All rights reserved.</p>
         </div>
     </footer>
 
