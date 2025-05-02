@@ -1268,6 +1268,97 @@
     left: -10px;
   }
 }
+
+        /* 기본 a 태그 스타일 */
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        a:hover {
+            color: #1d4ed8; /* 더 진한 파란색 */
+        }
+
+        /* 일반 텍스트 링크에 밑줄 효과 */
+        .project-desc a, 
+        .publication-desc a,
+        .blog-card-desc a,
+        .timeline-projects a {
+            border-bottom: 1px solid var(--primary-color);
+            padding-bottom: 1px;
+        }
+
+        .project-desc a:hover, 
+        .publication-desc a:hover,
+        .blog-card-desc a:hover,
+        .timeline-projects a:hover {
+            border-bottom: 2px solid #1d4ed8;
+            padding-bottom: 0;
+        }
+
+        /* 네비게이션 링크 스타일 강화 */
+        nav ul li a {
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+
+        nav ul li a:hover {
+            background-color: var(--highlight);
+        }
+
+        /* 푸터 링크 스타일 */
+        footer a {
+            color: var(--white);
+            border-bottom: 1px solid var(--white);
+            padding-bottom: 1px;
+        }
+
+        footer a:hover {
+            color: var(--highlight);
+            border-bottom: 2px solid var(--highlight);
+            padding-bottom: 0;
+        }
+
+        /* 카드 내부 링크 스타일 */
+        .blog-series-card a,
+        .npm-package-card a,
+        .pypi-package-card a {
+            display: block;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+        }
+
+        .blog-series-card a:hover,
+        .npm-package-card a:hover,
+        .pypi-package-card a:hover {
+            background-color: var(--highlight);
+        }
+
+        /* 연락처 링크 스타일 */
+        .contact-card a {
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+        }
+
+        .contact-card a:hover {
+            background-color: var(--highlight);
+        }
+
+        /* 소셜 링크 스타일 유지 */
+        .social-links a {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .social-links a:hover {
+            background-color: white;
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
     </style>
     <script>
       document.addEventListener('DOMContentLoaded', function() {
@@ -1457,6 +1548,7 @@
                         <div class="skill-tag">Redis</div>
                         <div class="skill-tag">MongoDB</div>
                         <div class="skill-tag">Postgres</div>
+                        <div class="skill-tag">Neo4j</div>
                     </div>
                     <div class="skill-desc" style="margin-top:1rem; color:var(--dark-gray); font-size:0.97rem;">
                         데이터 분석, 주문/매출 관리, 대용량 데이터 처리 및 최적화 경험
