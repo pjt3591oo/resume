@@ -1,2495 +1,2966 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>멍개(박정태) - 개발자 포트폴리오</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github.min.css">
-    <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
-    <style>
-        :root {
-            /* 메인 색상 */
-            --primary-color: #4f46e5;
-            --primary-light: #818cf8;
-            --primary-dark: #3730a3;
-            
-            /* 중립 색상 */
-            --bg-color: #f8fafc;
-            --text-color: #1e293b;
-            --secondary-color: #64748b;
-            --light-gray: #e2e8f0;
-            --dark-gray: #475569;
-            --white: #ffffff;
-            
-            /* 강조 색상 */
-            --highlight: #eef2ff;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --error: #ef4444;
-
-            /* 그림자 */
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-
-            /* 트랜지션 */
-            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* 기본 타이포그래피 개선 */
-        body {
-            line-height: 1.7;
-            letter-spacing: -0.01em;
-            font-size: 16px;
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            letter-spacing: -0.03em;
-            line-height: 1.3;
-            margin-bottom: 1rem;
-        }
-
-        /* 헤더 스타일 개선 */
-        header {
-            backdrop-filter: blur(12px);
-            background-color: rgba(255, 255, 255, 0.8);
-            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
-        }
-
-        .logo {
-            font-size: 1.25rem;
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 800;
-        }
-
-        nav ul li a {
-            font-weight: 600;
-            position: relative;
-            padding: 0.5rem 1rem;
-            transition: var(--transition-normal);
-        }
-
-        nav ul li a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: var(--primary-color);
-            transition: var(--transition-normal);
-            transform: translateX(-50%);
-        }
-
-        nav ul li a:hover::after {
-            width: 100%;
-        }
-
-        /* 히어로 섹션 개선 */
-        .hero {
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
-        }
-
-        /* 섹션 타이틀 개선 */
-        .section-title {
-            margin-bottom: 3rem;
-            text-align: center;
-        }
-
-        .section-title h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--text-color);
-            position: relative;
-            display: inline-block;
-            padding-bottom: 1rem;
-        }
-
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(to right, var(--primary-color), var(--primary-light));
-            border-radius: 2px;
-        }
-
-        /* 카드 스타일 개선 */
-        .project-card, .blog-card, .publication-card, .npm-package-card, .pypi-package-card {
-            background: var(--white);
-            border-radius: 16px;
-            overflow: hidden;
-            transition: var(--transition-normal);
-            border: 1px solid var(--light-gray);
-        }
-
-        .project-card:hover, .blog-card:hover, .publication-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-            border-color: var(--primary-light);
-        }
-
-        /* 버튼 스타일 개선 */
-        .project-link-btn {
-            background: var(--highlight);
-            color: var(--primary-color);
-            font-weight: 600;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            transition: var(--transition-normal);
-        }
-
-        .project-link-btn:hover {
-            background: var(--primary-color);
-            color: var(--white);
-        }
-
-        /* 스킬 태그 개선 */
-        .skill-tag {
-            background: var(--white);
-            color: var(--text-color);
-            padding: 0.75rem 1.25rem;
-            border-radius: 8px;
-            font-size: 0.95rem;
-            font-weight: 500;
-            box-shadow: var(--shadow-sm);
-            transition: all 0.2s ease;
-        }
-
-        .skill-tag:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-            background: var(--primary-color);
-            color: var(--white);
-        }
-
-        /* 타임라인 개선 */
-        .timeline::after {
-            background: linear-gradient(to bottom, var(--primary-light), var(--primary-color));
-            width: 4px;
-            border-radius: 2px;
-        }
-
-        .timeline-content {
-            border-radius: 16px;
-            border: 1px solid var(--light-gray);
-            transition: var(--transition-normal);
-        }
-
-        .timeline-content:hover {
-            border-color: var(--primary-light);
-            box-shadow: var(--shadow-lg);
-        }
-
-        /* 다크 모드 개선 */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg-color: #0f172a;
-                --text-color: #e2e8f0;
-                --secondary-color: #94a3b8;
-                --light-gray: #1e293b;
-                --dark-gray: #94a3b8;
-                --white: #1e293b;
-                --highlight: #1e40af;
-            }
-
-            header {
-                background-color: rgba(15, 23, 42, 0.8);
-                border-bottom: 1px solid rgba(30, 41, 59, 0.8);
-            }
-
-            .project-card, .blog-card, .publication-card {
-                border: 1px solid var(--light-gray);
-                background: var(--white);
-            }
-        }
-
-        /* 반응형 디자인 개선 */
-        @media (max-width: 768px) {
-            .section-title h2 {
-                font-size: 2rem;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        header {
-            background-color: var(--white);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary-color);
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-
-        nav ul li {
-            margin-left: 2rem;
-        }
-
-        nav ul li a {
-            text-decoration: none;
-            color: var(--secondary-color);
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        nav ul li a:hover {
-            color: var(--primary-color);
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--secondary-color);
-            cursor: pointer;
-        }
-
-        .hero {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            color: white;
-            padding: 8rem 0 5rem;
-            margin-top: 64px;
-        }
-
-        .hero-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .hero-text {
-            flex: 1;
-            padding-right: 2rem;
-        }
-
-        .hero-image {
-            flex: 1;
-            text-align: center;
-        }
-
-        .hero-image img {
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 5px solid white;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
-
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-
-        .hero-tags {
-            display: flex;
-            flex-wrap: wrap;
-            margin-bottom: 2rem;
-        }
-
-        .tag {
-            background-color: rgba(255, 255, 255, 0.2);
-            padding: 0.3rem 0.8rem;
-            border-radius: 100px;
-            margin-right: 0.5rem;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .social-links a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            color: white;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .social-links a:hover {
-            background-color: white;
-            color: var(--primary-color);
-            transform: translateY(-3px);
-        }
-
-        section {
-            padding: 5rem 0;
-        }
-
-        .about-content {
-            display: flex;
-            align-items: flex-start;
-            gap: 2rem;
-        }
-
-        .about-text {
-            flex: 2;
-        }
-
-        .about-info {
-            flex: 1;
-            background-color: var(--white);
-            border-radius: 10px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-        }
-
-        .info-item {
-            margin-bottom: 1rem;
-        }
-
-        .info-item .label {
-            color: var(--dark-gray);
-            font-size: 0.9rem;
-            margin-bottom: 0.2rem;
-        }
-
-        .info-item .value {
-            font-weight: 500;
-        }
-
-        .timeline {
-            position: relative;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .timeline::after {
-            content: '';
-            position: absolute;
-            width: 3px;
-            background-color: var(--light-gray);
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -1.5px;
-        }
-
-        .timeline-item {
-            padding: 10px 40px;
-            position: relative;
-            width: 50%;
-            box-sizing: border-box;
-        }
-
-        .timeline-item:nth-child(odd) {
-            left: 0;
-        }
-
-        .timeline-item:nth-child(even) {
-            left: 50%;
-        }
-
-        .timeline-item::after {
-            content: '';
-            position: absolute;
-            width: 16px;
-            height: 16px;
-            right: -8px;
-            background-color: var(--white);
-            border: 3px solid var(--primary-color);
-            top: 18px;
-            border-radius: 50%;
-            z-index: 1;
-        }
-
-        .timeline-item:nth-child(even)::after {
-            left: -8px;
-        }
-
-        .timeline-content {
-            padding: 20px;
-            background-color: var(--white);
-            position: relative;
-            border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-        }
-
-        .timeline-date {
-            font-weight: 600;
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
-        }
-
-        .timeline-title {
-            margin-bottom: 0.5rem;
-        }
-
-        .timeline-subtitle {
-            color: var(--dark-gray);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-
-        .timeline-projects {
-            margin-top: 1rem;
-        }
-
-        .project-item {
-            margin-bottom: 1rem;
-            border-left: 3px solid var(--highlight);
-            padding-left: 1rem;
-        }
-
-        .project-title {
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
-
-        .project-date {
-            font-size: 0.8rem;
-            color: var(--dark-gray);
-            margin-bottom: 0.5rem;
-        }
-
-        .project-desc {
-            font-size: 0.9rem;
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .skill-category {
-            background-color: var(--white);
-            border-radius: 10px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-        }
-
-        .skill-category h3 {
-            margin-bottom: 1rem;
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--light-gray);
-            padding-bottom: 0.5rem;
-        }
-
-        .skill-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .skill-tag {
-            background-color: var(--highlight);
-            color: var(--primary-color);
-            padding: 0.3rem 0.8rem;
-            border-radius: 100px;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .project-card {
-            background-color: var(--white);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .project-card-image {
-            height: 200px;
-            background-size: cover;
-            background-position: center;
-            background-color: var(--light-gray);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--dark-gray);
-        }
-
-        .project-card-content {
-            padding: 1.5rem;
-        }
-
-        .project-card-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .project-card-date {
-            font-size: 0.8rem;
-            color: var(--dark-gray);
-            margin-bottom: 1rem;
-        }
-
-        .project-card-desc {
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-
-        .project-card-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .project-card-tag {
-            background-color: var(--light-gray);
-            color: var(--dark-gray);
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
-        }
-
-        .publications-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .publication-card {
-            background-color: var(--white);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-
-        .publication-cover {
-            height: 250px;
-            background-size: cover;
-            background-position: center;
-            background-color: var(--light-gray);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--dark-gray);
-        }
-
-        .publication-content {
-            padding: 1.5rem;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .publication-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .publication-date {
-            font-size: 0.8rem;
-            color: var(--dark-gray);
-            margin-bottom: 1rem;
-        }
-
-        .publication-desc {
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            flex: 1;
-        }
-
-        .publication-link {
-            display: inline-block;
-            text-decoration: none;
-            color: var(--primary-color);
-            font-weight: 500;
-            font-size: 0.9rem;
-            transition: color 0.3s ease;
-        }
-
-        .publication-link:hover {
-            text-decoration: underline;
-        }
-
-        .blog-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .blog-card {
-            background-color: var(--white);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .blog-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .blog-card-content {
-            padding: 1.5rem;
-        }
-
-        .blog-card-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .blog-card-date {
-            font-size: 0.8rem;
-            color: var(--dark-gray);
-            margin-bottom: 1rem;
-        }
-
-        .blog-card-desc {
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-
-        .blog-card-link {
-            display: inline-block;
-            text-decoration: none;
-            color: var(--primary-color);
-            font-weight: 500;
-            font-size: 0.9rem;
-            transition: color 0.3s ease;
-        }
-
-        .blog-card-link:hover {
-            text-decoration: underline;
-        }
-
-        .contact {
-            background-color: var(--white);
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 2rem;
-        }
-
-        .contact-card {
-            text-align: center;
-            padding: 2rem;
-            border-radius: 10px;
-            background-color: var(--highlight);
-            transition: transform 0.3s ease;
-        }
-
-        .contact-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .contact-card i {
-            font-size: 2rem;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
-        .contact-card h3 {
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
-        }
-
-        .contact-card p {
-            color: var(--secondary-color);
-        }
-
-        .contact-card a {
-            color: var(--primary-color);
-            text-decoration: none;
-        }
-
-        .contact-card a:hover {
-            text-decoration: underline;
-        }
-
-        footer {
-            background-color: var(--secondary-color);
-            color: var(--white);
-            text-align: center;
-            padding: 2rem 0;
-        }
-
-        .footer-content p {
-            margin-bottom: 1rem;
-        }
-
-        .footer-social {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .footer-social a {
-            color: var(--white);
-            font-size: 1.2rem;
-            transition: color 0.3s ease;
-        }
-
-        .footer-social a:hover {
-            color: var(--highlight);
-        }
-
-        @media (max-width: 1024px) {
-            .timeline::after {
-                left: 31px;
-            }
-
-            .timeline-item {
-                width: 100%;
-                padding-left: 70px;
-                padding-right: 25px;
-            }
-
-            .timeline-item:nth-child(even) {
-                left: 0;
-            }
-
-            .timeline-item::after {
-                left: 15px;
-                right: auto;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .header-container {
-                flex-direction: row;
-                padding: 1rem 1rem;
-            }
-            .mobile-menu-btn {
-                display: block;
-                margin-left: auto;
-            }
-            nav ul {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100vw;
-                background-color: var(--white);
-                flex-direction: column;
-                padding: 1rem 0;
-                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-                z-index: 2000;
-            }
-            nav ul.show {
-                display: flex;
-            }
-            nav ul li {
-                margin: 0;
-                padding: 0.7rem 2rem;
-                text-align: left;
-            }
-
-            .hero-content {
-                flex-direction: column-reverse;
-                text-align: center;
-            }
-
-            .hero-text {
-                padding-right: 0;
-                margin-top: 2rem;
-            }
-
-            .hero-tags, .social-links {
-                justify-content: center;
-            }
-
-            .about-content {
-                flex-direction: column;
-            }
-
-            .projects-grid, .publications-list, .blog-list {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .hero p {
-                font-size: 1rem;
-            }
-
-            .section-title h2 {
-                font-size: 1.7rem;
-            }
-        }
-
-        /* Dark Mode */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --primary-color: #3b82f6;
-                --secondary-color: #94a3b8;
-                --bg-color: #0f172a;
-                --text-color: #e2e8f0;
-                --light-gray: #1e293b;
-                --dark-gray: #94a3b8;
-                --white: #1e293b;
-                --highlight: #1e40af;
-            }
-
-            .header-container {
-                background-color: #0f172a;
-            }
-
-            header {
-                background-color: #0f172a;
-                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-            }
-
-            .skill-tag {
-                background-color: #1e293b;
-                color: #60a5fa;
-            }
-
-            .timeline::after {
-                background-color: #334155;
-            }
-
-            .contact {
-                background-color: #1e293b;
-            }
-
-            .contact-card {
-                background-color: #0f172a;
-            }
-
-            footer {
-                background-color: #0f172a;
-            }
-        }
-
-        .about-growth {
-          margin-top: 2rem;
-          background: var(--white);
-          border-radius: 10px;
-          padding: 2rem;
-          box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-        .growth-list {
-          list-style: none;
-          padding: 0;
-        }
-        .growth-list li {
-          margin-bottom: 1.5rem;
-          font-size: 1.05rem;
-          display: flex;
-          align-items: flex-start;
-          gap: 1rem;
-        }
-        .growth-list i {
-          font-size: 1.5rem;
-          color: var(--primary-color);
-          margin-top: 0.2rem;
-          min-width: 2rem;
-        }
-        .about-problem-solving {
-          margin-top: 2rem;
-          background: var(--white);
-          border-radius: 10px;
-          padding: 2rem;
-          box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-        .about-problem-solving h3 {
-          margin-bottom: 1.5rem;
-        }
-        .problem-solving-cards {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-          gap: 1.5rem;
-        }
-        .problem-card {
-          background: var(--bg-color);
-          border-radius: 8px;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-          padding: 1.2rem 1rem 1rem 1rem;
-          display: flex;
-          flex-direction: column;
-          min-height: 180px;
-          transition: box-shadow 0.2s;
-        }
-        .problem-card:hover {
-          box-shadow: 0 6px 18px rgba(37,99,235,0.10);
-        }
-        .problem-title {
-          font-weight: 600;
-          font-size: 1.08rem;
-          margin-bottom: 0.7rem;
-          color: var(--primary-color);
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-        }
-        .problem-title i {
-          font-size: 1.2rem;
-        }
-        .problem-desc {
-          font-size: 0.98rem;
-          color: var(--text-color);
-          line-height: 1.7;
-        }
-
-        .about-main-card {
-          display: flex;
-          gap: 2.5rem;
-          background: var(--white);
-          border-radius: 14px;
-          box-shadow: 0 4px 16px rgba(0,0,0,0.07);
-          padding: 2.5rem 2rem;
-          margin-bottom: 2rem;
-          flex-wrap: wrap;
-        }
-        .about-main-content {
-          flex: 2;
-          min-width: 260px;
-        }
-        .about-main-info {
-          flex: 1;
-          min-width: 220px;
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-          gap: 1.5rem;
-          margin-top: 0.5rem;
-        }
-        .about-experience {
-          margin-bottom: 1.2rem;
-          padding-bottom: 0.7rem;
-          border-bottom: 1px solid var(--light-gray);
-        }
-        .about-exp-title {
-          font-size: 1.08rem;
-          font-weight: 600;
-          color: var(--primary-color);
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          margin-bottom: 0.3rem;
-        }
-        .about-exp-desc {
-          font-size: 0.98rem;
-          color: var(--text-color);
-          line-height: 1.7;
-        }
-        .about-exp-summary {
-          margin-top: 1.5rem;
-          font-weight: 500;
-          color: var(--secondary-color);
-          font-size: 1.05rem;
-        }
-        @media (max-width: 900px) {
-          .about-main-card {
-            flex-direction: column;
-            padding: 1.5rem 1rem;
-          }
-          .about-main-info {
-            align-items: stretch;
-            margin-top: 1.5rem;
-          }
-        }
-        .about-philosophy-card {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-          background: var(--highlight);
-          color: var(--primary-color);
-          border-radius: 10px;
-          padding: 1.2rem 1.5rem;
-          margin-bottom: 2rem;
-          font-size: 1.08rem;
-          box-shadow: 0 2px 8px rgba(37,99,235,0.07);
-        }
-        .about-philosophy-card i {
-          font-size: 1.6rem;
-        }
-        .about-philosophy-title {
-          font-weight: 700;
-          font-size: 1.08rem;
-          margin-right: 0.7rem;
-        }
-        .about-philosophy-text {
-          color: var(--text-color);
-          font-weight: 500;
-        }
-
-        .skill-item {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-          background: var(--white);
-          border-radius: 10px;
-          padding: 1rem;
-          box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-          transition: transform 0.3s ease;
-        }
-        .skill-item:hover {
-          transform: translateY(-5px);
-        }
-        .skill-icon {
-          font-size: 2rem;
-          color: var(--primary-color);
-        }
-        .skill-name {
-          font-size: 1.2rem;
-          font-weight: 600;
-        }
-        .skill-desc {
-          font-size: 0.92rem;
-          color: var(--dark-gray);
-          margin-top: 0.2rem;
-          margin-left: 0.2rem;
-          line-height: 1.5;
-        }
-
-        .npm-packages-list {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-          gap: 1.5rem;
-        }
-        .npm-package-card {
-          background: var(--white);
-          border-radius: 10px;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-          padding: 1.2rem 1rem;
-          display: flex;
-          flex-direction: column;
-          min-height: 120px;
-        }
-        .npm-package-header {
-          display: flex;
-          align-items: center;
-          gap: 0.7rem;
-          margin-bottom: 0.5rem;
-        }
-        .npm-package-name {
-          font-weight: 700;
-          color: var(--primary-color);
-          font-size: 1.08rem;
-          text-decoration: none;
-        }
-        .npm-package-name:hover {
-          text-decoration: underline;
-        }
-        .npm-package-desc {
-          font-size: 0.98rem;
-          color: var(--text-color);
-          line-height: 1.6;
-        }
-        .npm-package-meta {
-          color: var(--dark-gray);
-          font-size: 0.92rem;
-        }
-
-        .pypi-packages-list {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-          gap: 1.5rem;
-        }
-        .pypi-package-card {
-          background: var(--white);
-          border-radius: 10px;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-          padding: 1.2rem 1rem;
-          display: flex;
-          flex-direction: column;
-          min-height: 120px;
-        }
-        .pypi-package-header {
-          display: flex;
-          align-items: center;
-          gap: 0.7rem;
-          margin-bottom: 0.5rem;
-        }
-        .pypi-package-name {
-          font-weight: 700;
-          color: var(--primary-color);
-          font-size: 1.08rem;
-          text-decoration: none;
-        }
-        .pypi-package-name:hover {
-          text-decoration: underline;
-        }
-        .pypi-package-desc {
-          font-size: 0.98rem;
-          color: var(--text-color);
-          line-height: 1.6;
-        }
-        .pypi-package-meta {
-          color: var(--dark-gray);
-          font-size: 0.92rem;
-        }
-
-        .blog-series-list {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-          gap: 1.2rem;
-        }
-        .blog-series-card {
-          background: var(--white);
-          border-radius: 10px;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-          padding: 1.1rem 1rem;
-          display: flex;
-          align-items: center;
-          min-height: 70px;
-        }
-        .blog-series-title {
-          font-weight: 600;
-          color: var(--primary-color);
-          font-size: 1.05rem;
-          text-decoration: none;
-        }
-        .blog-series-title:hover {
-          text-decoration: underline;
-        }
-
-        .project-card-links {
-            margin-top: 0.7rem;
-            display: flex;
-            flex-wrap: wrap; /* 줄바꿈 허용 */
-            gap: 0.5rem 0.7rem; /* 세로, 가로 간격 */
-        }
-
-        .project-link-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            background: var(--highlight);
-            color: var(--primary-color);
-            font-size: 0.93rem;
-            font-weight: 500;
-            border-radius: 6px;
-            padding: 0.22rem 0.65rem;
-            text-decoration: none;
-            transition: background 0.2s;
-            min-width: 90px; /* 버튼 최소 너비 */
-            justify-content: center;
-            margin-bottom: 0.2rem;
-            white-space: nowrap;
-        }
-
-        .project-link-btn:hover {
-            background: var(--primary-color);
-            color: #fff;
-        }
-
-        @media (max-width: 600px) {
-            .project-card-links {
-                gap: 0.4rem 0.5rem;
-            }
-            .project-link-btn {
-                font-size: 0.92rem;
-                min-width: 80px;
-                padding: 0.18rem 0.5rem;
-            }
-        }
-
-.growth-story {
-  padding: 5rem 0;
-}
-
-.growth-story .container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-/* 타임라인 스타일링 */
-.growth-timeline {
-  position: relative;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-/* 중앙 선 */
-.growth-timeline::before {
-  content: '';
-  position: absolute;
-  width: 4px;
-  background-color: #ddd;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  border-radius: 2px;
-}
-
-/* 카드 스타일링 */
-.growth-card {
-  position: relative;
-  background-color: white;
-  border-radius: 12px;
-  padding: 30px;
-  width: calc(50% - 50px);
-  margin-bottom: 40px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-.growth-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-}
-
-/* 짝수/홀수 카드 위치 설정 */
-.growth-card:nth-child(odd) {
-  float: left;
-  clear: both;
-}
-
-.growth-card:nth-child(even) {
-  float: right;
-  clear: both;
-}
-
-/* 화살표 디자인 */
-.growth-card::after {
-  content: '';
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  right: -10px;
-  top: 30px;
-  background-color: white;
-  transform: rotate(45deg);
-  box-shadow: 3px -3px 5px rgba(0, 0, 0, 0.05);
-}
-
-.growth-card:nth-child(even)::after {
-  left: -10px;
-  right: auto;
-  box-shadow: -3px 3px 5px rgba(0, 0, 0, 0.05);
-}
-
-/* 원형 포인트 */
-.growth-card::before {
-  content: '';
-  position: absolute;
-  width: 18px;
-  height: 18px;
-  background-color: #6c5ce7;
-  border-radius: 50%;
-  top: 30px;
-  z-index: 1;
-}
-
-.growth-card:nth-child(odd)::before {
-  right: -59px;
-}
-
-.growth-card:nth-child(even)::before {
-  left: -59px;
-}
-
-/* 연도 스타일 */
-.growth-year {
-  display: inline-block;
-  padding: 5px 15px;
-  background: linear-gradient(90deg, #6c5ce7, #a29bfe);
-  color: white;
-  border-radius: 20px;
-  font-weight: bold;
-  margin-bottom: 15px;
-  font-size: 0.9rem;
-}
-
-/* 제목 스타일 */
-.growth-title {
-  font-size: 1.4rem;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 15px;
-}
-
-/* 설명 스타일 */
-.growth-desc {
-  line-height: 1.6;
-  color: #666;
-}
-
-/* 클리어픽스 */
-.growth-timeline::after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-/* 반응형 디자인 */
-@media screen and (max-width: 768px) {
-  .growth-timeline::before {
-    left: 40px;
-  }
-  
-  .growth-card {
-    width: calc(100% - 90px);
-    float: right;
-    margin-left: 90px;
-  }
-  
-  .growth-card::before {
-    left: -49px;
-  }
-  
-  .growth-card::after {
-    left: -10px;
-    box-shadow: -3px 3px 5px rgba(0, 0, 0, 0.05);
-  }
-  
-  .growth-card:nth-child(odd)::before {
-    right: auto;
-    left: -49px;
-  }
-  
-  .growth-card:nth-child(odd)::after {
-    right: auto;
-    left: -10px;
-  }
-}
-
-        /* 기본 a 태그 스타일 */
-        a {
-            color: var(--primary-color);
-            text-decoration: none;
-            transition: all 0.2s ease;
-            position: relative;
-        }
-
-        a:hover {
-            color: #1d4ed8; /* 더 진한 파란색 */
-        }
-
-        /* 일반 텍스트 링크에 밑줄 효과 */
-        .project-desc a, 
-        .publication-desc a,
-        .blog-card-desc a,
-        .timeline-projects a {
-            border-bottom: 1px solid var(--primary-color);
-            padding-bottom: 1px;
-        }
-
-        .project-desc a:hover, 
-        .publication-desc a:hover,
-        .blog-card-desc a:hover,
-        .timeline-projects a:hover {
-            border-bottom: 2px solid #1d4ed8;
-            padding-bottom: 0;
-        }
-
-        /* 네비게이션 링크 스타일 강화 */
-        nav ul li a {
-            font-weight: 600;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-        }
-
-        nav ul li a:hover {
-            background-color: var(--highlight);
-        }
-
-        /* 푸터 링크 스타일 */
-        footer a {
-            color: var(--white);
-            border-bottom: 1px solid var(--white);
-            padding-bottom: 1px;
-        }
-
-        footer a:hover {
-            color: var(--highlight);
-            border-bottom: 2px solid var(--highlight);
-            padding-bottom: 0;
-        }
-
-        /* 카드 내부 링크 스타일 */
-        .blog-series-card a,
-        .npm-package-card a,
-        .pypi-package-card a {
-            display: block;
-            padding: 0.5rem;
-            border-radius: 4px;
-            transition: background-color 0.2s ease;
-        }
-
-        .blog-series-card a:hover,
-        .npm-package-card a:hover,
-        .pypi-package-card a:hover {
-            background-color: var(--highlight);
-        }
-
-        /* 연락처 링크 스타일 */
-        .contact-card a {
-            padding: 0.3rem 0.8rem;
-            border-radius: 4px;
-            transition: background-color 0.2s ease;
-        }
-
-        .contact-card a:hover {
-            background-color: var(--highlight);
-        }
-
-        /* 소셜 링크 스타일 유지 */
-        .social-links a {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .social-links a:hover {
-            background-color: white;
-            color: var(--primary-color);
-            transform: translateY(-3px);
-        }
-
-        /* Contact 섹션 스타일 개선 */
-        .contact {
-            background-color: var(--bg-color);
-            padding: 5rem 0;
-            position: relative;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .contact-card {
-            background-color: var(--white);
-            padding: 2.5rem 2rem;
-            border-radius: 15px;
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .contact-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .contact-card i {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin-bottom: 1.5rem;
-        }
-
-        .contact-card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
-            color: var(--text-color);
-        }
-
-        .contact-link {
-            color: var(--primary-color);
-            font-size: 1.1rem;
-            font-weight: 500;
-            text-decoration: none;
-            transition: color 0.2s ease;
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-        }
-
-        .contact-link:hover {
-            background-color: var(--highlight);
-            color: var(--primary-color);
-        }
-
-        /* Footer 스타일 개선 */
-        footer {
-            background-color: var(--white);
-            padding: 3rem 0;
-            margin-top: 2rem;
-            border-top: 1px solid var(--light-gray);
-        }
-
-        .footer-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .footer-social {
-            display: flex;
-            gap: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .footer-social a {
-            color: var(--text-color);
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-            padding: 0.8rem;
-            border-radius: 50%;
-            background-color: var(--bg-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 3rem;
-            height: 3rem;
-        }
-
-        .footer-social a:hover {
-            color: var(--primary-color);
-            background-color: var(--highlight);
-            transform: translateY(-3px);
-        }
-
-        .footer-copyright {
-            color: var(--dark-gray);
-            font-size: 0.95rem;
-            text-align: center;
-        }
-
-        @media (max-width: 768px) {
-            .contact-grid {
-                grid-template-columns: 1fr;
-                padding: 0 1rem;
-            }
-
-            .footer-social {
-                gap: 1rem;
-            }
-
-            .footer-social a {
-                font-size: 1.3rem;
-                width: 2.5rem;
-                height: 2.5rem;
-            }
-        }
-    </style>
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        var menuBtn = document.getElementById('menuBtn');
-        var menu = document.getElementById('menu');
-        if(menuBtn && menu) {
-          menuBtn.onclick = function() {
-            menu.classList.toggle('show');
-          };
-        }
-      });
-    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>멍개(박정태) - 개발자 포트폴리오</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github.min.css">
+  <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+  <style>
+    :root {
+      /* 메인 색상 */
+      --primary-color: #4f46e5;
+      --primary-light: #818cf8;
+      --primary-dark: #3730a3;
+
+      /* 중립 색상 */
+      --bg-color: #f8fafc;
+      --text-color: #1e293b;
+      --secondary-color: #64748b;
+      --light-gray: #e2e8f0;
+      --dark-gray: #475569;
+      --white: #ffffff;
+
+      /* 강조 색상 */
+      --highlight: #eef2ff;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --error: #ef4444;
+
+      /* 그림자 */
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+      /* 트랜지션 */
+      --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* 기본 타이포그래피 개선 */
+    body {
+      line-height: 1.7;
+      letter-spacing: -0.01em;
+      font-size: 16px;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      letter-spacing: -0.03em;
+      line-height: 1.3;
+      margin-bottom: 1rem;
+    }
+
+    /* 헤더 스타일 개선 */
+    header {
+      backdrop-filter: blur(12px);
+      background-color: rgba(255, 255, 255, 0.8);
+      border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+    }
+
+    .logo {
+      font-size: 1.25rem;
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 800;
+    }
+
+    nav ul li a {
+      font-weight: 600;
+      position: relative;
+      padding: 0.5rem 1rem;
+      transition: var(--transition-normal);
+    }
+
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--primary-color);
+      transition: var(--transition-normal);
+      transform: translateX(-50%);
+    }
+
+    nav ul li a:hover::after {
+      width: 100%;
+    }
+
+    /* 히어로 섹션 개선 */
+    .hero {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+    }
+
+    /* 섹션 타이틀 개선 */
+    .section-title {
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    .section-title h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--text-color);
+      position: relative;
+      display: inline-block;
+      padding-bottom: 1rem;
+    }
+
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(to right, var(--primary-color), var(--primary-light));
+      border-radius: 2px;
+    }
+
+    /* 카드 스타일 개선 */
+    .project-card,
+    .blog-card,
+    .publication-card,
+    .npm-package-card,
+    .pypi-package-card {
+      background: var(--white);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: var(--transition-normal);
+      border: 1px solid var(--light-gray);
+    }
+
+    .project-card:hover,
+    .blog-card:hover,
+    .publication-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--primary-light);
+    }
+
+    /* 버튼 스타일 개선 */
+    .project-link-btn {
+      background: var(--highlight);
+      color: var(--primary-color);
+      font-weight: 600;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      transition: var(--transition-normal);
+    }
+
+    .project-link-btn:hover {
+      background: var(--primary-color);
+      color: var(--white);
+    }
+
+    /* 스킬 태그 개선 */
+    .skill-tag {
+      background: var(--white);
+      color: var(--text-color);
+      padding: 0.75rem 1.25rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+    }
+
+    .skill-tag:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      background: var(--primary-color);
+      color: var(--white);
+    }
+
+    /* 타임라인 개선 */
+    .timeline::after {
+      background: linear-gradient(to bottom, var(--primary-light), var(--primary-color));
+      width: 4px;
+      border-radius: 2px;
+    }
+
+    .timeline-content {
+      border-radius: 16px;
+      border: 1px solid var(--light-gray);
+      transition: var(--transition-normal);
+    }
+
+    .timeline-content:hover {
+      border-color: var(--primary-light);
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* 다크 모드 개선 */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-color: #0f172a;
+        --text-color: #e2e8f0;
+        --secondary-color: #94a3b8;
+        --light-gray: #1e293b;
+        --dark-gray: #94a3b8;
+        --white: #1e293b;
+        --highlight: #1e40af;
+      }
+
+      header {
+        background-color: rgba(15, 23, 42, 0.8);
+        border-bottom: 1px solid rgba(30, 41, 59, 0.8);
+      }
+
+      .project-card,
+      .blog-card,
+      .publication-card {
+        border: 1px solid var(--light-gray);
+        background: var(--white);
+      }
+    }
+
+    /* 반응형 디자인 개선 */
+    @media (max-width: 768px) {
+      .section-title h2 {
+        font-size: 2rem;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    header {
+      background-color: var(--white);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+    }
+
+    nav ul li {
+      margin-left: 2rem;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: var(--secondary-color);
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      color: var(--primary-color);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--secondary-color);
+      cursor: pointer;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      color: white;
+      padding: 8rem 0 5rem;
+      margin-top: 64px;
+    }
+
+    .hero-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .hero-text {
+      flex: 1;
+      padding-right: 2rem;
+    }
+
+    .hero-image {
+      flex: 1;
+      text-align: center;
+    }
+
+    .hero-image img {
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid white;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .tag {
+      background-color: rgba(255, 255, 255, 0.2);
+      padding: 0.3rem 0.8rem;
+      border-radius: 100px;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .social-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      background-color: white;
+      color: var(--primary-color);
+      transform: translateY(-3px);
+    }
+
+    section {
+      padding: 5rem 0;
+    }
+
+    .about-content {
+      display: flex;
+      align-items: flex-start;
+      gap: 2rem;
+    }
+
+    .about-text {
+      flex: 2;
+    }
+
+    .about-info {
+      flex: 1;
+      background-color: var(--white);
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .info-item {
+      margin-bottom: 1rem;
+    }
+
+    .info-item .label {
+      color: var(--dark-gray);
+      font-size: 0.9rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .info-item .value {
+      font-weight: 500;
+    }
+
+    .timeline {
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .timeline::after {
+      content: '';
+      position: absolute;
+      width: 3px;
+      background-color: var(--light-gray);
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      margin-left: -1.5px;
+    }
+
+    .timeline-item {
+      padding: 10px 40px;
+      position: relative;
+      width: 50%;
+      box-sizing: border-box;
+    }
+
+    .timeline-item:nth-child(odd) {
+      left: 0;
+    }
+
+    .timeline-item:nth-child(even) {
+      left: 50%;
+    }
+
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      right: -8px;
+      background-color: var(--white);
+      border: 3px solid var(--primary-color);
+      top: 18px;
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    .timeline-item:nth-child(even)::after {
+      left: -8px;
+    }
+
+    .timeline-content {
+      padding: 20px;
+      background-color: var(--white);
+      position: relative;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .timeline-date {
+      font-weight: 600;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-title {
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-subtitle {
+      color: var(--dark-gray);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .timeline-projects {
+      margin-top: 1rem;
+    }
+
+    .project-item {
+      margin-bottom: 1rem;
+      border-left: 3px solid var(--highlight);
+      padding-left: 1rem;
+    }
+
+    .project-title {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .project-date {
+      font-size: 0.8rem;
+      color: var(--dark-gray);
+      margin-bottom: 0.5rem;
+    }
+
+    .project-desc {
+      font-size: 0.9rem;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .skill-category {
+      background-color: var(--white);
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .skill-category h3 {
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+      border-bottom: 2px solid var(--light-gray);
+      padding-bottom: 0.5rem;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .skill-tag {
+      background-color: var(--highlight);
+      color: var(--primary-color);
+      padding: 0.3rem 0.8rem;
+      border-radius: 100px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+
+    .project-card {
+      background-color: var(--white);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .project-card-image {
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+      background-color: var(--light-gray);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--dark-gray);
+    }
+
+    .project-card-content {
+      padding: 1.5rem;
+    }
+
+    .project-card-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-card-date {
+      font-size: 0.8rem;
+      color: var(--dark-gray);
+      margin-bottom: 1rem;
+    }
+
+    .project-card-desc {
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-card-tag {
+      background-color: var(--light-gray);
+      color: var(--dark-gray);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+    }
+
+    .publications-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .publication-card {
+      background-color: var(--white);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .publication-cover {
+      height: 250px;
+      background-size: cover;
+      background-position: center;
+      background-color: var(--light-gray);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--dark-gray);
+    }
+
+    .publication-content {
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .publication-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .publication-date {
+      font-size: 0.8rem;
+      color: var(--dark-gray);
+      margin-bottom: 1rem;
+    }
+
+    .publication-desc {
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      flex: 1;
+    }
+
+    .publication-link {
+      display: inline-block;
+      text-decoration: none;
+      color: var(--primary-color);
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: color 0.3s ease;
+    }
+
+    .publication-link:hover {
+      text-decoration: underline;
+    }
+
+    .blog-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .blog-card {
+      background-color: var(--white);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .blog-card-content {
+      padding: 1.5rem;
+    }
+
+    .blog-card-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .blog-card-date {
+      font-size: 0.8rem;
+      color: var(--dark-gray);
+      margin-bottom: 1rem;
+    }
+
+    .blog-card-desc {
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .blog-card-link {
+      display: inline-block;
+      text-decoration: none;
+      color: var(--primary-color);
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: color 0.3s ease;
+    }
+
+    .blog-card-link:hover {
+      text-decoration: underline;
+    }
+
+    .contact {
+      background-color: var(--white);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+
+    .contact-card {
+      text-align: center;
+      padding: 2rem;
+      border-radius: 10px;
+      background-color: var(--highlight);
+      transition: transform 0.3s ease;
+    }
+
+    .contact-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .contact-card i {
+      font-size: 2rem;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    .contact-card h3 {
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .contact-card p {
+      color: var(--secondary-color);
+    }
+
+    .contact-card a {
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+
+    .contact-card a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      background-color: var(--secondary-color);
+      color: var(--white);
+      text-align: center;
+      padding: 2rem 0;
+    }
+
+    .footer-content p {
+      margin-bottom: 1rem;
+    }
+
+    .footer-social {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-social a {
+      color: var(--white);
+      font-size: 1.2rem;
+      transition: color 0.3s ease;
+    }
+
+    .footer-social a:hover {
+      color: var(--highlight);
+    }
+
+    @media (max-width: 1024px) {
+      .timeline::after {
+        left: 31px;
+      }
+
+      .timeline-item {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 25px;
+      }
+
+      .timeline-item:nth-child(even) {
+        left: 0;
+      }
+
+      .timeline-item::after {
+        left: 15px;
+        right: auto;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header-container {
+        flex-direction: row;
+        padding: 1rem 1rem;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+        margin-left: auto;
+      }
+
+      nav ul {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100vw;
+        background-color: var(--white);
+        flex-direction: column;
+        padding: 1rem 0;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        z-index: 2000;
+      }
+
+      nav ul.show {
+        display: flex;
+      }
+
+      nav ul li {
+        margin: 0;
+        padding: 0.7rem 2rem;
+        text-align: left;
+      }
+
+      .hero-content {
+        flex-direction: column-reverse;
+        text-align: center;
+      }
+
+      .hero-text {
+        padding-right: 0;
+        margin-top: 2rem;
+      }
+
+      .hero-tags,
+      .social-links {
+        justify-content: center;
+      }
+
+      .about-content {
+        flex-direction: column;
+      }
+
+      .projects-grid,
+      .publications-list,
+      .blog-list {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .section-title h2 {
+        font-size: 1.7rem;
+      }
+    }
+
+    /* Dark Mode */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --primary-color: #3b82f6;
+        --secondary-color: #94a3b8;
+        --bg-color: #0f172a;
+        --text-color: #e2e8f0;
+        --light-gray: #1e293b;
+        --dark-gray: #94a3b8;
+        --white: #1e293b;
+        --highlight: #1e40af;
+      }
+
+      .header-container {
+        background-color: #0f172a;
+      }
+
+      header {
+        background-color: #0f172a;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .skill-tag {
+        background-color: #1e293b;
+        color: #60a5fa;
+      }
+
+      .timeline::after {
+        background-color: #334155;
+      }
+
+      .contact {
+        background-color: #1e293b;
+      }
+
+      .contact-card {
+        background-color: #0f172a;
+      }
+
+      footer {
+        background-color: #0f172a;
+      }
+    }
+
+    .about-growth {
+      margin-top: 2rem;
+      background: var(--white);
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .growth-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .growth-list li {
+      margin-bottom: 1.5rem;
+      font-size: 1.05rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .growth-list i {
+      font-size: 1.5rem;
+      color: var(--primary-color);
+      margin-top: 0.2rem;
+      min-width: 2rem;
+    }
+
+    .about-problem-solving {
+      margin-top: 2rem;
+      background: var(--white);
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .about-problem-solving h3 {
+      margin-bottom: 1.5rem;
+    }
+
+    .problem-solving-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .problem-card {
+      background: var(--bg-color);
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      padding: 1.2rem 1rem 1rem 1rem;
+      display: flex;
+      flex-direction: column;
+      min-height: 180px;
+      transition: box-shadow 0.2s;
+    }
+
+    .problem-card:hover {
+      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.10);
+    }
+
+    .problem-title {
+      font-weight: 600;
+      font-size: 1.08rem;
+      margin-bottom: 0.7rem;
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .problem-title i {
+      font-size: 1.2rem;
+    }
+
+    .problem-desc {
+      font-size: 0.98rem;
+      color: var(--text-color);
+      line-height: 1.7;
+    }
+
+    .about-main-card {
+      display: flex;
+      gap: 2.5rem;
+      background: var(--white);
+      border-radius: 14px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+      padding: 2.5rem 2rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .about-main-content {
+      flex: 2;
+      min-width: 260px;
+    }
+
+    .about-main-info {
+      flex: 1;
+      min-width: 220px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .about-experience {
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.7rem;
+      border-bottom: 1px solid var(--light-gray);
+    }
+
+    .about-exp-title {
+      font-size: 1.08rem;
+      font-weight: 600;
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .about-exp-desc {
+      font-size: 0.98rem;
+      color: var(--text-color);
+      line-height: 1.7;
+    }
+
+    .about-exp-summary {
+      margin-top: 1.5rem;
+      font-weight: 500;
+      color: var(--secondary-color);
+      font-size: 1.05rem;
+    }
+
+    @media (max-width: 900px) {
+      .about-main-card {
+        flex-direction: column;
+        padding: 1.5rem 1rem;
+      }
+
+      .about-main-info {
+        align-items: stretch;
+        margin-top: 1.5rem;
+      }
+    }
+
+    .about-philosophy-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: var(--highlight);
+      color: var(--primary-color);
+      border-radius: 10px;
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 2rem;
+      font-size: 1.08rem;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.07);
+    }
+
+    .about-philosophy-card i {
+      font-size: 1.6rem;
+    }
+
+    .about-philosophy-title {
+      font-weight: 700;
+      font-size: 1.08rem;
+      margin-right: 0.7rem;
+    }
+
+    .about-philosophy-text {
+      color: var(--text-color);
+      font-weight: 500;
+    }
+
+    .skill-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: var(--white);
+      border-radius: 10px;
+      padding: 1rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease;
+    }
+
+    .skill-item:hover {
+      transform: translateY(-5px);
+    }
+
+    .skill-icon {
+      font-size: 2rem;
+      color: var(--primary-color);
+    }
+
+    .skill-name {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .skill-desc {
+      font-size: 0.92rem;
+      color: var(--dark-gray);
+      margin-top: 0.2rem;
+      margin-left: 0.2rem;
+      line-height: 1.5;
+    }
+
+    .npm-packages-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .npm-package-card {
+      background: var(--white);
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      padding: 1.2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      min-height: 120px;
+    }
+
+    .npm-package-header {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .npm-package-name {
+      font-weight: 700;
+      color: var(--primary-color);
+      font-size: 1.08rem;
+      text-decoration: none;
+    }
+
+    .npm-package-name:hover {
+      text-decoration: underline;
+    }
+
+    .npm-package-desc {
+      font-size: 0.98rem;
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    .npm-package-meta {
+      color: var(--dark-gray);
+      font-size: 0.92rem;
+    }
+
+    .pypi-packages-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .pypi-package-card {
+      background: var(--white);
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      padding: 1.2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      min-height: 120px;
+    }
+
+    .pypi-package-header {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .pypi-package-name {
+      font-weight: 700;
+      color: var(--primary-color);
+      font-size: 1.08rem;
+      text-decoration: none;
+    }
+
+    .pypi-package-name:hover {
+      text-decoration: underline;
+    }
+
+    .pypi-package-desc {
+      font-size: 0.98rem;
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    .pypi-package-meta {
+      color: var(--dark-gray);
+      font-size: 0.92rem;
+    }
+
+    .blog-series-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .blog-series-card {
+      background: var(--white);
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      padding: 1.1rem 1rem;
+      display: flex;
+      align-items: center;
+      min-height: 70px;
+    }
+
+    .blog-series-title {
+      font-weight: 600;
+      color: var(--primary-color);
+      font-size: 1.05rem;
+      text-decoration: none;
+    }
+
+    .blog-series-title:hover {
+      text-decoration: underline;
+    }
+
+    .project-card-links {
+      margin-top: 0.7rem;
+      display: flex;
+      flex-wrap: wrap;
+      /* 줄바꿈 허용 */
+      gap: 0.5rem 0.7rem;
+      /* 세로, 가로 간격 */
+    }
+
+    .project-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      background: var(--highlight);
+      color: var(--primary-color);
+      font-size: 0.93rem;
+      font-weight: 500;
+      border-radius: 6px;
+      padding: 0.22rem 0.65rem;
+      text-decoration: none;
+      transition: background 0.2s;
+      min-width: 90px;
+      /* 버튼 최소 너비 */
+      justify-content: center;
+      margin-bottom: 0.2rem;
+      white-space: nowrap;
+    }
+
+    .project-link-btn:hover {
+      background: var(--primary-color);
+      color: #fff;
+    }
+
+    @media (max-width: 600px) {
+      .project-card-links {
+        gap: 0.4rem 0.5rem;
+      }
+
+      .project-link-btn {
+        font-size: 0.92rem;
+        min-width: 80px;
+        padding: 0.18rem 0.5rem;
+      }
+    }
+
+    .growth-story {
+      padding: 5rem 0;
+    }
+
+    .growth-story .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* 타임라인 스타일링 */
+    .growth-timeline {
+      position: relative;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    /* 중앙 선 */
+    .growth-timeline::before {
+      content: '';
+      position: absolute;
+      width: 4px;
+      background-color: #ddd;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 2px;
+    }
+
+    /* 카드 스타일링 */
+    .growth-card {
+      position: relative;
+      background-color: white;
+      border-radius: 12px;
+      padding: 30px;
+      width: calc(50% - 50px);
+      margin-bottom: 40px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .growth-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    /* 짝수/홀수 카드 위치 설정 */
+    .growth-card:nth-child(odd) {
+      float: left;
+      clear: both;
+    }
+
+    .growth-card:nth-child(even) {
+      float: right;
+      clear: both;
+    }
+
+    /* 화살표 디자인 */
+    .growth-card::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      right: -10px;
+      top: 30px;
+      background-color: white;
+      transform: rotate(45deg);
+      box-shadow: 3px -3px 5px rgba(0, 0, 0, 0.05);
+    }
+
+    .growth-card:nth-child(even)::after {
+      left: -10px;
+      right: auto;
+      box-shadow: -3px 3px 5px rgba(0, 0, 0, 0.05);
+    }
+
+    /* 원형 포인트 */
+    .growth-card::before {
+      content: '';
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      background-color: #6c5ce7;
+      border-radius: 50%;
+      top: 30px;
+      z-index: 1;
+    }
+
+    .growth-card:nth-child(odd)::before {
+      right: -59px;
+    }
+
+    .growth-card:nth-child(even)::before {
+      left: -59px;
+    }
+
+    /* 연도 스타일 */
+    .growth-year {
+      display: inline-block;
+      padding: 5px 15px;
+      background: linear-gradient(90deg, #6c5ce7, #a29bfe);
+      color: white;
+      border-radius: 20px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      font-size: 0.9rem;
+    }
+
+    /* 제목 스타일 */
+    .growth-title {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    /* 설명 스타일 */
+    .growth-desc {
+      line-height: 1.6;
+      color: #666;
+    }
+
+    /* 클리어픽스 */
+    .growth-timeline::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    /* 반응형 디자인 */
+    @media screen and (max-width: 768px) {
+      .growth-timeline::before {
+        left: 40px;
+      }
+
+      .growth-card {
+        width: calc(100% - 90px);
+        float: right;
+        margin-left: 90px;
+      }
+
+      .growth-card::before {
+        left: -49px;
+      }
+
+      .growth-card::after {
+        left: -10px;
+        box-shadow: -3px 3px 5px rgba(0, 0, 0, 0.05);
+      }
+
+      .growth-card:nth-child(odd)::before {
+        right: auto;
+        left: -49px;
+      }
+
+      .growth-card:nth-child(odd)::after {
+        right: auto;
+        left: -10px;
+      }
+    }
+
+    /* 기본 a 태그 스타일 */
+    a {
+      color: var(--primary-color);
+      text-decoration: none;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    a:hover {
+      color: #1d4ed8;
+      /* 더 진한 파란색 */
+    }
+
+    /* 일반 텍스트 링크에 밑줄 효과 */
+    .project-desc a,
+    .publication-desc a,
+    .blog-card-desc a,
+    .timeline-projects a {
+      border-bottom: 1px solid var(--primary-color);
+      padding-bottom: 1px;
+    }
+
+    .project-desc a:hover,
+    .publication-desc a:hover,
+    .blog-card-desc a:hover,
+    .timeline-projects a:hover {
+      border-bottom: 2px solid #1d4ed8;
+      padding-bottom: 0;
+    }
+
+    /* 네비게이션 링크 스타일 강화 */
+    nav ul li a {
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+    }
+
+    nav ul li a:hover {
+      background-color: var(--highlight);
+    }
+
+    /* 푸터 링크 스타일 */
+    footer a {
+      color: var(--white);
+      border-bottom: 1px solid var(--white);
+      padding-bottom: 1px;
+    }
+
+    footer a:hover {
+      color: var(--highlight);
+      border-bottom: 2px solid var(--highlight);
+      padding-bottom: 0;
+    }
+
+    /* 카드 내부 링크 스타일 */
+    .blog-series-card a,
+    .npm-package-card a,
+    .pypi-package-card a {
+      display: block;
+      padding: 0.5rem;
+      border-radius: 4px;
+      transition: background-color 0.2s ease;
+    }
+
+    .blog-series-card a:hover,
+    .npm-package-card a:hover,
+    .pypi-package-card a:hover {
+      background-color: var(--highlight);
+    }
+
+    /* 연락처 링크 스타일 */
+    .contact-card a {
+      padding: 0.3rem 0.8rem;
+      border-radius: 4px;
+      transition: background-color 0.2s ease;
+    }
+
+    .contact-card a:hover {
+      background-color: var(--highlight);
+    }
+
+    /* 소셜 링크 스타일 유지 */
+    .social-links a {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .social-links a:hover {
+      background-color: white;
+      color: var(--primary-color);
+      transform: translateY(-3px);
+    }
+
+    /* Contact 섹션 스타일 개선 */
+    .contact {
+      background-color: var(--bg-color);
+      padding: 5rem 0;
+      position: relative;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .contact-card {
+      background-color: var(--white);
+      padding: 2.5rem 2rem;
+      border-radius: 15px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .contact-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .contact-card i {
+      font-size: 2.5rem;
+      color: var(--primary-color);
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      color: var(--text-color);
+    }
+
+    .contact-link {
+      color: var(--primary-color);
+      font-size: 1.1rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: color 0.2s ease;
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+    }
+
+    .contact-link:hover {
+      background-color: var(--highlight);
+      color: var(--primary-color);
+    }
+
+    /* Footer 스타일 개선 */
+    footer {
+      background-color: var(--white);
+      padding: 3rem 0;
+      margin-top: 2rem;
+      border-top: 1px solid var(--light-gray);
+    }
+
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-social a {
+      color: var(--text-color);
+      font-size: 1.5rem;
+      transition: all 0.3s ease;
+      padding: 0.8rem;
+      border-radius: 50%;
+      background-color: var(--bg-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 3rem;
+      height: 3rem;
+    }
+
+    .footer-social a:hover {
+      color: var(--primary-color);
+      background-color: var(--highlight);
+      transform: translateY(-3px);
+    }
+
+    .footer-copyright {
+      color: var(--dark-gray);
+      font-size: 0.95rem;
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+        padding: 0 1rem;
+      }
+
+      .footer-social {
+        gap: 1rem;
+      }
+
+      .footer-social a {
+        font-size: 1.3rem;
+        width: 2.5rem;
+        height: 2.5rem;
+      }
+    }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var menuBtn = document.getElementById('menuBtn');
+      var menu = document.getElementById('menu');
+      if (menuBtn && menu) {
+        menuBtn.onclick = function () {
+          menu.classList.toggle('show');
+        };
+      }
+    });
+  </script>
 </head>
+
 <body>
-    <header>
-        <div class="header-container container">
-            <div class="logo">멍개 (박정태)</div>
-            <button class="mobile-menu-btn" id="menuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
-            <nav>
-                <ul id="menu">
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#skills">기술</a></li>
-                    <li><a href="#experience">경력</a></li>
-                    <li><a href="#projects">프로젝트</a></li>
-                    <li><a href="#publications">저서</a></li>
-                    <li><a href="#lecture">강의</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+  <header>
+    <div class="header-container container">
+      <div class="logo">멍개 (박정태)</div>
+      <button class="mobile-menu-btn" id="menuBtn">
+        <i class="fas fa-bars"></i>
+      </button>
+      <nav>
+        <ul id="menu">
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">기술</a></li>
+          <li><a href="#experience">경력</a></li>
+          <li><a href="#projects">프로젝트</a></li>
+          <li><a href="#publications">저서</a></li>
+          <li><a href="#lecture">강의</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-    <section class="hero" id="about">
-        <div class="container hero-content">
-            <div class="hero-text">
-                <h1>멍개 (박정태)</h1>
-                <p>10년차 벡엔드 개발자</p>
-                <p></p>
-                <div class="about-main-card">
-                  <div class="about-main-content">
-                    <div class="about-experience">
-                      <div class="about-exp-title"><i class="fas fa-database"></i> <b>데이터 파이프라인 및 API 개발</b></div>
-                      <div class="about-exp-desc">
-                        800개 쇼핑몰의 사이즈 추천을 위한 데이터 파이프라인을 구축하며, 범용 크롤러 설계와 검수 자동화 도구(크롬 확장 프로그램) 개발로 데이터 품질과 수집 효율을 극대화했습니다.
-                      </div>
-                    </div>
-                    <div class="about-experience">
-                      <div class="about-exp-title"><i class="fas fa-cogs"></i> <b>업무 프로세스 자동화</b></div>
-                      <div class="about-exp-desc">
-                        오프라인 매출 데이터의 수동 집계 문제를 API 연동 및 자동화 프로그램 개발로 해결, 주문-반품-재주문 등 전체 업무 흐름을 시스템적으로 개선하여 생산성을 높였습니다.
-                      </div>
-                    </div>
-                    <div class="about-experience">
-                      <div class="about-exp-title"><i class="fas fa-language"></i> <b>커뮤니케이션 혁신</b></div>
-                      <div class="about-exp-desc">
-                        외국인 동료와의 소통 문제를 해결하기 위해 슬랙/텔레그램 번역 챗봇을 직접 개발, 실시간 번역으로 팀 커뮤니케이션 효율을 크게 향상시켰습니다.
-                      </div>
-                    </div>
-                    <div class="about-experience">
-                      <div class="about-exp-title"><i class="fas fa-layer-group"></i> <b>디자인 시스템 구축</b></div>
-                      <div class="about-exp-desc">
-                        퍼블리셔-개발자 협업의 비효율을 해소하고자 React/Storybook 기반 디자인 시스템을 도입, UI 컴포넌트 표준화와 재사용성 증대로 개발 생산성을 혁신했습니다.
-                      </div>
-                    </div>
-                    <div class="about-experience">
-                      <div class="about-exp-title"><i class="fas fa-user-check"></i> <b>사용자 경험 개선</b></div>
-                      <div class="about-exp-desc">
-                        오픈뱅킹 API 연동 방식 개선을 기획·제안하여, 반복 인증과 계좌번호 입력의 불편을 해소하는 사용자 중심의 서비스 개선을 주도했습니다.
-                      </div>
-                    </div>
-                    <div class="about-experience">
-                      <div class="about-exp-title"><i class="fas fa-shield-alt"></i> <b>보안 및 운영 프로세스 체계화</b></div>
-                      <div class="about-exp-desc">
-                        Savle 서비스의 오픈뱅킹 연동 및 보안 점검을 총괄하며, 일간~연간 단위의 표준화된 점검 프로세스를 구축해 시스템의 안정성과 보안성을 확보했습니다.
-                      </div>
-                    </div>
-                    <div class="about-exp-summary">
-                      이처럼 <b>기술과 프로세스, 협업, 사용자 경험</b> 등 다양한 관점에서 문제를 발견하고, 주도적으로 해결책을 설계·실행하는 데 강점을 가지고 있습니다.
-                    </div>
-                  </div>
-                  <div class="about-main-info">
-                    <div class="about-info">
-                      <div class="info-item"><span class="label">이름</span> <span class="value">박정태 (멍개)</span></div>
-                      <div class="info-item"><span class="label">연락처</span> <span class="value">+82 10-6500-3591</span></div>
-                      <div class="info-item"><span class="label">이메일</span> <span class="value">pjt3591oo@gmail.com</span></div>
-                    </div>
-                    <div class="social-links">
-                      <a href="https://blog.naver.com/pjt3591oo" target="_blank" title="기술 블로그"><i class="fas fa-blog"></i></a>
-                      <a href="https://github.com/pjt3591oo?tab=repositories" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-                      <a href="https://stackoverflow.com/users/8667760/%eb%a9%8d%ea%b0%9c-mung" target="_blank" title="Stack Overflow"><i class="fab fa-stack-overflow"></i></a>
-                    </div>
-                  </div>
-                </div>
-            </div>
-            <div class="hero-image">
-                <img src="./images/profile.png" alt="박정태 프로필 이미지">
-            </div>
-        </div>
-    </section>
-
-    <section id="skills" class="skills">
-        <div class="container">
-            <div class="section-title"><h2>기술</h2></div>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3>프론트엔드</h3>
-                    <div class="skill-tags">
-                        <div class="skill-tag">JavaScript</div>
-                        <div class="skill-tag">TypeScript</div>
-                        <div class="skill-tag">React</div>
-                        <div class="skill-tag">Storybook</div>
-                        <div class="skill-tag">TailwindCSS</div>
-                    </div>
-                    <div class="skill-desc" style="margin-top:1rem; color:var(--dark-gray); font-size:0.97rem;">
-                        거래소, parablokOS 지갑, Savle 등 주요 서비스 프론트엔드 개발 및 디자인 시스템 구축 경험<br>
-                        Storybook 기반 UI 컴포넌트 표준화 및 재사용성 강화
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3>백엔드</h3>
-                    <div class="skill-tags">
-                        <div class="skill-tag">Node.js</div>
-                        <div class="skill-tag">Nest.js</div>
-                        <div class="skill-tag">Express</div>
-                        <div class="skill-tag">Python</div>
-                        <div class="skill-tag">aiohttp</div>
-                    </div>
-                    <div class="skill-desc" style="margin-top:1rem; color:var(--dark-gray); font-size:0.97rem;">
-                        거래소 시스템, 데이터 파이프라인, API 서버, 크롤러 제작 등 다양한 백엔드 서비스 개발<br>
-                        대규모 트래픽 처리 및 업무 자동화 경험
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3>DevOps / 인프라</h3>
-                    <div class="skill-tags">
-                        <div class="skill-tag">AWS</div>
-                        <div class="skill-tag">Docker</div>
-                        <div class="skill-tag">Linux</div>
-                        <div class="skill-tag">Git</div>
-                        <div class="skill-tag">CI/CD</div>
-                        <div class="skill-tag">Terraform</div>
-                    </div>
-                    <div class="skill-desc" style="margin-top:1rem; color:var(--dark-gray); font-size:0.97rem;">
-                        서비스 배포 자동화, ECS/EC2 인프라 관리, CI/CD 파이프라인 구축 및 운영<br>
-                        브랜치 전략, 배포 자동화, 서버 운영 경험<br>
-                        IaC(Terraform) 기반 인프라 관리 경험
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3>데이터 / AI</h3>
-                    <div class="skill-tags">
-                        <div class="skill-tag">Python</div>
-                        <div class="skill-tag">Airflow</div>
-                        <div class="skill-tag">Spark</div>
-                        <div class="skill-tag">ELK</div>
-                        <div class="skill-tag">chromaDB</div>
-                    </div>
-                    <div class="skill-desc" style="margin-top:1rem; color:var(--dark-gray); font-size:0.97rem;">
-                        데이터 파이프라인 구축, 데이터 분석 및 전처리, MLOps 환경 구축<br>
-                        airflow, spark, ELK 등 데이터 엔지니어링 경험<br>
-                        chromaDB 기반 유사 이미지 검색 API 구현 경험
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3>블록체인</h3>
-                    <div class="skill-tags">
-                        <div class="skill-tag">Solidity</div>
-                        <div class="skill-tag">Rust</div>
-                        <div class="skill-tag">Move</div>
-                        <div class="skill-tag">Hyperledger Fabric</div>
-                        <div class="skill-tag">Truffle</div>
-                        <div class="skill-tag">Hardhat</div>
-                        <div class="skill-tag">Foundry</div>
-                    </div>
-                    <div class="skill-desc" style="margin-top:1rem; color:var(--dark-gray); font-size:0.97rem;">
-                        스마트 컨트랙트, 거래소, NFT, 오더북 등 다양한 블록체인 서비스 개발<br>
-                        Ethereum, Solana, Aptos, Hyperledger 등 다양한 플랫폼 경험
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3>데이터베이스</h3>
-                    <div class="skill-tags">
-                        <div class="skill-tag">MySQL</div>
-                        <div class="skill-tag">SQL</div>
-                        <div class="skill-tag">Redis</div>
-                        <div class="skill-tag">MongoDB</div>
-                        <div class="skill-tag">Postgres</div>
-                        <div class="skill-tag">Neo4j</div>
-                    </div>
-                    <div class="skill-desc" style="margin-top:1rem; color:var(--dark-gray); font-size:0.97rem;">
-                        데이터 분석, 주문/매출 관리, 대용량 데이터 처리 및 최적화 경험
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="experience" class="experience">
-        <div class="container">
-            <div class="section-title"><h2>경력</h2></div>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-date">2024.02 - 재직 중</div>
-                        <h3 class="timeline-title">(주) 나무랩스</h3>
-                        <div class="timeline-projects">
-                            <div class="project-item"><div class="project-title">뉴럴 메인넷 구축 및 운영</div><div class="project-date">2024.03 - 2024.05</div><div class="project-desc">optimism 기반 L2 네트워크 블록체인</div></div>
-                            <div class="project-item"><div class="project-title">parablokOS 암호화폐 지갑</div><div class="project-date">2024.05 - 2024.06</div><div class="project-desc">contract wallet 호환 및 L1과 L2 자산이동 bridge 구현</div></div>
-                            <div class="project-item"><div class="project-title">NIPA 정부과제</div><div class="project-date">2024.06 - 2024.08</div><div class="project-desc">블록체인 기반(hyperledger besu) 계정추상화 및 파캐스터 기반 IP 콘텐츠 등록/검증 및 저작권보호 탈중앙화 소셜 네트워크 서비스<br>farcaster 프로토콜 분석 및 SDK 개발 <a href='https://www.npmjs.com/package/@namulabsdev/farcaster-sdk' target='_blank'>npm 패키지</a></div></div>
-                            <div class="project-item"><div class="project-title">fan quest - aptos 기반의 크리에이터 마케팅 플랫폼</div><div class="project-date">2024.08 - 2024.11</div><div class="project-desc">aptos 기반 인증 시스템 구축, sponsor transaction 활용한 수수료 대납 시스템 구축</div></div>
-                            <div class="project-item"><div class="project-title">RWA 플랫폼</div><div class="project-date">2024.11 - 2025.02</div><div class="project-desc">tron 기반의 유통 펀딩 플랫폼, 스마트 컨트랙트 및 웹 어플리케이션 개발, 스왑/브릿지 시스템 설계</div></div>
-                            <div class="project-item"><div class="project-title">내면의 여정</div><div class="project-date">2025.03</div><div class="project-desc">인공지능 기반 심리상담(GPT 4.5 활용)</div></div>
-                            <div class="project-item"><div class="project-title">개발자 역량 시스템</div><div class="project-date">2025.04</div><div class="project-desc">인공지능 기반 개발자 역량 평가 시스템(gemini 2.5 활용)</div></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-date">2022.07 - 2024.02</div>
-                        <h3 class="timeline-title">부엔까미노</h3>
-                        <div class="timeline-projects">
-                            <div class="project-item"><div class="project-title">세이블 서비스</div><div class="project-date">2022.07 - 2024.02</div><div class="project-desc">통장쪼개기를 위한 목표기반 저축 + 생활비 예산 관리 서비스 개발 & 시스템 구축</div></div>
-                            <div class="project-item"><div class="project-title">업무 프로세스 개선</div><div class="project-date">2022.07 - 2024.02</div><div class="project-desc">노션, 슬랙, 피그마를 기반으로 업무소통 프로세스 개선 및 백로그화, 일정관리 개선</div></div>
-                            <div class="project-item"><div class="project-title">사내 시스템 보안, 정보보호 담당</div><div class="project-date">2023.04 - 2023.08</div><div class="project-desc">앱 취약성 점검, 기업보안점검, 네트워크 망 분리, 장비/보안문서 관리</div></div>
-                            <div class="project-item"><div class="project-title">예금, 적금 비교 추천 금융 상품 크롤러 개발</div><div class="project-date">2023.10 - 2023.12</div><div class="project-desc">금융 상품 크롤러 시스템 개발</div></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-date">2022.01 - 2022.06</div>
-                        <h3 class="timeline-title">잇솔루션</h3>
-                        <div class="timeline-projects">
-                            <div class="project-item"><div class="project-title">EIS+ 내부 시스템 이관작업</div><div class="project-date">2022.01 - 2022.06</div><div class="project-desc">판매 데이터 관리를 위한 EIS+ 구) 시스템 신) 시스템으로 이관</div></div>
-                            <div class="project-item"><div class="project-title">EIS+ 모니터링 시스템 구축</div><div class="project-date">2024.01 - 2024.03</div><div class="project-desc">이상 데이터 탐지 및 알림발송 시스템</div></div>
-                            <div class="project-item"><div class="project-title">외부 데이터 수집 서버 구축</div><div class="project-date">2024.04</div><div class="project-desc">네이버, 구글 트랜드 등 외부 데이터 수집 서버 개발(python, express)</div></div>
-                            <div class="project-item"><div class="project-title">외부 데이터 대시보드 설계</div><div class="project-date">2024.05 - 2024.06</div><div class="project-desc">네이버, 구글에서 수집한 데이터를 위한 대시보드 설계</div></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-date">2021.05 - 2021.12</div>
-                        <h3 class="timeline-title">(주) fles</h3>
-                        <div class="timeline-projects">
-                            <div class="project-item"><div class="project-title">회사 홈페이지 리뉴얼</div><div class="project-desc"><a href='http://fles.co.kr/' target='_blank'>fles.co.kr</a></div></div>
-                            <div class="project-item"><div class="project-title">헬러우운세 서비스 운영 & 유지보수</div><div class="project-desc">서비스 운영 및 유지보수</div></div>
-                            <div class="project-item"><div class="project-title">디자인 시스템 구축</div><div class="project-desc"><a href='https://www.npmjs.com/package/@flescompany/design-system' target='_blank'>npm 패키지</a>, <a href='http://design-system.fles.co.kr/?path=/story/components-atoms-button--default' target='_blank'>Storybook</a></div></div>
-                            <div class="project-item"><div class="project-title">airflow 기반 데이터 전처리 파이프라인 구축</div><div class="project-desc">광고 아이디를 산업군으로 분류 & 카테고라이징</div></div>
-                            <div class="project-item"><div class="project-title">AUdenceM 플랫폼 개발</div><div class="project-desc">마케팅을 위한 ADID, IDFA 판매서비스</div></div>
-                            <div class="project-item"><div class="project-title">인턴 멘토링</div><div class="project-desc">미니 프로젝트를 통한 역량 향상</div></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-date">2020.10 - 2021.04</div>
-                        <h3 class="timeline-title">서원정보</h3>
-                        <div class="timeline-projects">
-                            <div class="project-item"><div class="project-title">현대엔지니어링 숙소관리 시스템 프론트엔드 담당</div><div class="project-desc">react 기반 프론트엔드 개발</div></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-date">2020.04 - 2020.08</div>
-                        <h3 class="timeline-title">MOB 코리아</h3>
-                        <div class="timeline-projects">
-                            <div class="project-item"><div class="project-title">거래소 개발 총괄</div><div class="project-desc">node.js, react 기반 거래소 시스템 구축, 마켓 메이킹 트래픽 테스트, wallet 구현, order book/match 시스템 개발, 운영 및 배포 관리</div></div>
-                            <div class="project-item"><div class="project-title">블록체인 교육 기획 담당</div><div class="project-desc">ethereum 관련 교육 기획</div></div>
-                            <div class="project-item"><div class="project-title">인턴 멘토링</div><div class="project-desc">미니 프로젝트를 통한 역량 향상</div></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-date">2019.01 - 2020.03</div>
-                        <h3 class="timeline-title">도미넌트랩</h3>
-                        <div class="timeline-projects">
-                            <div class="project-item"><div class="project-title">거래소 개발 총괄</div><div class="project-desc">node.js, react 기반 거래소 시스템 구축, 마켓 메이킹 트래픽 테스트, wallet/order book/match 시스템 개발, 운영 및 배포 관리</div></div>
-                            <div class="project-item"><div class="project-title">지갑 구축/개발</div><div class="project-desc">멀티월랫 구축, react 기반 웹 시스템 구축</div></div>
-                            <div class="project-item"><div class="project-title">메인넷 서드파트 시스템 구축/개발</div><div class="project-desc">SDK 개발, explorer 개발</div></div>
-                            <div class="project-item"><div class="project-title">암호화폐 결제 쇼핑몰 개발</div><div class="project-desc">암호화폐 결제 API 개발</div></div>
-                            <div class="project-item"><div class="project-title">인턴 멘토링</div><div class="project-desc">미니 프로젝트를 통한 역량 향상</div></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-date">2018.03 - 2019.01</div>
-                        <h3 class="timeline-title">글로스퍼(Glosfer)</h3>
-                        <div class="timeline-projects">
-                            <div class="project-item"><div class="project-title">Telegram 챗봇 시스템 도입</div><div class="project-desc">외국인 커뮤니케이션 번역, 서비스 장애/시세 알림</div></div>
-                            <div class="project-item"><div class="project-title">영등포 구청 블록체인 기반 제안평가 시스템(GS 인증)</div><div class="project-desc">hyperledger fabric 기반, 제안 평가 시스템 구축, PBFT 합의</div></div>
-                            <div class="project-item"><div class="project-title">해수부 항만공사 블록체인 기반 반출입 통합발급 시스템(TTA 인증)</div><div class="project-desc">hyperledger fabric 기반, LG U+ 클라우드, 컨테이너 부두간 반출입증 통합발급</div></div>
-                            <div class="project-item"><div class="project-title">스마트빌 - 블록체인 기반 계약 시스템</div><div class="project-desc">ethereum 기반 전자계약 시스템, POA 합의</div></div>
-                            <div class="project-item"><div class="project-title">블록체인 교육 담당</div><div class="project-desc">이더리움, hyperledger fabric 교육 진행</div></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-date">2017.05 - 2018.03</div>
-                        <h3 class="timeline-title">francosy</h3>
-                        <div class="timeline-projects">
-                            <div class="project-item"><div class="project-title">매장-본사 구매 프로세스 개선</div><div class="project-desc">express, nuxt.js, mysql 기반 매장-본사 주문 시스템 구축</div></div>
-                            <div class="project-item"><div class="project-title">php기반 서비스 유지보수 및 기능추가</div><div class="project-desc">비반응형 사이트를 반응형으로, php→node.js 전환, 인스타그램 데이터 제공</div></div>
-                            <div class="project-item"><div class="project-title">크롤러 제작</div><div class="project-desc">인스타그램/신상마켓/기상청 크롤러 제작</div></div>
-                            <div class="project-item"><div class="project-title">데이터 분석 프로그램 제작</div><div class="project-desc">vb, python 기반 판매/반품/리오더/주문 관리 프로그램 개발</div></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-date">2016.01 - 2017.04</div>
-                        <h3 class="timeline-title">Jaem</h3>
-                        <div class="timeline-projects">
-                            <div class="project-item"><div class="project-title">크롤링 시스템 구축</div><div class="project-desc">범용/커스텀 크롤러, 쇼핑몰/패션 데이터 수집, 전처리, 분석</div></div>
-                            <div class="project-item"><div class="project-title">쇼핑몰 크롤러 프레임워크 개발</div><div class="project-desc">bash, python 기반, 비전공자도 쉽게 개발 가능</div></div>
-                            <div class="project-item"><div class="project-title">웹 분석 툴 개발</div><div class="project-desc">크롬 확장프로그램, 웹사이트 데이터 비교</div></div>
-                            <div class="project-item"><div class="project-title">ERP 프로그램 및 검수 페이지 제작</div><div class="project-desc">python(PyQT), 데이터 검수/관리 페이지, 크롬 확장프로그램</div></div>
-                            <div class="project-item"><div class="project-title">추천 서버 API</div><div class="project-desc">aiohttp→node.js, 추천 API 서버</div></div>
-                            <div class="project-item"><div class="project-title">Etcs</div><div class="project-desc">cafe24 기반 추천API, 크롤링 테스트 쇼핑몰, 데모데이 행사 페이지(d3.js)</div></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="growth-story" class="growth-story">
-        <div class="container">
-          <div class="section-title"><h2>성장 스토리</h2></div>
-          <div class="growth-timeline">
-            <div class="growth-card">
-                <div class="growth-year">2012 ~</div>
-                <div class="growth-title">지식 공유와 커뮤니티</div>
-                <div class="growth-desc">강의, 저서, 오픈소스, 블로그 등 다양한 방식으로 지식을 나누며, 개발자로서의 영향력을 확장.</div>
+  <section class="hero" id="about">
+    <div class="container hero-content">
+      <div class="hero-text">
+        <h1>멍개 (박정태)</h1>
+        <p>10년차 벡엔드 개발자</p>
+        <p></p>
+        <div class="about-main-card">
+          <div class="about-main-content">
+            <div class="about-experience">
+              <div class="about-exp-title"><i class="fas fa-database"></i> <b>데이터 파이프라인 및 API 개발</b></div>
+              <div class="about-exp-desc">
+                800개 쇼핑몰의 사이즈 추천을 위한 데이터 파이프라인을 구축하며, 범용 크롤러 설계와 검수 자동화 도구(크롬 확장 프로그램) 개발로 데이터 품질과 수집 효율을 극대화했습니다.
               </div>
-
-            <div class="growth-card">
-              <div class="growth-year">2015 ~</div>
-              <div class="growth-title">데이터/자동화 그리고 자연어 처리에 눈뜨다</div>
-              <div class="growth-desc">다양한 크롤러와 데이터 파이프라인을 직접 설계하며, 데이터 기반 문제 해결의 재미와 중요성을 깨달음. word2vec 등 자연어 처리에 관심을 가지기 시작</div>
             </div>
-            <div class="growth-card">
-              <div class="growth-year">2017 ~</div>
-              <div class="growth-title">신기술과 아키텍처 도전</div>
-              <div class="growth-desc">블록체인, AI, MLOps, IaC 등 최신 기술을 빠르게 습득하고, 실무에 적용하며 성장.</div>
+            <div class="about-experience">
+              <div class="about-exp-title"><i class="fas fa-cogs"></i> <b>업무 프로세스 자동화</b></div>
+              <div class="about-exp-desc">
+                오프라인 매출 데이터의 수동 집계 문제를 API 연동 및 자동화 프로그램 개발로 해결, 주문-반품-재주문 등 전체 업무 흐름을 시스템적으로 개선하여 생산성을 높였습니다.
+              </div>
             </div>
-            <div class="growth-card">
-              <div class="growth-year">2019 ~</div>
-              <div class="growth-title">대규모 서비스와 인프라 경험</div>
-              <div class="growth-desc">거래소, 금융, 블록체인 등 실서비스 백엔드/인프라를 구축하며, 대규모 트래픽과 장애 대응, DevOps의 필요성을 체감.</div>
+            <div class="about-experience">
+              <div class="about-exp-title"><i class="fas fa-language"></i> <b>커뮤니케이션 혁신</b></div>
+              <div class="about-exp-desc">
+                외국인 동료와의 소통 문제를 해결하기 위해 슬랙/텔레그램 번역 챗봇을 직접 개발, 실시간 번역으로 팀 커뮤니케이션 효율을 크게 향상시켰습니다.
+              </div>
             </div>
-            <div class="growth-card">
-              <div class="growth-year">2019 ~</div>
-              <div class="growth-title">리더십과 협업</div>
-              <div class="growth-desc">팀 리딩, 멘토링, 디자인 시스템 도입 등 협업과 리더십 경험을 통해 더 큰 임팩트를 만들어냄.</div>
+            <div class="about-experience">
+              <div class="about-exp-title"><i class="fas fa-layer-group"></i> <b>디자인 시스템 구축</b></div>
+              <div class="about-exp-desc">
+                퍼블리셔-개발자 협업의 비효율을 해소하고자 React/Storybook 기반 디자인 시스템을 도입, UI 컴포넌트 표준화와 재사용성 증대로 개발 생산성을 혁신했습니다.
+              </div>
             </div>
-            <div class="growth-card">
-              <div class="growth-year">2024 ~</div>
-              <div class="growth-title">인공지능과 에이전트</div>
-              <div class="growth-desc">인공지능과 에이전트를 활용한 문제 해결, 자동화 시스템 구축.</div>
+            <div class="about-experience">
+              <div class="about-exp-title"><i class="fas fa-user-check"></i> <b>사용자 경험 개선</b></div>
+              <div class="about-exp-desc">
+                오픈뱅킹 API 연동 방식 개선을 기획·제안하여, 반복 인증과 계좌번호 입력의 불편을 해소하는 사용자 중심의 서비스 개선을 주도했습니다.
+              </div>
             </div>
-
+            <div class="about-experience">
+              <div class="about-exp-title"><i class="fas fa-shield-alt"></i> <b>보안 및 운영 프로세스 체계화</b></div>
+              <div class="about-exp-desc">
+                Savle 서비스의 오픈뱅킹 연동 및 보안 점검을 총괄하며, 일간~연간 단위의 표준화된 점검 프로세스를 구축해 시스템의 안정성과 보안성을 확보했습니다.
+              </div>
+            </div>
+            <div class="about-exp-summary">
+              이처럼 <b>기술과 프로세스, 협업, 사용자 경험</b> 등 다양한 관점에서 문제를 발견하고, 주도적으로 해결책을 설계·실행하는 데 강점을 가지고 있습니다.
+            </div>
+          </div>
+          <div class="about-main-info">
+            <div class="about-info">
+              <div class="info-item"><span class="label">이름</span> <span class="value">박정태 (멍개)</span></div>
+              <div class="info-item"><span class="label">연락처</span> <span class="value">+82 10-6500-3591</span></div>
+              <div class="info-item"><span class="label">이메일</span> <span class="value">pjt3591oo@gmail.com</span></div>
+            </div>
+            <div class="social-links">
+              <a href="https://blog.naver.com/pjt3591oo" target="_blank" title="기술 블로그"><i class="fas fa-blog"></i></a>
+              <a href="https://github.com/pjt3591oo?tab=repositories" target="_blank" title="GitHub"><i
+                  class="fab fa-github"></i></a>
+              <a href="https://stackoverflow.com/users/8667760/%eb%a9%8d%ea%b0%9c-mung" target="_blank"
+                title="Stack Overflow"><i class="fab fa-stack-overflow"></i></a>
+            </div>
           </div>
         </div>
-    </section>
+      </div>
+      <div class="hero-image">
+        <img src="./images/profile.png" alt="박정태 프로필 이미지">
+      </div>
+    </div>
+  </section>
 
-    <section id="projects" class="projects">
-        <div class="container">
-            <div class="section-title"><h2>프로젝트</h2></div>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-card-content">
-                        <div class="project-card-title">nestjs 프로젝트 보일러 플레이트</div>
-                        <div class="project-card-desc">nestjs 프로젝트 보일러 플레이트, nestjs 프로젝트 보일러 플레이트 설계, 구현, 테스트.</div>
-                        <div class="project-card-links">
-                            <a href="https://github.com/pjt3591oo/nest-architecture-layout" target="_blank" class="project-link-btn"><i class="fas fa-blog"></i> 저장소</a>
-                            <!-- <a href="https://youtube.com/yourvideo" target="_blank" class="project-link-btn"><i class="fab fa-youtube"></i> YouTube</a> -->
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-card-content">
-                        <div class="project-card-title">WebRTC 기반 화상 채팅 PoC</div>
-                        <div class="project-card-desc">WebRTC 기반 화상 채팅 시스템 구축. 화상 채팅 시스템 설계, 구현, 테스트.</div>
-                        <div class="project-card-links">
-                            <a href="https://blog.naver.com/pjt3591oo/222645733090" target="_blank" class="project-link-btn"><i class="fas fa-blog"></i> 블로그 1편</a>
-                            <a href="https://blog.naver.com/pjt3591oo/222646463734" target="_blank" class="project-link-btn"><i class="fas fa-blog"></i> 블로그 2편</a>
-                            <!-- <a href="https://youtube.com/yourvideo" target="_blank" class="project-link-btn"><i class="fab fa-youtube"></i> YouTube</a> -->
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-card-content">
-                        <div class="project-card-title">mlops 구축 & 데이터 파이프라인</div>
-                        <div class="project-card-desc">mlops 구축. 모델 학습 및 배포 자동화.</div>
-                        <div class="project-card-links">
-                            <a href="https://blog.naver.com/pjt3591oo/222760459902" target="_blank" class="project-link-btn"> argocd + github actions</a>
-                            <a href="https://blog.naver.com/pjt3591oo/222517292174" target="_blank" class="project-link-btn"> airflow</a>
-                            <a href="https://blog.naver.com/pjt3591oo/221619310268" target="_blank" class="project-link-btn"> ELK</a>
-                            <a href="https://blog.naver.com/pjt3591oo/222724676035" target="_blank" class="project-link-btn"> Spark</a>
-                        </div>
-                    </div>
-                </div>
-           
-                <div class="project-card">
-                    <div class="project-card-content">
-                        <div class="project-card-title">CI/CD 파이프라인 구축</div>
-                        <div class="project-card-desc">CI/CD 파이프라인 구축, 배포 자동화.</div>
-                        <div class="project-card-links">
-                            <a href="https://blog.naver.com/pjt3591oo/223194521702" target="_blank" class="project-link-btn"><i class="fas fa-blog"></i> NCP CI/CD</a>
-                            <a href="https://blog.naver.com/pjt3591oo/222437276868" target="_blank" class="project-link-btn"><i class="fas fa-blog"></i> github actions + s3</a>
-                        </div>
-                    </div>
-                </div>
-           
-                <div class="project-card">
-                    <div class="project-card-content">
-                        <div class="project-card-title">채팅 어플리케이션</div>
-                        <div class="project-card-desc">채팅 어플리케이션 개발, 배포.</div>
-                        <div class="project-card-links">
-                            <a href="https://blog.naver.com/pjt3591oo/222494203552" target="_blank" class="project-link-btn"><i class="fas fa-blog"></i> 블로그</a>
-                        </div>
-                    </div>
-                </div>
-           
-                <div class="project-card">
-                    <div class="project-card-content">
-                        <div class="project-card-title">AI 기반 깃허브 분석 프로젝트</div>
-                        <div class="project-card-desc">AI 기반 깃허브 분석 프로젝트, 깃허브 프로젝트 분석, 프로젝트 추천.</div>
-                        <div class="project-card-links">
-                            <a href="https://developer-evaluation-tool.vercel.app/" target="_blank" class="project-link-btn"> 페이지</a>
-                        </div>
-                    </div>
-                </div>
-               
-                <div class="project-card">
-                    <div class="project-card-content">
-                        <div class="project-card-title">RAG를 활용한 블로그 검색 시스템</div>
-                        <div class="project-card-desc">RAG를 활용한 블로그 검색 시스템, 블로그 검색 시스템 설계, 구현, 테스트.</div>
-                        <div class="project-card-links">
-                            <a href="https://github.com/pjt3591oo/blog-rag" target="_blank" class="project-link-btn"> 저장소</a>
-                        </div>
-                    </div>
-                </div>
-               
-                <div class="project-card">
-                    <div class="project-card-content">
-                        <div class="project-card-title">프레임워크 & 라이브러리 개발</div>
-                        <div class="project-card-desc">자주 사용했던 프레임워크 & 라이브러리 동작원리 이해를 위한 간단한 프로젝트</div>
-                        <div class="project-card-links">
-                            <a href="https://github.com/pjt3591oo/mungpress" target="_blank" class="project-link-btn"> mungpress(express) </a>
-                            <a href="https://github.com/pjt3591oo/mini_react" target="_blank" class="project-link-btn"> mini-react(react)</a>
-                            <a href="https://github.com/pjt3591oo/nestpy" target="_blank" class="project-link-btn"> nestpy(nestjs)</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <section id="skills" class="skills">
+    <div class="container">
+      <div class="section-title">
+        <h2>기술</h2>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-category">
+          <h3>프론트엔드</h3>
+          <div class="skill-tags">
+            <div class="skill-tag">JavaScript</div>
+            <div class="skill-tag">TypeScript</div>
+            <div class="skill-tag">React</div>
+            <div class="skill-tag">Storybook</div>
+            <div class="skill-tag">TailwindCSS</div>
+          </div>
+          <div class="skill-desc" style="margin-top:1rem; color:var(--dark-gray); font-size:0.97rem;">
+            거래소, parablokOS 지갑, Savle 등 주요 서비스 프론트엔드 개발 및 디자인 시스템 구축 경험<br>
+            Storybook 기반 UI 컴포넌트 표준화 및 재사용성 강화
+          </div>
         </div>
-    </section>
-
-    <section id="npm-packages" class="npm-packages">
-        <div class="container">
-            <div class="section-title"><h2>npm 패키지</h2></div>
-
-            <div class="npm-packages-list">
-                <div class="npm-package-card">
-                    <div class="npm-package-header">
-                        <a href="https://www.npmjs.com/package/@namulabsdev/farcaster-sdk" target="_blank" class="npm-package-name">@namulabsdev/farcaster-sdk</a>
-                        <img src="https://img.shields.io/npm/v/@namulabsdev/farcaster-sdk?color=2563eb" alt="npm version" />
-                    </div>
-                    <div class="npm-package-desc">
-                        Farcaster SDK<br>
-                        <span class="npm-package-meta">2024, 나무랩스</span>
-                    </div>
-                </div>
-
-                <div class="npm-package-card">
-                    <div class="npm-package-header">
-                        <a href="https://www.npmjs.com/package/storybook-ghpage-deploy" target="_blank" class="npm-package-name">storybook-ghpage-deploy</a>
-                        <img src="https://img.shields.io/npm/v/storybook-ghpage-deploy?color=2563eb" alt="npm version" />
-                    </div>
-                    <div class="npm-package-desc">
-                        깃허브 페이지를 통해 storybook을 배포하는 샘플<br>
-                        <span class="npm-package-meta">2022, 박정태</span>
-                    </div>
-                </div>
-                <div class="npm-package-card">
-                    <div class="npm-package-header">
-                        <a href="https://www.npmjs.com/package/mungrever" target="_blank" class="npm-package-name">mungrever</a>
-                        <img src="https://img.shields.io/npm/v/mungrever?color=2563eb" alt="npm version" />
-                    </div>
-                    <div class="npm-package-desc">
-                        forever 형태의 프로세스 관리 도구<br>
-                        <span class="npm-package-meta">2022, 박정태</span>
-                    </div>
-                </div>
-
-                <div class="npm-package-card">
-                    <div class="npm-package-header">
-                        <a href="https://www.npmjs.com/package/orderbook-match-engine" target="_blank" class="npm-package-name">orderbook-match-engine</a>
-                        <img src="https://img.shields.io/npm/v/orderbook-match-engine?color=2563eb" alt="npm version" />
-                    </div>
-                    <div class="npm-package-desc">
-                        오더북 매칭 엔진<br>
-                        <span class="npm-package-meta">2022, 박정태</span>
-                    </div>
-                </div>
-
-                <div class="npm-package-card">
-                    <div class="npm-package-header">
-                        <a href="https://www.npmjs.com/package/@dominantlab/clt-blockchain-sdk" target="_blank" class="npm-package-name">@dominantlab/clt-blockchain-sdk</a>
-                        <img src="https://img.shields.io/npm/v/@dominantlab/clt-blockchain-sdk?color=2563eb" alt="npm version" />
-                    </div>
-                    <div class="npm-package-desc">
-                        SDK for IO-Blockchain(IOB)<br>
-                        <span class="npm-package-meta">2019, 도미넌트랩</span>
-                    </div>
-                </div>
-
-                <div class="npm-package-card">
-                    <div class="npm-package-header">
-                        <a href="https://www.npmjs.com/package/@mung-office/redux-socket" target="_blank" class="npm-package-name">@mung-office/redux-socket</a>
-                        <img src="https://img.shields.io/npm/v/@mung-office/redux-socket?color=2563eb" alt="npm version" />
-                    </div>
-                    <div class="npm-package-desc">
-                        redux 기반의 소켓 연동 라이브러리<br>
-                        <span class="npm-package-meta">2020, 박정태</span>
-                    </div>
-                </div>
-
-                <div class="npm-package-card">
-                    <div class="npm-package-header">
-                        <a href="https://www.npmjs.com/package/@mung-office/calendar" target="_blank" class="npm-package-name">@mung-office/calendar</a>
-                        <img src="https://img.shields.io/npm/v/@mung-office/calendar?color=2563eb" alt="npm version" />
-                    </div>
-                    <div class="npm-package-desc">
-                        캘린더 컴포넌트<br>
-                        <span class="npm-package-meta">2022, 박정태</span>
-                    </div>
-                </div>
-
-                <div class="npm-package-card">
-                    <div class="npm-package-header">
-                        <a href="https://www.npmjs.com/package/@flescompany/design-system" target="_blank" class="npm-package-name">@flescompany/design-system</a>
-                        <img src="https://img.shields.io/npm/v/@flescompany/design-system?color=2563eb" alt="npm version" />
-                    </div>
-                    <div class="npm-package-desc">
-                        React 기반 디자인 시스템 UI 컴포넌트 라이브러리<br>
-                        <span class="npm-package-meta">2021, fles</span>
-                    </div>
-                </div>
-            </div>
+        <div class="skill-category">
+          <h3>백엔드</h3>
+          <div class="skill-tags">
+            <div class="skill-tag">Node.js</div>
+            <div class="skill-tag">Nest.js</div>
+            <div class="skill-tag">Express</div>
+            <div class="skill-tag">Python</div>
+            <div class="skill-tag">aiohttp</div>
+          </div>
+          <div class="skill-desc" style="margin-top:1rem; color:var(--dark-gray); font-size:0.97rem;">
+            거래소 시스템, 데이터 파이프라인, API 서버, 크롤러 제작 등 다양한 백엔드 서비스 개발<br>
+            대규모 트래픽 처리 및 업무 자동화 경험
+          </div>
         </div>
-    </section>
-
-    <section id="pypi-packages" class="pypi-packages">
-        <div class="container">
-            <div class="section-title"><h2>PyPI 패키지</h2></div>
-            <div class="pypi-packages-list">
-                <div class="pypi-package-card">
-                    <div class="pypi-package-header">
-                        <a href="https://pypi.org/project/bpb/" target="_blank" class="pypi-package-name">bpb</a>
-                        <img src="https://img.shields.io/pypi/v/bpb?color=2563eb" alt="pypi version" />
-                    </div>
-                    <div class="pypi-package-desc">
-                        마크다운 문서를 파싱하여 네이버 블로그 포스팅 봇<br>
-                        <span class="pypi-package-meta">PyPI, 박정태</span>
-                    </div>
-                </div>
-                <div class="pypi-package-card">
-                    <div class="pypi-package-header">
-                        <a href="https://pypi.org/project/EITRI/" target="_blank" class="pypi-package-name">EITRI</a>
-                        <img src="https://img.shields.io/pypi/v/EITRI?color=2563eb" alt="pypi version" />
-                    </div>
-                    <div class="pypi-package-desc">
-                        SDK for IO-Blockchain(IOB) <br>
-                        <span class="pypi-package-meta">PyPI, 박정태</span>
-                    </div>
-                </div>
-            </div>
+        <div class="skill-category">
+          <h3>DevOps / 인프라</h3>
+          <div class="skill-tags">
+            <div class="skill-tag">AWS</div>
+            <div class="skill-tag">Docker</div>
+            <div class="skill-tag">Linux</div>
+            <div class="skill-tag">Git</div>
+            <div class="skill-tag">CI/CD</div>
+            <div class="skill-tag">Terraform</div>
+          </div>
+          <div class="skill-desc" style="margin-top:1rem; color:var(--dark-gray); font-size:0.97rem;">
+            서비스 배포 자동화, ECS/EC2 인프라 관리, CI/CD 파이프라인 구축 및 운영<br>
+            브랜치 전략, 배포 자동화, 서버 운영 경험<br>
+            IaC(Terraform) 기반 인프라 관리 경험
+          </div>
         </div>
-    </section>
-
-    <section id="publications" class="publications">
-        <div class="container">
-            <div class="section-title"><h2>저서/출판</h2></div>
-            <div class="publications-list">
-                <div class="publication-card">
-                    <div class="publication-cover">
-                        <img src="./images/nft_book.jpg" alt="이토록 쉬운 NFT 개발 스타터 팩" style="width:100%;height:100%;object-fit:cover;" />
-                    </div>
-                    <div class="publication-content">
-                        <div class="publication-title">이토록 쉬운 NFT 개발 스타터 팩</div>
-                        <div class="publication-date">2022.06</div>
-                        <div class="publication-desc">NFT 개발의 기초부터 실전까지, 실습 중심의 입문서</div>
-                        <a class="publication-link" href="https://product.kyobobook.co.kr/detail/S000061353476" target="_blank">교보문고에서 보기</a>
-                    </div>
-                </div>
-                <div class="publication-card">
-                    <div class="publication-cover">
-                        <img src="./images/blockchain_book.jpg" alt="블록체인 프로젝트" style="width:100%;height:100%;object-fit:cover;" />
-                    </div>
-                    <div class="publication-content">
-                        <div class="publication-title">블록체인 프로젝트</div>
-                        <div class="publication-date">2019.07</div>
-                        <div class="publication-desc">실전 블록체인 서비스 구축 경험과 노하우를 담은 책</div>
-                        <a class="publication-link" href="https://product.kyobobook.co.kr/detail/S000000833233" target="_blank">교보문고에서 보기</a>
-                    </div>
-                </div>
-                <div class="publication-card">
-                    <div class="publication-cover">
-                        <img src="./images/js_book.jpg" alt="자바스크립트로 서버와 클라이언트 구축하기" style="width:100%;height:100%;object-fit:cover;" />
-                    </div>
-                    <div class="publication-content">
-                        <div class="publication-title">자바스크립트로 서버와 클라이언트 구축하기</div>
-                        <div class="publication-date">2018.06</div>
-                        <div class="publication-desc">Node.js와 JS로 풀스택 개발을 경험할 수 있는 실전서</div>
-                        <a class="publication-link" href="https://product.kyobobook.co.kr/detail/S000000833207" target="_blank">교보문고에서 보기</a>
-                    </div>
-                </div>
-                <div class="publication-card">
-                    <div class="publication-cover">
-                        <img src="./images/python_crawler_book.jpg" alt="파이썬으로 배우는 웹 크롤러" style="width:100%;height:100%;object-fit:cover;" />
-                    </div>
-                    <div class="publication-content">
-                        <div class="publication-title">파이썬으로 배우는 웹 크롤러</div>
-                        <div class="publication-date">2018.01</div>
-                        <div class="publication-desc">파이썬으로 웹 크롤러를 쉽고 빠르게 개발하는 방법</div>
-                        <a class="publication-link" href="https://product.kyobobook.co.kr/detail/S000000833198" target="_blank">교보문고에서 보기</a>
-                    </div>
-                </div>
-            </div>
+        <div class="skill-category">
+          <h3>데이터 / AI</h3>
+          <div class="skill-tags">
+            <div class="skill-tag">Python</div>
+            <div class="skill-tag">Airflow</div>
+            <div class="skill-tag">Spark</div>
+            <div class="skill-tag">ELK</div>
+            <div class="skill-tag">chromaDB</div>
+          </div>
+          <div class="skill-desc" style="margin-top:1rem; color:var(--dark-gray); font-size:0.97rem;">
+            데이터 파이프라인 구축, 데이터 분석 및 전처리, MLOps 환경 구축<br>
+            airflow, spark, ELK 등 데이터 엔지니어링 경험<br>
+            chromaDB 기반 유사 이미지 검색 API 구현 경험
+          </div>
         </div>
-    </section>
-
-    <section id="blog-series" class="blog-series">
-        <div class="container">
-            <div class="section-title"><h2>블로그 시리즈</h2></div>
-            <div class="blog-series-list">
-                <div class="blog-series-card">
-                    <a href="https://www.notion.so/54f074c28203490586ee90325c5a4813" target="_blank" class="blog-series-title">네트워크</a>
-                </div>
-                <div class="blog-series-card">
-                    <a href="https://www.notion.so/381cbb45c07f4de9b7f720ace18d33be" target="_blank" class="blog-series-title">핀테크 서비스 벡엔드 개발자가 알려주는 시리즈 - 인증인가 편</a>
-                </div>
-                <div class="blog-series-card">
-                    <a href="https://www.notion.so/b793d304661d42bbad2a736495170712" target="_blank" class="blog-series-title">분산 환경 메시지 처리</a>
-                </div>
-                <div class="blog-series-card">
-                    <a href="https://www.notion.so/0116288994884e719b05813498feb8e8" target="_blank" class="blog-series-title">IAC</a>
-                </div>
-                <div class="blog-series-card">
-                    <a href="https://www.notion.so/e05b891eb07e4e17bf4e82b24da42e3b" target="_blank" class="blog-series-title">스프링부트 시작하기</a>
-                </div>
-                <div class="blog-series-card">
-                    <a href="https://www.notion.so/blockchain-14b6635f37e680768063fee7775e8289" target="_blank" class="blog-series-title">블록체인 시리즈</a>
-                </div>
-                <div class="blog-series-card">
-                    <a href="https://www.notion.so/Agent-14b6635f37e68024a43fdfa3d4582ba4" target="_blank" class="blog-series-title">Agent 시리즈</a>
-                </div>
-                <div class="blog-series-card">
-                    <a href="https://www.notion.so/1db6635f37e6806dafc4dac3965e4b74" target="_blank" class="blog-series-title">멍개의 회고록</a>
-                </div>
-                <div class="blog-series-card">
-                    <a href="https://sponge-palm-382.notion.site/1de6635f37e680e5820eea39cf5c51b7?pvs=73" target="_blank" class="blog-series-title">시스템 설계</a>
-                </div>
-            </div>
+        <div class="skill-category">
+          <h3>블록체인</h3>
+          <div class="skill-tags">
+            <div class="skill-tag">Solidity</div>
+            <div class="skill-tag">Rust</div>
+            <div class="skill-tag">Move</div>
+            <div class="skill-tag">Hyperledger Fabric</div>
+            <div class="skill-tag">Truffle</div>
+            <div class="skill-tag">Hardhat</div>
+            <div class="skill-tag">Foundry</div>
+          </div>
+          <div class="skill-desc" style="margin-top:1rem; color:var(--dark-gray); font-size:0.97rem;">
+            스마트 컨트랙트, 거래소, NFT, 오더북 등 다양한 블록체인 서비스 개발<br>
+            Ethereum, Solana, Aptos, Hyperledger 등 다양한 플랫폼 경험
+          </div>
         </div>
-    </section>
-
-    <section id="lecture" class="lecture">
-        <div class="container">
-            <div class="section-title"><h2>강의</h2></div>
-            <div class="blog-list">
-                <div class="blog-card">
-                    <div class="blog-card-content">
-                        <div class="blog-card-title">인공지능 시대에서 살아남기</div>
-                        <div class="blog-card-date">2025.01.10</div>
-                        <div class="blog-card-desc">세경고등학교</div>
-                    </div>
-                </div>
-                <div class="blog-card">
-                    <div class="blog-card-content">
-                        <div class="blog-card-title">블록체인 NFT 과정</div>
-                        <div class="blog-card-date">2022.10.26 ~ 2022.10.28</div>
-                        <div class="blog-card-desc">코스콤</div>
-                    </div>
-                </div>
-                <div class="blog-card">
-                    <div class="blog-card-content">
-                        <div class="blog-card-title">2022 블록체인 NFT 과정</div>
-                        <div class="blog-card-date">2022.07.31 ~ 2022.10.15</div>
-                        <div class="blog-card-desc">한국디지털융합진흥원</div>
-                    </div>
-                </div>
-                <div class="blog-card">
-                    <div class="blog-card-content">
-                        <div class="blog-card-title">웹 어플리케이션개발 자바스크립트 및 jQuery 실무</div>
-                        <div class="blog-card-date">2022.06.18 ~ 2022.06.25</div>
-                        <div class="blog-card-desc">한국소프트웨어기술진흥협회</div>
-                    </div>
-                </div>
-                <div class="blog-card">
-                    <div class="blog-card-content">
-                        <div class="blog-card-title">이더리움 ERC20, ERC721을 활용한 NFT 만들기</div>
-                        <div class="blog-card-date">2021.12.22 ~ 2021.12.24</div>
-                        <div class="blog-card-desc">패스트캠퍼스 - 신용보증기금</div>
-                    </div>
-                </div>
-                <div class="blog-card">
-                    <div class="blog-card-content">
-                        <div class="blog-card-title">2021년도 ICT Code Academy 블록체인 교육과정<br>리엑트 기반의 ERC20 토큰 지갑, ERC721 NFT 생성기 만들기</div>
-                        <div class="blog-card-date">2021.07 ~ 2021.10</div>
-                        <div class="blog-card-desc">한국디지털융합진흥원</div>
-                    </div>
-                </div>
-                <div class="blog-card">
-                    <div class="blog-card-content">
-                        <div class="blog-card-title">블록체인(이더리움) 개발입문 과정</div>
-                        <div class="blog-card-date">2021.06 ~ 2021.07</div>
-                        <div class="blog-card-desc">패스트캠퍼스 - KB증권</div>
-                    </div>
-                </div>
-                <div class="blog-card">
-                    <div class="blog-card-content">
-                        <div class="blog-card-title">지역 ICT이노베이션스퀘어 운영 사업(블록체인)<br>이더리움을 활용한 dApp개발, 운용과정</div>
-                        <div class="blog-card-date">2020.10 ~ 2020.12</div>
-                        <div class="blog-card-desc">한국디지털융합진흥원</div>
-                    </div>
-                </div>
-                <div class="blog-card">
-                    <div class="blog-card-content">
-                        <div class="blog-card-title">데이터 분석 기초</div>
-                        <div class="blog-card-date">2020.11.18</div>
-                        <div class="blog-card-desc">서울시 교육청</div>
-                    </div>
-                </div>
-                <div class="blog-card">
-                    <div class="blog-card-content">
-                        <div class="blog-card-title">빅데이터 분석을 위한 웹 크롤러 개발 & node.js로 만들어보는 쇼핑몰 구축 프로젝트</div>
-                        <div class="blog-card-date">2017.05 ~ 2020.09</div>
-                        <div class="blog-card-desc">코딩애플</div>
-                    </div>
-                </div>
-                <div class="blog-card">
-                    <div class="blog-card-content">
-                        <div class="blog-card-title">혁신성장 청년인재 집중양성 사업<br>블록체인 시스템 엔지니어 양성과정</div>
-                        <div class="blog-card-date">2019.06 ~ 2019.11</div>
-                        <div class="blog-card-desc">MOB 코리아, fn노에듀</div>
-                    </div>
-                </div>
-                <div class="blog-card">
-                    <div class="blog-card-content">
-                        <div class="blog-card-title">Ethereum, Hyperledger Fabric 기반의 App 개발</div>
-                        <div class="blog-card-date">2018.05 ~ 2019.05</div>
-                        <div class="blog-card-desc">패스트 캠퍼스</div>
-                    </div>
-                </div>
-                <div class="blog-card">
-                    <div class="blog-card-content">
-                        <div class="blog-card-title">서울핀테크아카데미 (블록체인 동향 및 보안관점)</div>
-                        <div class="blog-card-date">2020.10.31, 2019.10.19, 2019.06.22</div>
-                        <div class="blog-card-desc">금융투자교육원</div>
-                    </div>
-                </div>
-                <div class="blog-card">
-                    <div class="blog-card-content">
-                        <div class="blog-card-title">개발자 관점에서 바라본 블록체인</div>
-                        <div class="blog-card-date">2018.11.12</div>
-                        <div class="blog-card-desc">동양미래대학</div>
-                    </div>
-                </div>
-                <div class="blog-card">
-                    <div class="blog-card-content">
-                        <div class="blog-card-title">Ethereum을 활용한 Dapp개발 프로젝트</div>
-                        <div class="blog-card-date">2018.11.11 ~ 2018.12.15, 2018.04.03 ~ 2018.04.04, 2019.07.25, 2019.03.12, 2018.10.11, 2018.03.29 ~ 2018.03.30</div>
-                        <div class="blog-card-desc">YAPP 연합동아리, 신한은행 데이터시스템, Kisa</div>
-                    </div>
-                </div>
-                <div class="blog-card">
-                    <div class="blog-card-content">
-                        <div class="blog-card-title">꿈, 희망, 진로</div>
-                        <div class="blog-card-date">2018.09.21</div>
-                        <div class="blog-card-desc">세경고등학교</div>
-                    </div>
-                </div>
-                <div class="blog-card">
-                    <div class="blog-card-content">
-                        <div class="blog-card-title">블록체인 기초개념 및 원리</div>
-                        <div class="blog-card-date">2018.06.15</div>
-                        <div class="blog-card-desc">세경고등학교</div>
-                    </div>
-                </div>
-                <div class="blog-card">
-                    <div class="blog-card-content">
-                        <div class="blog-card-title">프로그래밍 기초 - 파이썬 활용</div>
-                        <div class="blog-card-date">2017.04.09</div>
-                        <div class="blog-card-desc">세경고등학교</div>
-                    </div>
-                </div>
-                <div class="blog-card">
-                    <div class="blog-card-content">
-                        <div class="blog-card-title">대학생활 및 취업/창업</div>
-                        <div class="blog-card-date">2016.08.25</div>
-                        <div class="blog-card-desc">세경고등학교</div>
-                    </div>
-                </div>
-            </div>
+        <div class="skill-category">
+          <h3>데이터베이스</h3>
+          <div class="skill-tags">
+            <div class="skill-tag">MySQL</div>
+            <div class="skill-tag">SQL</div>
+            <div class="skill-tag">Redis</div>
+            <div class="skill-tag">MongoDB</div>
+            <div class="skill-tag">Postgres</div>
+            <div class="skill-tag">Neo4j</div>
+          </div>
+          <div class="skill-desc" style="margin-top:1rem; color:var(--dark-gray); font-size:0.97rem;">
+            데이터 분석, 주문/매출 관리, 대용량 데이터 처리 및 최적화 경험
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="section-title"><h2>Contact</h2></div>
-            <div class="contact-grid">
-                <div class="contact-card">
-                    <i class="fas fa-envelope"></i>
-                    <h3>Email</h3>
-                    <p><a href="mailto:pjt3591oo@gmail.com" class="contact-link">pjt3591oo@gmail.com</a></p>
+  <section id="experience" class="experience">
+    <div class="container">
+      <div class="section-title">
+        <h2>경력</h2>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <div class="timeline-date">2024.02 - 재직 중</div>
+            <h3 class="timeline-title">(주) 나무랩스</h3>
+            <div class="timeline-projects">
+              <div class="project-item">
+                <div class="project-title">뉴럴 메인넷 구축 및 운영</div>
+                <div class="project-date">2024.03 - 2024.05</div>
+                <div class="project-desc">
+                    - Optimism 스택 기반의 L2 블록체인 메인넷 아키텍처 설계 및 구축 총괄 <br>
+                    - 네트워크 노드 설치, 설정 및 안정적인 운영관리 (모니터링, 트러블슈팅, 업데이트 포함)<br>
+                    - L2 네트워크 성능 최적화 및 보안 강화 작업 수행
                 </div>
-                <div class="contact-card">
-                    <i class="fas fa-envelope"></i>
-                    <h3>Email</h3>
-                    <p><a href="mailto:pjt3591oo@naver.com" class="contact-link">pjt3591oo@naver.com</a></p>
+              </div>
+              <div class="project-item">
+                <div class="project-title">parablokOS 암호화폐 지갑</div>
+                <div class="project-date">2024.05 - 2024.06</div>
+                <div class="project-desc">
+                    - 스마트 컨트랙트 지갑(Contract Wallet) 연동 기능 설계 및 개발<br>
+                    - L1과 L2 간 자산 이동을 위한브릿지(Bridge) 시스템 스마트 컨트랙트 및 백엔드 로직 개발 <br>
+                    - 지갑 내 자산 관리 및 트랜잭션 처리 로직 구현
                 </div>
-            </div>
-        </div>
-    </section>
+              </div>
+              <div class="project-item">
+                <div class="project-title">NIPA 정부과제</div>
+                <div class="project-date">2024.06 - 2024.08</div>
+                <div class="project-desc">
+                    - 계정 추상화(Account Abstraction) 개념 도입 및 관련 기능 연구<br>
+                    - Farcaster 프로토콜 기반 IP 콘텐츠등록/검증 및 저작권 보호 기능 개발<br>
+                    - vector DB를 활용한 이미지 유사도 API 서버 개발 <br>
+                    - Farcaster SDK 개발
+                </div>
+              </div>
+              <div class="project-item">
+                <div class="project-title">fan quest - aptos 기반의 크리에이터 마케팅 플랫폼</div>
+                <div class="project-date">2024.08 - 2024.11</div>
+                <div class="project-desc">
+                    - Aptos 블록체인 기반 크리에이터 마케팅 플랫폼 백엔드 시스템 설계 및 개발<br>
+                    - Aptos 출석, 포인트 이력은 스마트 컨트랙트를 통해 관리<br>
+                    - Aptos 서명 기능을 활용한 사용자 인증 시스템 구축<br>
+                    - Aptos Sponsor Transaction 기능을 이용한 사용자 트랜잭션 수수료 대납 시스템 구현 및 최적화
 
-    <footer>
-        <div class="container footer-content">
-            <div class="footer-social">
-                <a href="https://blog.naver.com/pjt3591oo" target="_blank" title="기술 블로그"><i class="fas fa-blog"></i></a>
-                <a href="https://github.com/pjt3591oo" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-                <a href="https://stackoverflow.com/users/8667760/멍개-mung" target="_blank" title="Stack Overflow"><i class="fab fa-stack-overflow"></i></a>
+                </div>
+              </div>
+              <div class="project-item">
+                <div class="project-title">RWA 플랫폼</div>
+                <div class="project-date">2024.11 - 2025.02</div>
+                <div class="project-desc">
+                    - Tron 네트워크 기반 실물자산(RWA) 연계 투자/유통 플랫폼 서비스 기획 / 개발 총괄<br>
+                    - 플랫폼 핵심 기능(펀딩, LP 토큰, 스왑) 관련 Tron 스마트 컨트랙트 설계 및 개발<br>
+                    - 플랫폼 내 자산 스왑(Swap) 및 브릿지(Bridge) 시스템 기획 및 기술 설계(개발까지 진행되지 않음)<br>
+                    - 서비스 웹 어플리케이션(프론트엔드/백엔드) 개발
+                </div>
+              </div>
+              <div class="project-item">
+                <div class="project-title">내면의 여정</div>
+                <div class="project-date">2025.03</div>
+                <div class="project-desc">
+                    - GPT-4.5 기반 인공지능 심리상담 서비스 아키텍처 설계<br>
+                    - LLM API 연동 및 상담 시나리오/대화 흐름 최적화를 위한 프롬프트 엔지니어링 수행<br>
+                    - 상담 내용 관리 및 사용자 인터페이스 등 웹 어플리케이션 개발<br>
+                </div>
+              </div>
+              <div class="project-item">
+                <div class="project-title">개발자 역량 시스템</div>
+                <div class="project-date">2025.04</div>
+                <div class="project-desc">
+                    - Gemini (또는 최신 LLM/Code Analysis AI) 기반 개발자 역량 평가 시스템 기획 및 설계<br>
+                    - 역량 평가 결과 시각화 및 사용자 인터페이스 개발<br>
+                </div>
+              </div>
             </div>
-            <p class="footer-copyright">&copy; 2025 박정태(멍개). All rights reserved.</p>
+          </div>
         </div>
-    </footer>
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <div class="timeline-date">2022.07 - 2024.02</div>
+            <h3 class="timeline-title">부엔까미노</h3>
+            <div class="timeline-projects">
+              <div class="project-item">
+                <div class="project-title">세이블(Savle) 서비스 개발 & 시스템 구축</div>
+                <div class="project-date">2022.07 - 2024.02</div>
+                <div class="project-desc">
+                    목표 기반 저축 및 생활비 예산 관리 서비스 '세이블'의 백엔드 시스템 설계 및 개발 총괄
+                    NestJS 프레임워크 활용
+                    Naver Cloud Platform(NCP) 기반 인프라(서버, DB 등) 구축 및 운영 환경 설정
+                    데이터베이스 스키마 설계, 최적화 및 데이터 관리
+                    오픈뱅킹 API 연동 및 관련 금융 데이터 처리 로직 구현
+                </div>
+              </div>
+              <div class="project-item">
+                <div class="project-title">사내 시스템 보안 및 정보보호 담당 (CISO 역할 수행 등)</div>
+                <div class="project-date">2022.07 - 2024.02</div>
+                <div class="project-desc">
+                    - 사내 정보보호 정책 수립 및 보안 규정 준수 관리<br>
+                    - 중요 정보 접근 통제 및 유출 방지를 위한 네트워크 망 분리 설계 및 구축<br>
+                    - 서버, 네트워크 장비 등 IT 자산 도입 검토 및 보안 설정 관리<br>
+                    - 정보보호 관련 문서(지침, 가이드라인, 보고서 등) 작성 및 체계적인 관리<br>
+                    - 정기/비정기 보안 점검 계획 수립, 수행 및 결과 관리
+                </div>
+              </div>
+              <div class="project-item">
+                <div class="project-title">오픈뱅킹 사후점검 수행</div>
+                <div class="project-date">2023.04 - 2023.08</div>
+                <div class="project-desc">
+                    - 오픈뱅킹 규정에 따른 정기적인 애플리케이션(세이블 앱) 취약점 점검 수행 및 결과 보고<br>
+                    - 기업 내부 시스템 및 정보 처리 환경에 대한 보안 점검(기업보안점검) 수행<br>
+                    - 점검 결과 발견된 보안 취약점 및 위험 요소 분석 및 개선 조치 추적 관리
+                </div>
+              </div>
+              <div class="project-item">
+                <div class="project-title">업무 프로세스 개선</div>
+                <div class="project-date"></div>
+                <div class="project-desc">
+                    -  Notion, Slack, Figma 등 협업 도구를 활용한 개발/기획/디자인 간 업무 소통 프로세스 정의 및 개선<br>
+                    -  Notion 기반의 체계적인 업무 백로그(요구사항, 이슈 등) 관리 시스템 구축 및 운영 가이드라인 제시<br>
+                    -  심각성, 사용자 피드백, 중요도 등의 지표를 별도로 점수화 시켜 업무 우선순위 배정<br>
+                    -  업무 우선순위는 매 주마다 합의하에 진행
+                </div>
+              </div>
+              <div class="project-item">
+                <div class="project-title">금융 상품 크롤러 시스템 개발 (예/적금 비교 추천 서비스)</div>
+                <div class="project-date">2023.10 - 2023.12</div>
+                <div class="project-desc">
+                    - 은행/금융기관 웹사이트의 예금, 적금 등 금융 상품 정보 자동 수집을 위한 웹 크롤러 시스템 설계 및 개발<br>
+                    - Python (또는 해당 언어) 및 관련 라이브러리(예: Scrapy, Selenium, BeautifulSoup) 활용<br>
+                    - 수집 데이터 정제(Parsing), 정규화 및 DB 저장을 위한 데이터 파이프라인 구축<br>
+                    - 주기적인 크롤링 실행 및 웹사이트 구조 변경에 대응하기 위한 유지보수 작업 수행
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <div class="timeline-date">2022.01 - 2022.06</div>
+            <h3 class="timeline-title">잇솔루션</h3>
+            <div class="timeline-projects">
+              <div class="project-item">
+                <div class="project-title">Angular 기반 프론트엔드 개발</div>
+                <div class="project-date">2022.01 - 2022.06</div>
+                <div class="project-desc">
+                    - 구 EIS+ 시스템의 판매 데이터 관리 기능을 포함한 신규 시스템 프레임워크 설계 및 개발<br>
+                    - 외부 데이터 시각화를 위한 대시보드 UI/UX 설계 및 개발 담당
+                </div>
+              </div>
+              <div class="project-item">
+                <div class="project-title">Python 기반 백엔드/데이터 엔지니어링</div>
+                <div class="project-date">2024.01 - 2024.03</div>
+                <div class="project-desc">
+                    - 네이버, 구글 트렌드 등 외부 데이터 수집을 위한 크롤링/수집 서버 개발<br>
+                    - EIS+ 이상 데이터 탐지 로직 개발
+                </div>
+              </div>
+              <div class="project-item">
+                <div class="project-title">Node.js (Express) 기반 서버 개발</div>
+                <div class="project-date">2024.04</div>
+                <div class="project-desc">
+                    - 외부 데이터 수집 서버의 백엔드 로직 및 API 개발<br>
+                    - 데이터 수집 및 처리를 위한 서버 환경 구축
+                </div>
+              </div>
+              <div class="project-item">
+                <div class="project-title">시스템 모니터링 및 자동화</div>
+                <div class="project-date">2024.05 - 2024.06</div>
+                <div class="project-desc">
+                    - EIS+ 시스템 모니터링 및 이상 데이터 감지 시스템 구축<br>
+                    - Telegram 연동을 통한 자동 알림 시스템 개발 및 운영
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <div class="timeline-date">2021.05 - 2021.12</div>
+            <h3 class="timeline-title">(주) fles</h3>
+            <div class="timeline-projects">
+              <div class="project-item">
+                <div class="project-title">AudienceM 플랫폼 개발 (마케팅용 ADID판매 서비스)</div>
+                <div class="project-desc">
+                    - 광고주를 위한 ADID기반 마케팅 데이터 판매 플랫폼 설계 및 개발<br>
+                    - 사용자 데이터의 안전한 처리 및 판매 프로세스 구현 (REST API, 데이터 암호화 적용)<br>
+                </div>
+              </div>
+              <div class="project-item">
+                <div class="project-title">데이터 수집 SDK 개발 (Web-fingerprint, AOS-ADID)</div>
+                <div class="project-desc">
+                    - 웹 및 모바일 환경에서 광고 아이디 수집을 위한 SDK 설계 및 구현<br>
+                    - Web-fingerprint 기반 사용자 식별 기술과 ADID/IDFA 수집 로직 최적화<br>
+                </div>
+              </div>
+              <div class="project-item">
+                <div class="project-title">Airflow 기반 데이터 전처리 파이프라인 구축</div>
+                <div class="project-desc">
+                    - 광고 아이디 데이터를 산업군 및 카테고리로 분류하는 ETL 파이프라인 설계 및 운영<br>
+                    - Airflow를 활용한 데이터 전처리 워크플로우 자동화 및 성능 최적화<br>
+                </div>
+              </div>
+              <div class="project-item">
+                <div class="project-title">Storybook 기반 디자인 시스템 구축</div>
+                <div class="project-desc">
+                    - UI 컴포넌트의 재사용성과 일관성을 위한 디자인 시스템 설계 및 구현<br>
+                    -  Storybook을 활용한 컴포넌트 문서화 및 프론트엔드 개발 효율성 증대<br>
+                </div>
+              </div>
+              <div class="project-item">
+                <div class="project-title">헬로우운세 서비스 운영 및 유지보수</div>
+                <div class="project-desc">
+                    - 헬로우운세 서비스의 안정적인 운영과 사용자 피드백 기반 기능 개선<br>
+                    - 버그 수정, 서버 모니터링, 서비스 업데이트 및 배포 관리<br>
+                </div>
+              </div>
+              <div class="project-item">
+                <div class="project-title">회사 홈페이지 리뉴얼 (Next.js)</div>
+                <div class="project-desc">
+                    - Next.js 기반 회사 홈페이지 리뉴얼 프로젝트 주도, 반응형 UI/UX 개선<br>
+                    - SEO 최적화 및 페이지 로딩 속도 개선으로 사용자 경험 향상<br>
+                </div>
+              </div>
+              <div class="project-item">
+                <div class="project-title">업무 프로세스 개선 (Notion, Slack)</div>
+                <div class="project-desc">
+                    - Notion과 Slack을 활용한 팀 협업 및 프로젝트 관리 프로세스 최적화<br>
+                    - 문서화 템플릿 제작 및 워크플로우 자동화로 업무 효율성 증대<br>
+                </div>
+              </div>
+              <div class="project-item">
+                <div class="project-title">인턴 멘토링</div>
+                <div class="project-desc">
+                    - 인턴 개발자의 온보딩 및 기술 역량 강화를 위한 1:1 멘토링<br>
+                    - 코드 리뷰, 프로젝트 가이드 제공 및 실무 역량 향상 지원<br>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <div class="timeline-date">2020.10 - 2021.04</div>
+            <h3 class="timeline-title">서원정보</h3>
+            <div class="timeline-projects">
+              <div class="project-item">
+                <div class="project-title">임직원 대상 숙소 예약, 조회, 변경, 취소 등 사용자 서비스 프론트엔드 화면 설계 및 구현</div>
+                <div class="project-desc">
+                    - 시스템 운영 및 관리를 위한 관리자 기능 (숙소 정보 관리, 사용자 관리, 예약 현황 모니터링, 통계 등) 개발<br>
+                    - React 기반의 컴포넌트 설계 및 개발<br>
+                    - Redux를 활용한 상태 관리<br>
+                    - TypeScript를 활용한 안정적인 코드 작성<br>
+                    - RESTful API 연동을 통한 백엔드(장고) 시스템과의 데이터 통신 구현
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <div class="timeline-date">2020.04 - 2020.08</div>
+            <h3 class="timeline-title">MOB 코리아</h3>
+            <div class="timeline-projects">
+              <div class="project-item">
+                <div class="project-title">암호화폐 거래소 시스템 개발 총괄</div>
+                <div class="project-desc">
+                    - NestJS(Backend), React(Frontend), AWS(Cloud), Kafka(MQ), MariaDB(DB) 등 다양한 기술 스택을 활용한 거래소 시스템의 설계, 개발, 배포, 운영 전반을 총괄<br>
+                    - 고성능, 고가용성, 보안성을 갖춘 거래소 핵심 기능 (주문, 체결, 지갑 연동, 사용자 인증 등) 개발 리드 및 아키텍처 설계 참여<br>
+                    - 대규모 트래픽 처리 및 실시간 데이터 관리를 위한 시스템 최적화 및 스케일링 전략 수립<br>
+                    - 개발팀 리딩, 개발 프로세스 관리, 유관 부서(기획, 디자인, 사업 등)와의 협업 총괄
+                </div>
+              </div>
+              <div class="project-item">
+                <div class="project-title">블록체인 기술 교육 기획 및 운영</div>
+                <div class="project-desc">
+                    - 외부 대상 블록체인 기술 이해 및 실무 활용 교육 프로그램 기획, 커리큘럼 개발, 교육 자료 구성<br>
+                    - 블록체인 기초, 블록체인 플랫폼 활용, 스마트 컨트랙트 개발 등 교육 콘텐츠 개발 및 강의 진행/지원<br>
+                </div>
+              </div>
+              <div class="project-item">
+                <div class="project-title">기술 멘토링 및 팀 역량 강화 기여</div>
+                <div class="project-desc">
+                    - 신규 입사자(인턴) 대상 기술 멘토링 및 온보딩 지원<br>
+                    - 코드 리뷰, 기술 스터디, 지식 공유 세션 등을 통해 팀원들의 기술 역량 성장 및 협업 환경 개선 기여<br>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <div class="timeline-date">2019.01 - 2020.03</div>
+            <h3 class="timeline-title">도미넌트랩</h3>
+            <div class="timeline-projects">
+              <div class="project-item">
+                <div class="project-title">암호화폐 거래소 시스템 개발 및 운영</div>
+                <div class="project-desc">
+                    - nest.js 기반 백엔드 및 React 기반 프론트엔드 시스템 전반 구축 및 개발<br>
+                    - Bitcoin, Ethereum, ERC-20 토큰을 지원하는 멀티코인 지갑 시스템 설계 및 구현<br>
+                    - 고성능 트레이딩을 위한 오더북(Order Book) 및 매칭(Match) 시스템 핵심 알고리즘 개발 및 최적화<br>
+                    - 마켓 메이킹 시뮬레이션을 활용한 시스템 부하 및 트래픽 테스트 수행, 안정성 확보<br>
+                    - 구축된 거래소 시스템의 운영 및 배포 관리 담당
+                </div>
+              </div>
+              <div class="project-item">
+                <div class="project-title">암호화폐 지갑 시스템 개발</div>
+                <div class="project-desc">
+                    - React 기반 웹 환경의 멀티 암호화폐 지갑 시스템 구축<br>
+                    - 다양한 암호화폐를 통합 관리할 수 있는 멀티월렛 기능 구현<br>
+                </div>
+              </div>
+              <div class="project-item">
+                <div class="project-title">암호화폐 결제 연동 시스템 개발 (쇼핑몰 기반)</div>
+                <div class="project-desc">
+                    - 암호화폐 결제 서비스 제공을 위한 지갑 서버 구축 및 관리<br>
+                    - 쇼핑몰 등 외부 서비스 연동을 위한 결제 API 제공 서버 개발 및 운영<br>
+                </div>
+              </div>
 
-    
+            </div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <div class="timeline-date">2018.03 - 2019.01</div>
+            <h3 class="timeline-title">글로스퍼(Glosfer)</h3>
+            <div class="timeline-projects">
+              <div class="project-item">
+                <div class="project-title">비즈니스온커뮤니케이션 - 스마트빌 전자계약 시스템 (Ethereum)</div>
+                <div class="project-desc">
+                    - Ethereum 블록체인 기반의 전자계약 시스템 설계 및 구축 참여<br>
+                    - 4개 블록체인 노드 및 1개 엔드포인트 구성, 시스템 모니터링 환경 설정<br>
+                    - 계약 핵심 정보의 블록체인 온체인 저장 로직 개발 (스마트 컨트랙트 연동)<br>
+                    - PoA(Proof of Authority) 합의 알고리즘 기반의 프라이빗 네트워크 환경 구축<br>
+                </div>
+              </div>
+              <div class="project-item">
+                <div class="project-title">영등포 구청 - GS 인증 제안 평가 시스템 (Hyperledger Fabric)</div>
+                <div class="project-desc">
+                    - Hyperledger Fabric 기반의 제안 평가 결과 기록 시스템 구축 주도<br>
+                    - 물리 장비 3대에 블록체인 노드 구성 및 네트워크 환경 설정<br>
+                    - 평가 결과 데이터의 블록체인 원장 저장 및 관리 기능 개발 (Chaincode 개발 등)<br>
+                    - PBFT(Practical Byzantine Fault Tolerance) 합의 알고리즘 기반의 컨소시엄 네트워크 구축<br>
+                </div>
+              </div>
+              <div class="project-item">
+                <div class="project-title">해수부 항만공사 - TTA 인증 컨테이너 반출입증 통합발급 (블록체인, LG U+ Cloud)</div>
+                <div class="project-desc">
+                    - 항만 물류 시스템 블록체인 기반 컨테이너 부두 간 반출입증 통합발급 프로젝트 참여<br>
+                    - LG U+ 클라우드 환경에서 블록체인 네트워크 구성 및 시스템 개발<br>
+                    - 부두 간 반출입증 정보 공유 및 통합 관리를 위한 블록체인 연동 모듈 개발<br>
+                </div>
+              </div>
+              <div class="project-item">
+                <div class="project-title">블록체인 기반 검색엔진 개발</div>
+                <div class="project-desc">
+                    - Elasticsearch와 Hyperledger Fabric을 연동하여 블록체인 데이터 검색 시스템 개발<br>
+                    - 블록체인 원장의 데이터 인덱싱 및 검색 기능 구현<br>
+                </div>
+              </div>
+              <div class="project-item">
+                <div class="project-title">Hycon 지갑 서버/클라이언트 개발</div>
+                <div class="project-desc">
+                    - 특정 블록체인(Hycon)의 지갑 서버(Node.js) 및 클라이언트(Electron + Vue.js) 개발<br>
+                    - Hycon 블록체인 연동을 위한 SDK 개발 및 기술 문서 작성<br>
+                </div>
+              </div>
+              <div class="project-item">
+                <div class="project-title">Telegram 챗봇 시스템 개발 및 운영</div>
+                <div class="project-desc">
+                    - Telegram 챗봇을 활용한 외국인 대상 커뮤니케이션 지원 (번역 기능 도입)<br>
+                </div>
+              </div>
+              <div class="project-item">
+                <div class="project-title">서비스 장애 및 거래소 시세 정보 실시간 알림 기능 개발</div>
+                <div class="project-desc">
+                    - 보도국 사이트 위젯 데이터 제공 API 개발<br>
+                    - 보도국 사이트 위젯에 필요한 환율 정보 및 코인 시세 정보를 제공하는 API 개발 및 운영<br>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <div class="timeline-date">2017.05 - 2018.03</div>
+            <h3 class="timeline-title">francosy</h3>
+            <div class="timeline-projects">
+              <div class="project-item">
+                <div class="project-title">웹 서비스 개발, 유지보수 및 리뉴얼</div>
+                <div class="project-desc">
+                    - PHP 기반 레거시 서비스의 유지보수 및 기능 개선 담당<br>
+                    - 비 반응형 웹사이트를 반응형 웹사이트로 전면 수정하여 사용자 경험 향상<br>
+                    - 기존 PHP 기반 서비스를 Node.js 기반으로 마이그레이션 및 시스템 리뉴얼 프로젝트 참여<br>
+                    - 사용 기술: PHP, Node.js
+                </div>
+              </div>
+              <div class="project-item">
+                <div class="project-title">데이터 수집 자동화 (크롤러 제작)</div>
+                <div class="project-desc">
+                    - 다양한 외부 채널의 데이터 수집 자동화 시스템 개발 (크롤러 제작)<br>
+                    - 특정 브랜드 마케팅 및 트렌드 분석을 위한 인스타그램 이미지 크롤러 개발<br>
+                    - 패션/의류 사업 운영을 위한 신상마켓 제품 데이터 크롤러 개발<br>
+                    - 제품 리오더/신상 주문 의사결정 지원을 위한 기상청 날씨 데이터 크롤러 개발<br>
+                    - 사용 기술: Python
+                </div>
+              </div>
+              <div class="project-item">
+                <div class="project-title">데이터 분석 및 비즈니스 로직 자동화 프로그램 개발</div>
+                <div class="project-desc">
+                    - VB(Visual Basic)를 활용한 엑셀 기반 데이터 분석 프로그램 개발<br>
+                    - Python을 활용한 판매/매출 데이터 관리 및 분석 프로그램 개발<br>
+                    - 반품, 리오더 등 재고/물류 관리 자동화 프로그램 개발 - 포스기기 API 연동<br>
+                    - 사용 기술: VB, Python
+                </div>
+              </div>
+              <div class="project-item">
+                <div class="project-title">업무 프로세스 개선 및 시스템 구축</div>
+                <div class="project-desc">
+                    - 매장과 본사 간 구매 프로세스 개선을 위한 시스템 구축<br>
+                    - 신상마켓 제품을 매장에서 직접 조회하고 주문할 수 있는 쇼핑몰 형태의 매장 주문 시스템 개발<br>
+                    - 사용 기술: Express, Nuxt.js, MySQL
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <div class="timeline-date">2016.01 - 2017.04</div>
+            <h3 class="timeline-title">Jaem</h3>
+            <div class="timeline-projects">
+              <div class="project-item">
+                <div class="project-title">대규모 크롤링 시스템 구축 및 운영</div>
+                <div class="project-desc">
+                    - 범용/커스텀 크롤러 개발: 다양한 쇼핑몰 데이터 수집을 위해 URL 분석 기반의 쇼핑몰 호스팅 분류, 제품 키 생성, 데이터 압축 알고리즘 등을 포함한 범용 및 커스텀 크롤러를 Python으로 개발.<br>
+                    - 데이터 전처리 및 가공 파이프라인 구축: 수집된 의류 데이터의 사이즈 표기 통일 등 표준화된 포맷으로 가공하고 저장하는 전처리 시스템 설계 및 구현.<br>
+                    - 크롤러 개발 프레임워크 개발: 비전공자도 쉽게 크롤러 개발이 가능하도록 Bash 스크립트 및  Python 기반의 프레임워크를 설계 및 구축하여 개발 생산성 향상.<br>
+                    - 웹 분석 및 검수 툴 개발: 크롬 확장 프로그램 형태로 웹 분석 툴을 개발하여 크롤링 대상 사이트 분석 및 수집 데이터 검증 프로세스 지원.<br>
+                    - 데이터베이스 시스템 관리 및 마이그레이션: 초기 MariaDB 및 MongoDB 기반 데이터 스토리지 운영 중, MongoDB 보안 취약점 및 RDB 스케일링 한계를 극복하기 위해 DynamoDB와 HBase로 데이터베이스를 마이그레이션하고 안정적인 데이터 저장 환경 구축.<br>
+                </div>
+              </div>
+              <div class="project-item">
+                <div class="project-title">내부 데이터 관리 및 검수 시스템 구축</div>
+                <div class="project-desc">
+                    - 의류 데이터 관리 프로그램 개발: 월 수백만원에 달하는 외부 데이터 구매 비용 절감을 위해 의류 데이터를 효과적으로 관리할 수 있는 내부 관리 프로그램 개발. 초기 웹 기반 개발에서 웹 브라우저 호환성 문제 해결 및 OS 독립성 확보를 위해 Python(PyQT) 기반 데스크톱 애플리케이션으로 재개발 및 배포.<br>
+                    - 데이터 검수 및 확인 웹 페이지/툴 개발: 수집 및 가공된 데이터를 관리하고 검수하기 위한 내부 웹 페이지 개발. 크롬 확장 프로그램을 연동하여 실제 웹사이트와 수집 데이터를 직접 비교하며 검수할 수 있는 기능 구현.<br>
+                    - 주요 기술: Python (PyQT), Web (HTML, CSS, JavaScript), Chrome Extension<br>
+                </div>
+              </div>
+              <div class="project-item">
+                <div class="project-title">추천 서비스 API 서버 개발 및 운영</div>
+                <div class="project-desc">
+                    - 추천 데이터 제공 API 개발: 크롤링 및 전처리된 데이터를 분석하여 사용자에게 의류 추천 결과를 제공하는 RESTful API 서버 개발. 초기 빠른 응답 속도를 위해 aiohttp 기반으로 개발하였으나, 안정성 및 장기 유지보수 효율성 확보를 위해 Node.js 기반으로 리팩토링 및 전환.<br>
+                    - 주요 기술: Python (aiohttp), Node.js, RESTful API<br>
+                </div>
+              </div>
+              <div class="project-item">
+                <div class="project-title">기타 지원 시스템 및 페이지 개발</div>
+                <div class="project-desc">
+                    - 테스트 환경 구축: Cafe24 호스팅을 활용하여 추천 API 및 크롤링 시스템 테스트를 위한 실제 쇼핑몰 환경 구축.<br>
+                    - 랜딩 페이지 개발: 서비스 홍보 및 정보 제공을 위한 랜딩 페이지 개발.<br>
+                    - 데모데이 행사 페이지 개발: 서비스 데모데이 행사에서 활용될 통계 데이터 시각화 페이지를 D3.js를 활용하여 개발.<br>
+                    - 주요 기술: Cafe24, HTML, CSS, JavaScript, D3.js<br>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="growth-story" class="growth-story">
+    <div class="container">
+      <div class="section-title">
+        <h2>성장 스토리</h2>
+      </div>
+      <div class="growth-timeline">
+        <div class="growth-card">
+          <div class="growth-year">2012 ~</div>
+          <div class="growth-title">지식 공유와 커뮤니티</div>
+          <div class="growth-desc">강의, 저서, 오픈소스, 블로그 등 다양한 방식으로 지식을 나누며, 개발자로서의 영향력을 확장.</div>
+        </div>
+
+        <div class="growth-card">
+          <div class="growth-year">2015 ~</div>
+          <div class="growth-title">데이터/자동화 그리고 자연어 처리에 눈뜨다</div>
+          <div class="growth-desc">다양한 크롤러와 데이터 파이프라인을 직접 설계하며, 데이터 기반 문제 해결의 재미와 중요성을 깨달음. word2vec 등 자연어 처리에 관심을 가지기
+            시작</div>
+        </div>
+        <div class="growth-card">
+          <div class="growth-year">2017 ~</div>
+          <div class="growth-title">신기술과 아키텍처 도전</div>
+          <div class="growth-desc">블록체인, AI, MLOps, IaC 등 최신 기술을 빠르게 습득하고, 실무에 적용하며 성장.</div>
+        </div>
+        <div class="growth-card">
+          <div class="growth-year">2019 ~</div>
+          <div class="growth-title">대규모 서비스와 인프라 경험</div>
+          <div class="growth-desc">거래소, 금융, 블록체인 등 실서비스 백엔드/인프라를 구축하며, 대규모 트래픽과 장애 대응, DevOps의 필요성을 체감.</div>
+        </div>
+        <div class="growth-card">
+          <div class="growth-year">2019 ~</div>
+          <div class="growth-title">리더십과 협업</div>
+          <div class="growth-desc">팀 리딩, 멘토링, 디자인 시스템 도입 등 협업과 리더십 경험을 통해 더 큰 임팩트를 만들어냄.</div>
+        </div>
+        <div class="growth-card">
+          <div class="growth-year">2024 ~</div>
+          <div class="growth-title">인공지능과 에이전트</div>
+          <div class="growth-desc">인공지능과 에이전트를 활용한 문제 해결, 자동화 시스템 구축.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="projects">
+    <div class="container">
+      <div class="section-title">
+        <h2>프로젝트</h2>
+      </div>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-card-content">
+            <div class="project-card-title">nestjs 프로젝트 보일러 플레이트</div>
+            <div class="project-card-desc">nestjs 프로젝트 보일러 플레이트, nestjs 프로젝트 보일러 플레이트 설계, 구현, 테스트.</div>
+            <div class="project-card-links">
+              <a href="https://github.com/pjt3591oo/nest-architecture-layout" target="_blank"
+                class="project-link-btn"><i class="fas fa-blog"></i> 저장소</a>
+              <!-- <a href="https://youtube.com/yourvideo" target="_blank" class="project-link-btn"><i class="fab fa-youtube"></i> YouTube</a> -->
+            </div>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-card-content">
+            <div class="project-card-title">WebRTC 기반 화상 채팅 PoC</div>
+            <div class="project-card-desc">WebRTC 기반 화상 채팅 시스템 구축. 화상 채팅 시스템 설계, 구현, 테스트.</div>
+            <div class="project-card-links">
+              <a href="https://blog.naver.com/pjt3591oo/222645733090" target="_blank" class="project-link-btn"><i
+                  class="fas fa-blog"></i> 블로그 1편</a>
+              <a href="https://blog.naver.com/pjt3591oo/222646463734" target="_blank" class="project-link-btn"><i
+                  class="fas fa-blog"></i> 블로그 2편</a>
+              <!-- <a href="https://youtube.com/yourvideo" target="_blank" class="project-link-btn"><i class="fab fa-youtube"></i> YouTube</a> -->
+            </div>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-card-content">
+            <div class="project-card-title">mlops 구축 & 데이터 파이프라인</div>
+            <div class="project-card-desc">mlops 구축. 모델 학습 및 배포 자동화.</div>
+            <div class="project-card-links">
+              <a href="https://blog.naver.com/pjt3591oo/222760459902" target="_blank" class="project-link-btn"> argocd +
+                github actions</a>
+              <a href="https://blog.naver.com/pjt3591oo/222517292174" target="_blank" class="project-link-btn">
+                airflow</a>
+              <a href="https://blog.naver.com/pjt3591oo/221619310268" target="_blank" class="project-link-btn"> ELK</a>
+              <a href="https://blog.naver.com/pjt3591oo/222724676035" target="_blank" class="project-link-btn">
+                Spark</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-card-content">
+            <div class="project-card-title">CI/CD 파이프라인 구축</div>
+            <div class="project-card-desc">CI/CD 파이프라인 구축, 배포 자동화.</div>
+            <div class="project-card-links">
+              <a href="https://blog.naver.com/pjt3591oo/223194521702" target="_blank" class="project-link-btn"><i
+                  class="fas fa-blog"></i> NCP CI/CD</a>
+              <a href="https://blog.naver.com/pjt3591oo/222437276868" target="_blank" class="project-link-btn"><i
+                  class="fas fa-blog"></i> github actions + s3</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-card-content">
+            <div class="project-card-title">채팅 어플리케이션</div>
+            <div class="project-card-desc">채팅 어플리케이션 개발, 배포.</div>
+            <div class="project-card-links">
+              <a href="https://blog.naver.com/pjt3591oo/222494203552" target="_blank" class="project-link-btn"><i
+                  class="fas fa-blog"></i> 블로그</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-card-content">
+            <div class="project-card-title">AI 기반 깃허브 분석 프로젝트</div>
+            <div class="project-card-desc">AI 기반 깃허브 분석 프로젝트, 깃허브 프로젝트 분석, 프로젝트 추천.</div>
+            <div class="project-card-links">
+              <a href="https://developer-evaluation-tool.vercel.app/" target="_blank" class="project-link-btn"> 페이지</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-card-content">
+            <div class="project-card-title">RAG를 활용한 블로그 검색 시스템</div>
+            <div class="project-card-desc">RAG를 활용한 블로그 검색 시스템, 블로그 검색 시스템 설계, 구현, 테스트.</div>
+            <div class="project-card-links">
+              <a href="https://github.com/pjt3591oo/blog-rag" target="_blank" class="project-link-btn"> 저장소</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-card-content">
+            <div class="project-card-title">프레임워크 & 라이브러리 개발</div>
+            <div class="project-card-desc">자주 사용했던 프레임워크 & 라이브러리 동작원리 이해를 위한 간단한 프로젝트</div>
+            <div class="project-card-links">
+              <a href="https://github.com/pjt3591oo/mungpress" target="_blank" class="project-link-btn">
+                mungpress(express) </a>
+              <a href="https://github.com/pjt3591oo/mini_react" target="_blank" class="project-link-btn">
+                mini-react(react)</a>
+              <a href="https://github.com/pjt3591oo/nestpy" target="_blank" class="project-link-btn"> nestpy(nestjs)</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="npm-packages" class="npm-packages">
+    <div class="container">
+      <div class="section-title">
+        <h2>npm 패키지</h2>
+      </div>
+
+      <div class="npm-packages-list">
+        <div class="npm-package-card">
+          <div class="npm-package-header">
+            <a href="https://www.npmjs.com/package/@namulabsdev/farcaster-sdk" target="_blank"
+              class="npm-package-name">@namulabsdev/farcaster-sdk</a>
+            <img src="https://img.shields.io/npm/v/@namulabsdev/farcaster-sdk?color=2563eb" alt="npm version" />
+          </div>
+          <div class="npm-package-desc">
+            Farcaster SDK<br>
+            <span class="npm-package-meta">2024, 나무랩스</span>
+          </div>
+        </div>
+
+        <div class="npm-package-card">
+          <div class="npm-package-header">
+            <a href="https://www.npmjs.com/package/storybook-ghpage-deploy" target="_blank"
+              class="npm-package-name">storybook-ghpage-deploy</a>
+            <img src="https://img.shields.io/npm/v/storybook-ghpage-deploy?color=2563eb" alt="npm version" />
+          </div>
+          <div class="npm-package-desc">
+            깃허브 페이지를 통해 storybook을 배포하는 샘플<br>
+            <span class="npm-package-meta">2022, 박정태</span>
+          </div>
+        </div>
+        <div class="npm-package-card">
+          <div class="npm-package-header">
+            <a href="https://www.npmjs.com/package/mungrever" target="_blank" class="npm-package-name">mungrever</a>
+            <img src="https://img.shields.io/npm/v/mungrever?color=2563eb" alt="npm version" />
+          </div>
+          <div class="npm-package-desc">
+            forever 형태의 프로세스 관리 도구<br>
+            <span class="npm-package-meta">2022, 박정태</span>
+          </div>
+        </div>
+
+        <div class="npm-package-card">
+          <div class="npm-package-header">
+            <a href="https://www.npmjs.com/package/orderbook-match-engine" target="_blank"
+              class="npm-package-name">orderbook-match-engine</a>
+            <img src="https://img.shields.io/npm/v/orderbook-match-engine?color=2563eb" alt="npm version" />
+          </div>
+          <div class="npm-package-desc">
+            오더북 매칭 엔진<br>
+            <span class="npm-package-meta">2022, 박정태</span>
+          </div>
+        </div>
+
+        <div class="npm-package-card">
+          <div class="npm-package-header">
+            <a href="https://www.npmjs.com/package/@dominantlab/clt-blockchain-sdk" target="_blank"
+              class="npm-package-name">@dominantlab/clt-blockchain-sdk</a>
+            <img src="https://img.shields.io/npm/v/@dominantlab/clt-blockchain-sdk?color=2563eb" alt="npm version" />
+          </div>
+          <div class="npm-package-desc">
+            SDK for IO-Blockchain(IOB)<br>
+            <span class="npm-package-meta">2019, 도미넌트랩</span>
+          </div>
+        </div>
+
+        <div class="npm-package-card">
+          <div class="npm-package-header">
+            <a href="https://www.npmjs.com/package/@mung-office/redux-socket" target="_blank"
+              class="npm-package-name">@mung-office/redux-socket</a>
+            <img src="https://img.shields.io/npm/v/@mung-office/redux-socket?color=2563eb" alt="npm version" />
+          </div>
+          <div class="npm-package-desc">
+            redux 기반의 소켓 연동 라이브러리<br>
+            <span class="npm-package-meta">2020, 박정태</span>
+          </div>
+        </div>
+
+        <div class="npm-package-card">
+          <div class="npm-package-header">
+            <a href="https://www.npmjs.com/package/@mung-office/calendar" target="_blank"
+              class="npm-package-name">@mung-office/calendar</a>
+            <img src="https://img.shields.io/npm/v/@mung-office/calendar?color=2563eb" alt="npm version" />
+          </div>
+          <div class="npm-package-desc">
+            캘린더 컴포넌트<br>
+            <span class="npm-package-meta">2022, 박정태</span>
+          </div>
+        </div>
+
+        <div class="npm-package-card">
+          <div class="npm-package-header">
+            <a href="https://www.npmjs.com/package/@flescompany/design-system" target="_blank"
+              class="npm-package-name">@flescompany/design-system</a>
+            <img src="https://img.shields.io/npm/v/@flescompany/design-system?color=2563eb" alt="npm version" />
+          </div>
+          <div class="npm-package-desc">
+            React 기반 디자인 시스템 UI 컴포넌트 라이브러리<br>
+            <span class="npm-package-meta">2021, fles</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pypi-packages" class="pypi-packages">
+    <div class="container">
+      <div class="section-title">
+        <h2>PyPI 패키지</h2>
+      </div>
+      <div class="pypi-packages-list">
+        <div class="pypi-package-card">
+          <div class="pypi-package-header">
+            <a href="https://pypi.org/project/bpb/" target="_blank" class="pypi-package-name">bpb</a>
+            <img src="https://img.shields.io/pypi/v/bpb?color=2563eb" alt="pypi version" />
+          </div>
+          <div class="pypi-package-desc">
+            마크다운 문서를 파싱하여 네이버 블로그 포스팅 봇<br>
+            <span class="pypi-package-meta">PyPI, 박정태</span>
+          </div>
+        </div>
+        <div class="pypi-package-card">
+          <div class="pypi-package-header">
+            <a href="https://pypi.org/project/EITRI/" target="_blank" class="pypi-package-name">EITRI</a>
+            <img src="https://img.shields.io/pypi/v/EITRI?color=2563eb" alt="pypi version" />
+          </div>
+          <div class="pypi-package-desc">
+            SDK for IO-Blockchain(IOB) <br>
+            <span class="pypi-package-meta">PyPI, 박정태</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="publications" class="publications">
+    <div class="container">
+      <div class="section-title">
+        <h2>저서/출판</h2>
+      </div>
+      <div class="publications-list">
+        <div class="publication-card">
+          <div class="publication-cover">
+            <img src="./images/nft_book.jpg" alt="이토록 쉬운 NFT 개발 스타터 팩"
+              style="width:100%;height:100%;object-fit:cover;" />
+          </div>
+          <div class="publication-content">
+            <div class="publication-title">이토록 쉬운 NFT 개발 스타터 팩</div>
+            <div class="publication-date">2022.06</div>
+            <div class="publication-desc">NFT 개발의 기초부터 실전까지, 실습 중심의 입문서</div>
+            <a class="publication-link" href="https://product.kyobobook.co.kr/detail/S000061353476"
+              target="_blank">교보문고에서 보기</a>
+          </div>
+        </div>
+        <div class="publication-card">
+          <div class="publication-cover">
+            <img src="./images/blockchain_book.jpg" alt="블록체인 프로젝트" style="width:100%;height:100%;object-fit:cover;" />
+          </div>
+          <div class="publication-content">
+            <div class="publication-title">블록체인 프로젝트</div>
+            <div class="publication-date">2019.07</div>
+            <div class="publication-desc">실전 블록체인 서비스 구축 경험과 노하우를 담은 책</div>
+            <a class="publication-link" href="https://product.kyobobook.co.kr/detail/S000000833233"
+              target="_blank">교보문고에서 보기</a>
+          </div>
+        </div>
+        <div class="publication-card">
+          <div class="publication-cover">
+            <img src="./images/js_book.jpg" alt="자바스크립트로 서버와 클라이언트 구축하기"
+              style="width:100%;height:100%;object-fit:cover;" />
+          </div>
+          <div class="publication-content">
+            <div class="publication-title">자바스크립트로 서버와 클라이언트 구축하기</div>
+            <div class="publication-date">2018.06</div>
+            <div class="publication-desc">Node.js와 JS로 풀스택 개발을 경험할 수 있는 실전서</div>
+            <a class="publication-link" href="https://product.kyobobook.co.kr/detail/S000000833207"
+              target="_blank">교보문고에서 보기</a>
+          </div>
+        </div>
+        <div class="publication-card">
+          <div class="publication-cover">
+            <img src="./images/python_crawler_book.jpg" alt="파이썬으로 배우는 웹 크롤러"
+              style="width:100%;height:100%;object-fit:cover;" />
+          </div>
+          <div class="publication-content">
+            <div class="publication-title">파이썬으로 배우는 웹 크롤러</div>
+            <div class="publication-date">2018.01</div>
+            <div class="publication-desc">파이썬으로 웹 크롤러를 쉽고 빠르게 개발하는 방법</div>
+            <a class="publication-link" href="https://product.kyobobook.co.kr/detail/S000000833198"
+              target="_blank">교보문고에서 보기</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="blog-series" class="blog-series">
+    <div class="container">
+      <div class="section-title">
+        <h2>블로그 시리즈</h2>
+      </div>
+      <div class="blog-series-list">
+        <div class="blog-series-card">
+          <a href="https://www.notion.so/54f074c28203490586ee90325c5a4813" target="_blank"
+            class="blog-series-title">네트워크</a>
+        </div>
+        <div class="blog-series-card">
+          <a href="https://www.notion.so/381cbb45c07f4de9b7f720ace18d33be" target="_blank" class="blog-series-title">핀테크
+            서비스 벡엔드 개발자가 알려주는 시리즈 - 인증인가 편</a>
+        </div>
+        <div class="blog-series-card">
+          <a href="https://www.notion.so/b793d304661d42bbad2a736495170712" target="_blank" class="blog-series-title">분산
+            환경 메시지 처리</a>
+        </div>
+        <div class="blog-series-card">
+          <a href="https://www.notion.so/0116288994884e719b05813498feb8e8" target="_blank"
+            class="blog-series-title">IAC</a>
+        </div>
+        <div class="blog-series-card">
+          <a href="https://www.notion.so/e05b891eb07e4e17bf4e82b24da42e3b" target="_blank"
+            class="blog-series-title">스프링부트 시작하기</a>
+        </div>
+        <div class="blog-series-card">
+          <a href="https://www.notion.so/blockchain-14b6635f37e680768063fee7775e8289" target="_blank"
+            class="blog-series-title">블록체인 시리즈</a>
+        </div>
+        <div class="blog-series-card">
+          <a href="https://www.notion.so/Agent-14b6635f37e68024a43fdfa3d4582ba4" target="_blank"
+            class="blog-series-title">Agent 시리즈</a>
+        </div>
+        <div class="blog-series-card">
+          <a href="https://www.notion.so/1db6635f37e6806dafc4dac3965e4b74" target="_blank" class="blog-series-title">멍개의
+            회고록</a>
+        </div>
+        <div class="blog-series-card">
+          <a href="https://sponge-palm-382.notion.site/1de6635f37e680e5820eea39cf5c51b7?pvs=73" target="_blank"
+            class="blog-series-title">시스템 설계</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="lecture" class="lecture">
+    <div class="container">
+      <div class="section-title">
+        <h2>강의</h2>
+      </div>
+      <div class="blog-list">
+        <div class="blog-card">
+          <div class="blog-card-content">
+            <div class="blog-card-title">인공지능 시대에서 살아남기</div>
+            <div class="blog-card-date">2025.01.10</div>
+            <div class="blog-card-desc">세경고등학교</div>
+          </div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-card-content">
+            <div class="blog-card-title">블록체인 NFT 과정</div>
+            <div class="blog-card-date">2022.10.26 ~ 2022.10.28</div>
+            <div class="blog-card-desc">코스콤</div>
+          </div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-card-content">
+            <div class="blog-card-title">2022 블록체인 NFT 과정</div>
+            <div class="blog-card-date">2022.07.31 ~ 2022.10.15</div>
+            <div class="blog-card-desc">한국디지털융합진흥원</div>
+          </div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-card-content">
+            <div class="blog-card-title">웹 어플리케이션개발 자바스크립트 및 jQuery 실무</div>
+            <div class="blog-card-date">2022.06.18 ~ 2022.06.25</div>
+            <div class="blog-card-desc">한국소프트웨어기술진흥협회</div>
+          </div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-card-content">
+            <div class="blog-card-title">이더리움 ERC20, ERC721을 활용한 NFT 만들기</div>
+            <div class="blog-card-date">2021.12.22 ~ 2021.12.24</div>
+            <div class="blog-card-desc">패스트캠퍼스 - 신용보증기금</div>
+          </div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-card-content">
+            <div class="blog-card-title">2021년도 ICT Code Academy 블록체인 교육과정<br>리엑트 기반의 ERC20 토큰 지갑, ERC721 NFT 생성기 만들기
+            </div>
+            <div class="blog-card-date">2021.07 ~ 2021.10</div>
+            <div class="blog-card-desc">한국디지털융합진흥원</div>
+          </div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-card-content">
+            <div class="blog-card-title">블록체인(이더리움) 개발입문 과정</div>
+            <div class="blog-card-date">2021.06 ~ 2021.07</div>
+            <div class="blog-card-desc">패스트캠퍼스 - KB증권</div>
+          </div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-card-content">
+            <div class="blog-card-title">지역 ICT이노베이션스퀘어 운영 사업(블록체인)<br>이더리움을 활용한 dApp개발, 운용과정</div>
+            <div class="blog-card-date">2020.10 ~ 2020.12</div>
+            <div class="blog-card-desc">한국디지털융합진흥원</div>
+          </div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-card-content">
+            <div class="blog-card-title">데이터 분석 기초</div>
+            <div class="blog-card-date">2020.11.18</div>
+            <div class="blog-card-desc">서울시 교육청</div>
+          </div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-card-content">
+            <div class="blog-card-title">빅데이터 분석을 위한 웹 크롤러 개발 & node.js로 만들어보는 쇼핑몰 구축 프로젝트</div>
+            <div class="blog-card-date">2017.05 ~ 2020.09</div>
+            <div class="blog-card-desc">코딩애플</div>
+          </div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-card-content">
+            <div class="blog-card-title">혁신성장 청년인재 집중양성 사업<br>블록체인 시스템 엔지니어 양성과정</div>
+            <div class="blog-card-date">2019.06 ~ 2019.11</div>
+            <div class="blog-card-desc">MOB 코리아, fn노에듀</div>
+          </div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-card-content">
+            <div class="blog-card-title">Ethereum, Hyperledger Fabric 기반의 App 개발</div>
+            <div class="blog-card-date">2018.05 ~ 2019.05</div>
+            <div class="blog-card-desc">패스트 캠퍼스</div>
+          </div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-card-content">
+            <div class="blog-card-title">서울핀테크아카데미 (블록체인 동향 및 보안관점)</div>
+            <div class="blog-card-date">2020.10.31, 2019.10.19, 2019.06.22</div>
+            <div class="blog-card-desc">금융투자교육원</div>
+          </div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-card-content">
+            <div class="blog-card-title">개발자 관점에서 바라본 블록체인</div>
+            <div class="blog-card-date">2018.11.12</div>
+            <div class="blog-card-desc">동양미래대학</div>
+          </div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-card-content">
+            <div class="blog-card-title">Ethereum을 활용한 Dapp개발 프로젝트</div>
+            <div class="blog-card-date">2018.11.11 ~ 2018.12.15, 2018.04.03 ~ 2018.04.04, 2019.07.25, 2019.03.12,
+              2018.10.11, 2018.03.29 ~ 2018.03.30</div>
+            <div class="blog-card-desc">YAPP 연합동아리, 신한은행 데이터시스템, Kisa</div>
+          </div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-card-content">
+            <div class="blog-card-title">꿈, 희망, 진로</div>
+            <div class="blog-card-date">2018.09.21</div>
+            <div class="blog-card-desc">세경고등학교</div>
+          </div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-card-content">
+            <div class="blog-card-title">블록체인 기초개념 및 원리</div>
+            <div class="blog-card-date">2018.06.15</div>
+            <div class="blog-card-desc">세경고등학교</div>
+          </div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-card-content">
+            <div class="blog-card-title">프로그래밍 기초 - 파이썬 활용</div>
+            <div class="blog-card-date">2017.04.09</div>
+            <div class="blog-card-desc">세경고등학교</div>
+          </div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-card-content">
+            <div class="blog-card-title">대학생활 및 취업/창업</div>
+            <div class="blog-card-date">2016.08.25</div>
+            <div class="blog-card-desc">세경고등학교</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="container">
+      <div class="section-title">
+        <h2>Contact</h2>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <i class="fas fa-envelope"></i>
+          <h3>Email</h3>
+          <p><a href="mailto:pjt3591oo@gmail.com" class="contact-link">pjt3591oo@gmail.com</a></p>
+        </div>
+        <div class="contact-card">
+          <i class="fas fa-envelope"></i>
+          <h3>Email</h3>
+          <p><a href="mailto:pjt3591oo@naver.com" class="contact-link">pjt3591oo@naver.com</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-content">
+      <div class="footer-social">
+        <a href="https://blog.naver.com/pjt3591oo" target="_blank" title="기술 블로그"><i class="fas fa-blog"></i></a>
+        <a href="https://github.com/pjt3591oo" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://stackoverflow.com/users/8667760/멍개-mung" target="_blank" title="Stack Overflow"><i
+            class="fab fa-stack-overflow"></i></a>
+      </div>
+      <p class="footer-copyright">&copy; 2025 박정태(멍개). All rights reserved.</p>
+    </div>
+  </footer>
+
+
 </body>
+
 </html>
