@@ -845,6 +845,9 @@
       .timeline-item:nth-child(even) {
         left: 0;
       }
+      .timeline-item:nth-child(even)::after {
+        left: 16px;
+      }
 
       .timeline-item::after {
         left: 15px;
@@ -910,6 +913,7 @@
       .blog-list {
         grid-template-columns: 1fr;
       }
+
     }
 
     @media (max-width: 480px) {
