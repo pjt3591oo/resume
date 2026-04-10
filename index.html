@@ -1,2744 +1,1991 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-theme="dark">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>박정태(멍개) - 개발자 포트폴리오</title>
+  <title>박정태(멍개) — Resume.app</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github.min.css">
   <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
   <style>
+    /* ============ CSS VARIABLES ============ */
     :root {
-      /* 메인 색상 */
-      --primary-color: #4f46e5;
-      --primary-light: #818cf8;
-      --primary-dark: #3730a3;
+      --sf: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
+        "Helvetica Neue", "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
+      --sf-mono: "SF Mono", ui-monospace, Menlo, Monaco, "Cascadia Code",
+        "Courier New", monospace;
 
-      /* 중립 색상 */
-      --bg-color: #f8fafc;
-      --text-color: #1e293b;
-      --secondary-color: #64748b;
-      --light-gray: #e2e8f0;
-      --dark-gray: #475569;
-      --white: #ffffff;
+      /* traffic lights */
+      --tl-red: #ff5f57;
+      --tl-yellow: #febc2e;
+      --tl-green: #28c840;
 
-      /* 강조 색상 */
-      --highlight: #eef2ff;
-      --success: #10b981;
-      --warning: #f59e0b;
-      --error: #ef4444;
-
-      /* 그림자 */
-      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-
-      /* 트랜지션 */
-      --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-      --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+      /* timing */
+      --ease: cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* 기본 타이포그래피 개선 */
+    html[data-theme="dark"] {
+      --wallpaper: radial-gradient(ellipse at 20% 0%, #3a1f5c 0%, #1a1a3a 40%, #0d0d1f 100%);
+      --menubar-bg: rgba(20, 20, 25, 0.55);
+      --menubar-border: rgba(255, 255, 255, 0.08);
+      --menubar-text: rgba(255, 255, 255, 0.92);
+
+      --window-bg: rgba(30, 30, 36, 0.82);
+      --window-border: rgba(255, 255, 255, 0.09);
+      --window-shadow: 0 30px 80px rgba(0, 0, 0, 0.55), 0 0 0 0.5px rgba(255, 255, 255, 0.08);
+      --titlebar-bg: linear-gradient(180deg, rgba(55, 55, 62, 0.9), rgba(40, 40, 46, 0.9));
+      --titlebar-text: rgba(255, 255, 255, 0.72);
+
+      --sidebar-bg: rgba(38, 38, 44, 0.65);
+      --sidebar-text: rgba(235, 235, 245, 0.72);
+      --sidebar-title: rgba(235, 235, 245, 0.42);
+      --sidebar-hover: rgba(255, 255, 255, 0.06);
+      --sidebar-active: #0a84ff;
+      --sidebar-active-text: #ffffff;
+
+      --content-bg: rgba(28, 28, 32, 0.55);
+      --text: #f5f5f7;
+      --text-2: rgba(235, 235, 245, 0.78);
+      --text-3: rgba(235, 235, 245, 0.55);
+      --divider: rgba(255, 255, 255, 0.08);
+      --card-bg: rgba(48, 48, 54, 0.6);
+      --card-hover: rgba(60, 60, 66, 0.75);
+      --card-border: rgba(255, 255, 255, 0.08);
+
+      --accent: #0a84ff;
+      --accent-2: #bf5af2;
+      --accent-green: #30d158;
+      --accent-orange: #ff9f0a;
+
+      --terminal-bg: rgba(0, 0, 0, 0.55);
+      --terminal-green: #30d158;
+      --terminal-blue: #64d2ff;
+      --terminal-purple: #bf5af2;
+      --terminal-yellow: #ffd60a;
+
+      --dock-bg: rgba(40, 40, 48, 0.55);
+      --dock-border: rgba(255, 255, 255, 0.15);
+    }
+
+    html[data-theme="light"] {
+      --wallpaper: radial-gradient(ellipse at 20% 0%, #b5d8f6 0%, #c8d6ea 40%, #e7d9ef 100%);
+      --menubar-bg: rgba(245, 245, 247, 0.65);
+      --menubar-border: rgba(0, 0, 0, 0.08);
+      --menubar-text: rgba(0, 0, 0, 0.85);
+
+      --window-bg: rgba(246, 246, 248, 0.92);
+      --window-border: rgba(0, 0, 0, 0.12);
+      --window-shadow: 0 30px 80px rgba(0, 0, 0, 0.2), 0 0 0 0.5px rgba(0, 0, 0, 0.08);
+      --titlebar-bg: linear-gradient(180deg, #e8e8ec, #d8d8dc);
+      --titlebar-text: rgba(0, 0, 0, 0.65);
+
+      --sidebar-bg: rgba(236, 236, 240, 0.85);
+      --sidebar-text: rgba(0, 0, 0, 0.72);
+      --sidebar-title: rgba(0, 0, 0, 0.4);
+      --sidebar-hover: rgba(0, 0, 0, 0.06);
+      --sidebar-active: #007aff;
+      --sidebar-active-text: #ffffff;
+
+      --content-bg: rgba(255, 255, 255, 0.75);
+      --text: #1d1d1f;
+      --text-2: rgba(60, 60, 67, 0.85);
+      --text-3: rgba(60, 60, 67, 0.6);
+      --divider: rgba(0, 0, 0, 0.1);
+      --card-bg: rgba(255, 255, 255, 0.75);
+      --card-hover: rgba(255, 255, 255, 1);
+      --card-border: rgba(0, 0, 0, 0.08);
+
+      --accent: #007aff;
+      --accent-2: #af52de;
+      --accent-green: #34c759;
+      --accent-orange: #ff9500;
+
+      --terminal-bg: #1e1e1e;
+      --terminal-green: #30d158;
+      --terminal-blue: #64d2ff;
+      --terminal-purple: #bf5af2;
+      --terminal-yellow: #ffd60a;
+
+      --dock-bg: rgba(255, 255, 255, 0.4);
+      --dock-border: rgba(0, 0, 0, 0.15);
+    }
+
+    /* ============ RESET ============ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
     body {
-      line-height: 1.7;
+      font-family: var(--sf);
+      color: var(--text);
+      background: var(--wallpaper);
+      background-attachment: fixed;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-size: 14px;
+      line-height: 1.55;
       letter-spacing: -0.01em;
-      font-size: 16px;
     }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img { max-width: 100%; display: block; }
+    ul { list-style: none; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      letter-spacing: -0.03em;
-      line-height: 1.3;
-      margin-bottom: 1rem;
-    }
-
-    /* 헤더 스타일 개선 */
-    header {
-      backdrop-filter: blur(12px);
-      background-color: rgba(255, 255, 255, 0.8);
-      border-bottom: 1px solid rgba(226, 232, 240, 0.8);
-    }
-
-    .logo {
-      font-size: 1.25rem;
-      background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-weight: 800;
-    }
-    .black {
-      color: black;
-    }
-    nav ul li a {
-      font-weight: 600;
+    /* ============ DESKTOP ============ */
+    .desktop {
       position: relative;
-      padding: 0.5rem 1rem;
-      transition: var(--transition-normal);
-    }
-
-    nav ul li a::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      width: 0;
-      height: 2px;
-      background: var(--primary-color);
-      transition: var(--transition-normal);
-      transform: translateX(-50%);
-    }
-
-    nav ul li a:hover::after {
-      width: 100%;
-    }
-
-    /* 히어로 섹션 개선 */
-    .hero {
-      background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
-      position: relative;
+      width: 100vw;
+      height: 100vh;
       overflow: hidden;
     }
 
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
-    }
-
-    /* 섹션 타이틀 개선 */
-    .section-title {
-      margin-bottom: 3rem;
-      text-align: center;
-    }
-
-    .section-title h2 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: var(--text-color);
-      position: relative;
-      display: inline-block;
-      padding-bottom: 1rem;
-    }
-
-    .section-title h2::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 4px;
-      background: linear-gradient(to right, var(--primary-color), var(--primary-light));
-      border-radius: 2px;
-    }
-
-    /* 카드 스타일 개선 */
-    .project-card,
-    .blog-card,
-    .publication-card,
-    .npm-package-card,
-    .pypi-package-card {
-      background: var(--white);
-      border-radius: 16px;
-      overflow: hidden;
-      transition: var(--transition-normal);
-      border: 1px solid var(--light-gray);
-    }
-
-    .project-card:hover,
-    .blog-card:hover,
-    .publication-card:hover {
-      transform: translateY(-5px);
-      box-shadow: var(--shadow-lg);
-      border-color: var(--primary-light);
-    }
-
-    /* 버튼 스타일 개선 */
-    .project-link-btn {
-      background: var(--highlight);
-      color: var(--primary-color);
-      font-weight: 600;
-      padding: 0.75rem 1.5rem;
-      border-radius: 8px;
-      transition: var(--transition-normal);
-    }
-
-    .project-link-btn:hover {
-      background: var(--primary-color);
-      color: var(--white);
-    }
-
-    /* 스킬 태그 개선 */
-    .skill-tag {
-      background: var(--white);
-      color: var(--text-color);
-      padding: 0.75rem 1.25rem;
-      border-radius: 8px;
-      font-size: 0.95rem;
-      font-weight: 500;
-      box-shadow: var(--shadow-sm);
-      transition: all 0.2s ease;
-    }
-
-    .skill-tag:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-md);
-      background: var(--primary-color);
-      color: var(--white);
-    }
-
-    /* 타임라인 개선 */
-    .timeline::after {
-      background: linear-gradient(to bottom, var(--primary-light), var(--primary-color));
-      width: 4px;
-      border-radius: 2px;
-    }
-
-    .timeline-content {
-      border-radius: 16px;
-      border: 1px solid var(--light-gray);
-      transition: var(--transition-normal);
-    }
-
-    .timeline-content:hover {
-      border-color: var(--primary-light);
-      box-shadow: var(--shadow-lg);
-    }
-
-    /* 다크 모드 개선 */
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg-color: #0f172a;
-        --text-color: #e2e8f0;
-        --secondary-color: #94a3b8;
-        --light-gray: #1e293b;
-        --dark-gray: #94a3b8;
-        --white: #1e293b;
-        --highlight: #1e40af;
-      }
-
-      header {
-        background-color: rgba(15, 23, 42, 0.8);
-        border-bottom: 1px solid rgba(30, 41, 59, 0.8);
-      }
-
-      .project-card,
-      .blog-card,
-      .publication-card {
-        border: 1px solid var(--light-gray);
-        background: var(--white);
-      }
-    }
-
-    /* 반응형 디자인 개선 */
-    @media (max-width: 768px) {
-      .section-title h2 {
-        font-size: 2rem;
-      }
-
-      .hero h1 {
-        font-size: 2.5rem;
-      }
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    }
-
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      line-height: 1.6;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
-    header {
-      background-color: var(--white);
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    /* ============ MENU BAR ============ */
+    .menubar {
       position: fixed;
-      width: 100%;
-      top: 0;
+      top: 0; left: 0; right: 0;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 14px;
+      background: var(--menubar-bg);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border-bottom: 0.5px solid var(--menubar-border);
+      color: var(--menubar-text);
+      font-size: 13px;
       z-index: 1000;
+      user-select: none;
     }
-
-    .header-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-    }
-
-    .logo {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--primary-color);
-    }
-
-    nav ul {
-      display: flex;
-      list-style: none;
-    }
-
-    nav ul li {
-      margin-left: 2rem;
-    }
-
-    nav ul li a {
-      text-decoration: none;
-      color: var(--secondary-color);
-      font-weight: 500;
-      transition: color 0.3s ease;
-    }
-
-    nav ul li a:hover {
-      color: var(--primary-color);
-    }
-
-    .mobile-menu-btn {
-      display: none;
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      color: var(--secondary-color);
-      cursor: pointer;
-    }
-
-    .hero {
-      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-      color: white;
-      padding: 8rem 0 5rem;
-      margin-top: 64px;
-    }
-
-    .hero-content {
-      display: flex;
-      align-items: top;
-      justify-content: space-between;
-    }
-
-    .hero-text {
-      flex: 1;
-      padding-right: 2rem;
-    }
-
-    .hero-image {
-      flex: 1;
-      text-align: center;
-    }
-
-    .hero-image img {
-      width: 300px;
-      height: 300px;
+    .menubar-left, .menubar-right { display: flex; align-items: center; gap: 16px; }
+    .menubar .apple { font-size: 15px; }
+    .menubar .app-name { font-weight: 600; }
+    .menubar .menu-item { opacity: 0.88; cursor: default; padding: 0 2px; }
+    .menubar .menu-item:hover { opacity: 1; }
+    .menubar-right { gap: 14px; font-size: 12px; }
+    .menubar-right .icon { opacity: 0.88; }
+    .menubar .theme-toggle {
+      width: 22px; height: 22px;
       border-radius: 50%;
-      object-fit: cover;
-      border: 5px solid white;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    }
-
-    .hero h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      font-weight: 700;
-    }
-
-    .hero p {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
-      opacity: 0.9;
-    }
-
-    .hero-tags {
-      display: flex;
-      flex-wrap: wrap;
-      margin-bottom: 2rem;
-    }
-
-    .tag {
-      background-color: rgba(255, 255, 255, 0.2);
-      padding: 0.3rem 0.8rem;
-      border-radius: 100px;
-      margin-right: 0.5rem;
-      margin-bottom: 0.5rem;
-      font-size: 0.9rem;
-    }
-
-    .social-links {
-      display: flex;
-      gap: 1rem;
-    }
-
-    .social-links a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 40px;
-      height: 40px;
-      background-color: rgba(255, 255, 255, 0.2);
-      border-radius: 50%;
-      color: white;
-      text-decoration: none;
-      transition: all 0.3s ease;
-    }
-
-    .social-links a:hover {
-      background-color: white;
-      color: var(--primary-color);
-      transform: translateY(-3px);
-    }
-
-    section {
-      padding: 5rem 0;
-    }
-
-    .about-content {
-      display: flex;
-      align-items: flex-start;
-      gap: 2rem;
-    }
-
-    .about-text {
-      flex: 2;
-    }
-
-    .about-info {
-      flex: 1;
-      background-color: var(--white);
-      border-radius: 10px;
-      padding: 1.5rem;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    }
-
-    .info-item {
-      margin-bottom: 1rem;
-    }
-
-    .info-item .label {
-      color: var(--dark-gray);
-      font-size: 0.9rem;
-      margin-bottom: 0.2rem;
-    }
-
-    .info-item .value {
-      font-weight: 500;
-    }
-
-    .timeline {
-      position: relative;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .timeline::after {
-      content: '';
-      position: absolute;
-      width: 3px;
-      background-color: var(--light-gray);
-      top: 0;
-      bottom: 0;
-      left: 50%;
-      margin-left: -1.5px;
-    }
-
-    .timeline-item {
-      padding: 10px 40px;
-      position: relative;
-      width: 50%;
-      box-sizing: border-box;
-    }
-
-    .timeline-item:nth-child(odd) {
-      left: 0;
-    }
-
-    .timeline-item:nth-child(even) {
-      left: 50%;
-    }
-
-    .timeline-item::after {
-      content: '';
-      position: absolute;
-      width: 16px;
-      height: 16px;
-      right: -8px;
-      background-color: var(--white);
-      border: 3px solid var(--primary-color);
-      top: 18px;
-      border-radius: 50%;
-      z-index: 1;
-    }
-
-    .timeline-item:nth-child(even)::after {
-      left: -8px;
-    }
-
-    .timeline-content {
-      padding: 20px;
-      background-color: var(--white);
-      position: relative;
-      border-radius: 10px;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-    }
-
-    .timeline-date {
-      font-weight: 600;
-      color: var(--primary-color);
-      margin-bottom: 0.5rem;
-    }
-
-    .timeline-title {
-      margin-bottom: 0.5rem;
-    }
-
-    .timeline-subtitle {
-      color: var(--dark-gray);
-      font-size: 0.9rem;
-      margin-bottom: 1rem;
-    }
-
-    .timeline-projects {
-      margin-top: 1rem;
-    }
-
-    .project-item {
-      margin-bottom: 1rem;
-      border-left: 3px solid var(--highlight);
-      padding-left: 1rem;
-    }
-
-    .project-title {
-      font-weight: 600;
-      margin-bottom: 0.25rem;
-    }
-
-    .project-date {
-      font-size: 0.8rem;
-      color: var(--dark-gray);
-      margin-bottom: 0.5rem;
-    }
-
-    .project-desc {
-      font-size: 0.9rem;
-    }
-
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 2rem;
-    }
-
-    .skill-category {
-      background-color: var(--white);
-      border-radius: 10px;
-      padding: 1.5rem;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    }
-
-    .skill-category h3 {
-      margin-bottom: 1rem;
-      color: var(--primary-color);
-      border-bottom: 2px solid var(--light-gray);
-      padding-bottom: 0.5rem;
-    }
-
-    .skill-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .skill-tag {
-      background-color: var(--highlight);
-      color: var(--primary-color);
-      padding: 0.3rem 0.8rem;
-      border-radius: 100px;
-      font-size: 0.9rem;
-      font-weight: 500;
-    }
-
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-      gap: 2rem;
-    }
-
-    .project-card {
-      background-color: var(--white);
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .project-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    }
-
-    .project-card-image {
-      height: 200px;
-      background-size: cover;
-      background-position: center;
-      background-color: var(--light-gray);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--dark-gray);
-    }
-
-    .project-card-content {
-      padding: 1.5rem;
-    }
-
-    .project-card-title {
-      font-size: 1.2rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-    }
-
-    .project-card-date {
-      font-size: 0.8rem;
-      color: var(--dark-gray);
-      margin-bottom: 1rem;
-    }
-
-    .project-card-desc {
-      font-size: 0.9rem;
-      margin-bottom: 1rem;
-    }
-
-    .project-card-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .project-card-tag {
-      background-color: var(--light-gray);
-      color: var(--dark-gray);
-      padding: 0.2rem 0.5rem;
-      border-radius: 4px;
-      font-size: 0.8rem;
-    }
-
-    .publications-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 2rem;
-    }
-
-    .publication-card {
-      background-color: var(--white);
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
-
-    .publication-cover {
-      height: 250px;
-      background-size: cover;
-      background-position: center;
-      background-color: var(--light-gray);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--dark-gray);
-    }
-
-    .publication-content {
-      padding: 1.5rem;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .publication-title {
-      font-size: 1.2rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-    }
-
-    .publication-date {
-      font-size: 0.8rem;
-      color: var(--dark-gray);
-      margin-bottom: 1rem;
-    }
-
-    .publication-desc {
-      font-size: 0.9rem;
-      margin-bottom: 1rem;
-      flex: 1;
-    }
-
-    .publication-link {
-      display: inline-block;
-      text-decoration: none;
-      color: var(--primary-color);
-      font-weight: 500;
-      font-size: 0.9rem;
-      transition: color 0.3s ease;
-    }
-
-    .publication-link:hover {
-      text-decoration: underline;
-    }
-
-    .blog-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 2rem;
-    }
-
-    .blog-card {
-      background-color: var(--white);
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .blog-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    }
-
-    .blog-card-content {
-      padding: 1.5rem;
-    }
-
-    .blog-card-title {
-      font-size: 1.2rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-    }
-
-    .blog-card-date {
-      font-size: 0.8rem;
-      color: var(--dark-gray);
-      margin-bottom: 1rem;
-    }
-
-    .blog-card-desc {
-      font-size: 0.9rem;
-      margin-bottom: 1rem;
-    }
-
-    .blog-card-link {
-      display: inline-block;
-      text-decoration: none;
-      color: var(--primary-color);
-      font-weight: 500;
-      font-size: 0.9rem;
-      transition: color 0.3s ease;
-    }
-
-    .blog-card-link:hover {
-      text-decoration: underline;
-    }
-
-    .contact {
-      background-color: var(--white);
-    }
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 2rem;
-    }
-
-    .contact-card {
-      text-align: center;
-      padding: 2rem;
-      border-radius: 10px;
-      background-color: var(--highlight);
-      transition: transform 0.3s ease;
-    }
-
-    .contact-card:hover {
-      transform: translateY(-5px);
-    }
-
-    .contact-card i {
-      font-size: 2rem;
-      color: var(--primary-color);
-      margin-bottom: 1rem;
-    }
-
-    .contact-card h3 {
-      margin-bottom: 0.5rem;
-      font-size: 1.1rem;
-    }
-
-    .contact-card p {
-      color: var(--secondary-color);
-    }
-
-    .contact-card a {
-      color: var(--primary-color);
-      text-decoration: none;
-    }
-
-    .contact-card a:hover {
-      text-decoration: underline;
-    }
-
-    footer {
-      background-color: var(--secondary-color);
-      color: var(--white);
-      text-align: center;
-      padding: 2rem 0;
-    }
-
-    .footer-content p {
-      margin-bottom: 1rem;
-    }
-
-    .footer-social {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-
-    .footer-social a {
-      color: var(--white);
-      font-size: 1.2rem;
-      transition: color 0.3s ease;
-    }
-
-    .footer-social a:hover {
-      color: var(--highlight);
-    }
-
-    @media (max-width: 1024px) {
-      .timeline::after {
-        left: 31px;
-      }
-
-      .timeline-item {
-        width: 100%;
-        padding-left: 70px;
-        padding-right: 25px;
-      }
-
-      .timeline-item:nth-child(even) {
-        left: 0;
-      }
-      .timeline-item:nth-child(even)::after {
-        left: 16px;
-      }
-
-      .timeline-item::after {
-        left: 15px;
-        right: auto;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .header-container {
-        flex-direction: row;
-        padding: 1rem 1rem;
-      }
-
-      .mobile-menu-btn {
-        display: block;
-        margin-left: auto;
-      }
-
-      nav ul {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100vw;
-        background-color: var(--white);
-        flex-direction: column;
-        padding: 1rem 0;
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-        z-index: 2000;
-      }
-
-      nav ul.show {
-        display: flex;
-      }
-
-      nav ul li {
-        margin: 0;
-        padding: 0.7rem 2rem;
-        text-align: left;
-      }
-
-      .hero-content {
-        flex-direction: column-reverse;
-        text-align: top;
-      }
-
-      .hero-text {
-        padding-right: 0;
-        margin-top: 2rem;
-      }
-
-      .hero-tags,
-      .social-links {
-        justify-content: center;
-      }
-
-      .about-content {
-        flex-direction: column;
-      }
-
-      .projects-grid,
-      .publications-list,
-      .blog-list {
-        grid-template-columns: 1fr;
-      }
-
-    }
-
-    @media (max-width: 480px) {
-      .hero h1 {
-        font-size: 2rem;
-      }
-
-      .hero p {
-        font-size: 1rem;
-      }
-
-      .section-title h2 {
-        font-size: 1.7rem;
-      }
-    }
-
-    /* Dark Mode */
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --primary-color: #3b82f6;
-        --secondary-color: #94a3b8;
-        --bg-color: #0f172a;
-        --text-color: #e2e8f0;
-        --light-gray: #1e293b;
-        --dark-gray: #94a3b8;
-        --white: #1e293b;
-        --highlight: #1e40af;
-      }
-
-      .header-container {
-        background-color: #0f172a;
-      }
-
-      header {
-        background-color: #0f172a;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-      }
-
-      .skill-tag {
-        background-color: #1e293b;
-        color: #60a5fa;
-      }
-
-      .timeline::after {
-        background-color: #334155;
-      }
-
-      .contact {
-        background-color: #1e293b;
-      }
-
-      .contact-card {
-        background-color: #0f172a;
-      }
-
-      footer {
-        background-color: #0f172a;
-      }
-    }
-
-    .about-growth {
-      margin-top: 2rem;
-      background: var(--white);
-      border-radius: 10px;
-      padding: 2rem;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    }
-
-    .growth-list {
-      list-style: none;
-      padding: 0;
-    }
-
-    .growth-list li {
-      margin-bottom: 1.5rem;
-      font-size: 1.05rem;
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-    }
-
-    .growth-list i {
-      font-size: 1.5rem;
-      color: var(--primary-color);
-      margin-top: 0.2rem;
-      min-width: 2rem;
-    }
-
-    .about-problem-solving {
-      margin-top: 2rem;
-      background: var(--white);
-      border-radius: 10px;
-      padding: 2rem;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    }
-
-    .about-problem-solving h3 {
-      margin-bottom: 1.5rem;
-    }
-
-    .problem-solving-cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .problem-card {
-      background: var(--bg-color);
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-      padding: 1.2rem 1rem 1rem 1rem;
-      display: flex;
-      flex-direction: column;
-      min-height: 180px;
-      transition: box-shadow 0.2s;
-    }
-
-    .problem-card:hover {
-      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.10);
-    }
-
-    .problem-title {
-      font-weight: 600;
-      font-size: 1.08rem;
-      margin-bottom: 0.7rem;
-      color: var(--primary-color);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .problem-title i {
-      font-size: 1.2rem;
-    }
-
-    .problem-desc {
-      font-size: 0.98rem;
-      color: var(--text-color);
-      line-height: 1.7;
-    }
-
-    .about-main-card {
-      display: flex;
-      gap: 2.5rem;
-      background: var(--white);
-      border-radius: 14px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
-      padding: 2.5rem 2rem;
-      margin-bottom: 2rem;
-      flex-wrap: wrap;
-    }
-
-    .about-main-content {
-      flex: 2;
-      min-width: 260px;
-    }
-
-    .about-main-info {
-      flex: 1;
-      min-width: 220px;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 1.5rem;
-      margin-top: 0.5rem;
-    }
-
-    .about-experience {
-      margin-bottom: 1.2rem;
-      padding-bottom: 0.7rem;
-      border-bottom: 1px solid var(--light-gray);
-    }
-
-    .about-exp-title {
-      font-size: 1.08rem;
-      font-weight: 600;
-      color: var(--primary-color);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 0.3rem;
-    }
-
-    .about-exp-desc {
-      font-size: 0.98rem;
-      color: var(--text-color);
-      line-height: 1.7;
-    }
-
-    .about-exp-summary {
-      margin-top: 1.5rem;
-      font-weight: 500;
-      color: var(--secondary-color);
-      font-size: 1.05rem;
-    }
-
-    @media (max-width: 900px) {
-      .about-main-card {
-        flex-direction: column;
-        padding: 1.5rem 1rem;
-      }
-
-      .about-main-info {
-        align-items: stretch;
-        margin-top: 1.5rem;
-      }
-    }
-
-    .about-philosophy-card {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      background: var(--highlight);
-      color: var(--primary-color);
-      border-radius: 10px;
-      padding: 1.2rem 1.5rem;
-      margin-bottom: 2rem;
-      font-size: 1.08rem;
-      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.07);
-    }
-
-    .about-philosophy-card i {
-      font-size: 1.6rem;
-    }
-
-    .about-philosophy-title {
-      font-weight: 700;
-      font-size: 1.08rem;
-      margin-right: 0.7rem;
-    }
-
-    .about-philosophy-text {
-      color: var(--text-color);
-      font-weight: 500;
-    }
-
-    .skill-item {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      background: var(--white);
-      border-radius: 10px;
-      padding: 1rem;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-      transition: transform 0.3s ease;
-    }
-
-    .skill-item:hover {
-      transform: translateY(-5px);
-    }
-
-    .skill-icon {
-      font-size: 2rem;
-      color: var(--primary-color);
-    }
-
-    .skill-name {
-      font-size: 1.2rem;
-      font-weight: 600;
-    }
-
-    .skill-desc {
-      font-size: 0.92rem;
-      color: var(--dark-gray);
-      margin-top: 0.2rem;
-      margin-left: 0.2rem;
-      line-height: 1.5;
-    }
-
-    .npm-packages-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .npm-package-card {
-      background: var(--white);
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-      padding: 1.2rem 1rem;
-      display: flex;
-      flex-direction: column;
-      min-height: 120px;
-    }
-
-    .npm-package-header {
-      display: flex;
-      align-items: center;
-      gap: 0.7rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .npm-package-name {
-      font-weight: 700;
-      color: var(--primary-color);
-      font-size: 1.08rem;
-      text-decoration: none;
-    }
-
-    .npm-package-name:hover {
-      text-decoration: underline;
-    }
-
-    .npm-package-desc {
-      font-size: 0.98rem;
-      color: var(--text-color);
-      line-height: 1.6;
-    }
-
-    .npm-package-meta {
-      color: var(--dark-gray);
-      font-size: 0.92rem;
-    }
-
-    .pypi-packages-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .pypi-package-card {
-      background: var(--white);
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-      padding: 1.2rem 1rem;
-      display: flex;
-      flex-direction: column;
-      min-height: 120px;
-    }
-
-    .pypi-package-header {
-      display: flex;
-      align-items: center;
-      gap: 0.7rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .pypi-package-name {
-      font-weight: 700;
-      color: var(--primary-color);
-      font-size: 1.08rem;
-      text-decoration: none;
-    }
-
-    .pypi-package-name:hover {
-      text-decoration: underline;
-    }
-
-    .pypi-package-desc {
-      font-size: 0.98rem;
-      color: var(--text-color);
-      line-height: 1.6;
-    }
-
-    .pypi-package-meta {
-      color: var(--dark-gray);
-      font-size: 0.92rem;
-    }
-
-    .blog-series-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.2rem;
-    }
-
-    .blog-series-card {
-      background: var(--white);
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-      padding: 1.1rem 1rem;
-      display: flex;
-      align-items: center;
-      min-height: 70px;
-    }
-
-    .blog-series-title {
-      font-weight: 600;
-      color: var(--primary-color);
-      font-size: 1.05rem;
-      text-decoration: none;
-    }
-
-    .blog-series-title:hover {
-      text-decoration: underline;
-    }
-
-    .project-card-links {
-      margin-top: 0.7rem;
-      display: flex;
-      flex-wrap: wrap;
-      /* 줄바꿈 허용 */
-      gap: 0.5rem 0.7rem;
-      /* 세로, 가로 간격 */
-    }
-
-    .project-link-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      background: var(--highlight);
-      color: var(--primary-color);
-      font-size: 0.93rem;
-      font-weight: 500;
-      border-radius: 6px;
-      padding: 0.22rem 0.65rem;
-      text-decoration: none;
+      display: flex; align-items: center; justify-content: center;
       transition: background 0.2s;
-      min-width: 90px;
-      /* 버튼 최소 너비 */
-      justify-content: center;
-      margin-bottom: 0.2rem;
+    }
+    .menubar .theme-toggle:hover { background: rgba(255,255,255,0.12); }
+    html[data-theme="light"] .menubar .theme-toggle:hover { background: rgba(0,0,0,0.08); }
+
+    /* ============ WINDOW ============ */
+    .desktop-area {
+      position: absolute;
+      top: 28px; left: 0; right: 0; bottom: 0;
+      overflow: hidden;
+    }
+    .window {
+      position: absolute;
+      background: var(--window-bg);
+      backdrop-filter: blur(40px) saturate(180%);
+      -webkit-backdrop-filter: blur(40px) saturate(180%);
+      border: 0.5px solid var(--window-border);
+      border-radius: 12px;
+      box-shadow: var(--window-shadow);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      min-width: 340px;
+      min-height: 240px;
+      z-index: 10;
+    }
+    .window.open {
+      display: flex;
+      animation: windowOpen 0.28s var(--ease);
+    }
+    .window.focused { z-index: 100; }
+    .window.focused .titlebar { filter: none; }
+    .window:not(.focused) .titlebar { filter: saturate(0.4) brightness(0.9); }
+    @keyframes windowOpen {
+      from { opacity: 0; transform: scale(0.94) translateY(10px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .window.minimizing {
+      animation: windowMin 0.32s var(--ease) forwards;
+      pointer-events: none;
+    }
+    @keyframes windowMin {
+      to { opacity: 0; transform: scale(0.08) translateY(80vh); }
+    }
+
+    .titlebar {
+      height: 38px;
+      flex-shrink: 0;
+      background: var(--titlebar-bg);
+      border-bottom: 0.5px solid var(--window-border);
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      position: relative;
+      cursor: grab;
+      user-select: none;
+    }
+    .titlebar:active { cursor: grabbing; }
+    .traffic-lights { display: flex; gap: 8px; align-items: center; }
+    .traffic-lights .light {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 8px;
+      color: rgba(0,0,0,0.55);
+      cursor: pointer;
+      border: 0.5px solid rgba(0,0,0,0.15);
+    }
+    .traffic-lights .close { background: var(--tl-red); }
+    .traffic-lights .minimize { background: var(--tl-yellow); }
+    .traffic-lights .maximize { background: var(--tl-green); }
+    .traffic-lights .light i { opacity: 0; transition: opacity 0.15s; }
+    .traffic-lights:hover .light i { opacity: 1; }
+    .titlebar .title {
+      position: absolute;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--titlebar-text);
       white-space: nowrap;
     }
 
-    .project-link-btn:hover {
-      background: var(--primary-color);
-      color: #fff;
+    /* ============ WINDOW BODY ============ */
+    .window-body {
+      flex: 1;
+      background: var(--content-bg);
+      overflow-y: auto;
+      scroll-behavior: smooth;
+    }
+    .window-body::-webkit-scrollbar { width: 10px; }
+    .window-body::-webkit-scrollbar-thumb {
+      background: rgba(128,128,128,0.35);
+      border-radius: 5px;
+      border: 2px solid transparent;
+      background-clip: padding-box;
     }
 
-    @media (max-width: 600px) {
-      .project-card-links {
-        gap: 0.4rem 0.5rem;
-      }
-
-      .project-link-btn {
-        font-size: 0.92rem;
-        min-width: 80px;
-        padding: 0.18rem 0.5rem;
-      }
+    section.panel {
+      padding: 28px 32px 32px;
     }
 
-    .growth-story {
-      padding: 5rem 0;
+    .panel-header { margin-bottom: 22px; }
+    .panel-breadcrumb {
+      font-family: var(--sf-mono);
+      font-size: 11px;
+      color: var(--text-3);
+      margin-bottom: 6px;
+      letter-spacing: 0.02em;
+    }
+    .panel-title {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+    .panel-subtitle {
+      color: var(--text-2);
+      font-size: 14px;
+      margin-top: 4px;
     }
 
-    .growth-story .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
-    /* 타임라인 스타일링 */
-    .growth-timeline {
-      position: relative;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-
-    /* 중앙 선 */
-    .growth-timeline::before {
-      content: '';
-      position: absolute;
-      width: 4px;
-      background-color: #ddd;
-      top: 0;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      border-radius: 2px;
-    }
-
-    /* 카드 스타일링 */
-    .growth-card {
-      position: relative;
-      background-color: white;
-      border-radius: 12px;
-      padding: 30px;
-      width: calc(50% - 50px);
-      margin-bottom: 40px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease;
-    }
-
-    .growth-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-    }
-
-    /* 짝수/홀수 카드 위치 설정 */
-    .growth-card:nth-child(odd) {
-      float: left;
-      clear: both;
-    }
-
-    .growth-card:nth-child(even) {
-      float: right;
-      clear: both;
-    }
-
-    /* 화살표 디자인 */
-    .growth-card::after {
-      content: '';
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      right: -10px;
-      top: 30px;
-      background-color: white;
-      transform: rotate(45deg);
-      box-shadow: 3px -3px 5px rgba(0, 0, 0, 0.05);
-    }
-
-    .growth-card:nth-child(even)::after {
-      left: -10px;
-      right: auto;
-      box-shadow: -3px 3px 5px rgba(0, 0, 0, 0.05);
-    }
-
-    /* 원형 포인트 */
-    .growth-card::before {
-      content: '';
-      position: absolute;
-      width: 18px;
-      height: 18px;
-      background-color: #6c5ce7;
-      border-radius: 50%;
-      top: 30px;
-      z-index: 1;
-    }
-
-    .growth-card:nth-child(odd)::before {
-      right: -59px;
-    }
-
-    .growth-card:nth-child(even)::before {
-      left: -59px;
-    }
-
-    /* 연도 스타일 */
-    .growth-year {
-      display: inline-block;
-      padding: 5px 15px;
-      background: linear-gradient(90deg, #6c5ce7, #a29bfe);
-      color: white;
-      border-radius: 20px;
-      font-weight: bold;
-      margin-bottom: 15px;
-      font-size: 0.9rem;
-    }
-
-    /* 제목 스타일 */
-    .growth-title {
-      font-size: 1.4rem;
-      font-weight: bold;
-      color: #333;
-      margin-bottom: 15px;
-    }
-
-    /* 설명 스타일 */
-    .growth-desc {
-      line-height: 1.6;
-      color: #666;
-    }
-
-    /* 클리어픽스 */
-    .growth-timeline::after {
-      content: "";
-      display: table;
-      clear: both;
-    }
-
-    /* 반응형 디자인 */
-    @media screen and (max-width: 768px) {
-      .growth-timeline::before {
-        left: 40px;
-      }
-
-      .growth-card {
-        width: calc(100% - 90px);
-        float: right;
-        margin-left: 90px;
-      }
-
-      .growth-card::before {
-        left: -49px;
-      }
-
-      .growth-card::after {
-        left: -10px;
-        box-shadow: -3px 3px 5px rgba(0, 0, 0, 0.05);
-      }
-
-      .growth-card:nth-child(odd)::before {
-        right: auto;
-        left: -49px;
-      }
-
-      .growth-card:nth-child(odd)::after {
-        right: auto;
-        left: -10px;
-      }
-    }
-
-    /* 기본 a 태그 스타일 */
-    a {
-      color: var(--primary-color);
-      text-decoration: none;
-      transition: all 0.2s ease;
-      position: relative;
-    }
-
-    a:hover {
-      color: #1d4ed8;
-      /* 더 진한 파란색 */
-    }
-
-    /* 일반 텍스트 링크에 밑줄 효과 */
-    .project-desc a,
-    .publication-desc a,
-    .blog-card-desc a,
-    .timeline-projects a {
-      border-bottom: 1px solid var(--primary-color);
-      padding-bottom: 1px;
-    }
-
-    .project-desc a:hover,
-    .publication-desc a:hover,
-    .blog-card-desc a:hover,
-    .timeline-projects a:hover {
-      border-bottom: 2px solid #1d4ed8;
-      padding-bottom: 0;
-    }
-
-    /* 네비게이션 링크 스타일 강화 */
-    nav ul li a {
-      font-weight: 600;
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
-    }
-
-    nav ul li a:hover {
-      background-color: var(--highlight);
-    }
-
-    /* 푸터 링크 스타일 */
-    footer a {
-      color: var(--white);
-      border-bottom: 1px solid var(--white);
-      padding-bottom: 1px;
-    }
-
-    footer a:hover {
-      color: var(--highlight);
-      border-bottom: 2px solid var(--highlight);
-      padding-bottom: 0;
-    }
-
-    /* 카드 내부 링크 스타일 */
-    .blog-series-card a,
-    .npm-package-card a,
-    .pypi-package-card a {
-      display: block;
-      padding: 0.5rem;
-      border-radius: 4px;
-      transition: background-color 0.2s ease;
-    }
-
-    .blog-series-card a:hover,
-    .npm-package-card a:hover,
-    .pypi-package-card a:hover {
-      background-color: var(--highlight);
-    }
-
-    /* 연락처 링크 스타일 */
-    .contact-card a {
-      padding: 0.3rem 0.8rem;
-      border-radius: 4px;
-      transition: background-color 0.2s ease;
-    }
-
-    .contact-card a:hover {
-      background-color: var(--highlight);
-    }
-
-    /* 소셜 링크 스타일 유지 */
-    .social-links a {
-      background-color: rgba(255, 255, 255, 0.2);
-    }
-
-    .social-links a:hover {
-      background-color: white;
-      color: var(--primary-color);
-      transform: translateY(-3px);
-    }
-
-    /* Contact 섹션 스타일 개선 */
-    .contact {
-      background-color: var(--bg-color);
-      padding: 5rem 0;
-      position: relative;
-    }
-
-    .contact-grid {
+    /* ============ ABOUT PANEL ============ */
+    .about-card {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin-top: 3rem;
+      grid-template-columns: auto 1fr;
+      gap: 24px;
+      padding: 24px;
+      background: var(--card-bg);
+      border: 0.5px solid var(--card-border);
+      border-radius: 14px;
+      align-items: start;
     }
-
-    .contact-card {
-      background-color: var(--white);
-      padding: 2.5rem 2rem;
-      border-radius: 15px;
-      text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .contact-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-    }
-
-    .contact-card i {
-      font-size: 2.5rem;
-      color: var(--primary-color);
-      margin-bottom: 1.5rem;
-    }
-
-    .contact-card h3 {
-      font-size: 1.4rem;
-      margin-bottom: 1rem;
-      color: var(--text-color);
-    }
-
-    .contact-link {
-      color: var(--primary-color);
-      font-size: 1.1rem;
-      font-weight: 500;
-      text-decoration: none;
-      transition: color 0.2s ease;
-      display: inline-block;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-    }
-
-    .contact-link:hover {
-      background-color: var(--highlight);
-      color: var(--primary-color);
-    }
-
-    /* Footer 스타일 개선 */
-    footer {
-      background-color: var(--white);
-      padding: 3rem 0;
-      margin-top: 2rem;
-      border-top: 1px solid var(--light-gray);
-    }
-
-    .footer-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1.5rem;
-    }
-
-    .footer-social {
-      display: flex;
-      gap: 1.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .footer-social a {
-      color: var(--text-color);
-      font-size: 1.5rem;
-      transition: all 0.3s ease;
-      padding: 0.8rem;
-      border-radius: 50%;
-      background-color: var(--bg-color);
+    .about-avatar {
+      width: 100px; height: 100px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 3rem;
-      height: 3rem;
+      color: #fff;
+      font-size: 40px;
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      box-shadow: 0 10px 30px rgba(10,132,255,0.35);
+    }
+    .about-name {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .about-role {
+      color: var(--accent);
+      font-weight: 600;
+      font-family: var(--sf-mono);
+      font-size: 13px;
+      margin-top: 4px;
+    }
+    .about-bio {
+      color: var(--text-2);
+      margin-top: 10px;
+      line-height: 1.7;
+    }
+    .about-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 18px;
+      margin-top: 14px;
+      font-size: 12px;
+      color: var(--text-3);
+      font-family: var(--sf-mono);
+    }
+    .about-meta span i { margin-right: 4px; }
+    .about-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: 7px;
+      font-size: 13px;
+      font-weight: 600;
+      border: 0.5px solid var(--card-border);
+      background: var(--card-bg);
+      color: var(--text);
+      transition: all 0.15s;
+    }
+    .btn:hover { background: var(--card-hover); text-decoration: none; transform: translateY(-1px); }
+    .btn.primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: transparent;
+    }
+    .btn.primary:hover { filter: brightness(1.1); }
+
+    /* ============ TERMINAL BLOCK ============ */
+    .terminal {
+      background: var(--terminal-bg);
+      border-radius: 10px;
+      border: 0.5px solid var(--card-border);
+      font-family: var(--sf-mono);
+      font-size: 12.5px;
+      color: #e8e8e8;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .terminal-header {
+      background: rgba(255,255,255,0.05);
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 0.5px solid rgba(255,255,255,0.08);
+    }
+    .terminal-header .dot { width: 11px; height: 11px; border-radius: 50%; }
+    .terminal-header .dot.r { background: var(--tl-red); }
+    .terminal-header .dot.y { background: var(--tl-yellow); }
+    .terminal-header .dot.g { background: var(--tl-green); }
+    .terminal-header .t-title {
+      flex: 1; text-align: center;
+      font-size: 11px;
+      color: rgba(255,255,255,0.5);
+    }
+    .terminal-body { padding: 16px 18px; }
+    .terminal-body .line { margin-bottom: 4px; }
+    .terminal-body .prompt { color: var(--terminal-green); }
+    .terminal-body .path { color: var(--terminal-blue); }
+    .terminal-body .cmd { color: #f5f5f5; }
+    .terminal-body .flag { color: var(--terminal-purple); }
+    .terminal-body .comment { color: #7a8a99; }
+    .terminal-body .str { color: var(--terminal-yellow); }
+    .terminal-body .key { color: var(--terminal-blue); }
+
+    /* ============ SKILLS ============ */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 16px;
+    }
+    .skill-card {
+      background: var(--card-bg);
+      border: 0.5px solid var(--card-border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      transition: transform 0.15s, background 0.15s;
+    }
+    .skill-card:hover { background: var(--card-hover); transform: translateY(-2px); }
+    .skill-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .skill-head .icon {
+      width: 34px; height: 34px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+      font-size: 15px;
+    }
+    .skill-head h3 { font-size: 15px; font-weight: 700; }
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    .tag {
+      font-family: var(--sf-mono);
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 11px;
+      background: rgba(10,132,255,0.15);
+      color: var(--accent);
+      border: 0.5px solid rgba(10,132,255,0.3);
+    }
+    .skill-desc {
+      color: var(--text-2);
+      font-size: 13px;
+      line-height: 1.6;
     }
 
-    .footer-social a:hover {
-      color: var(--primary-color);
-      background-color: var(--highlight);
-      transform: translateY(-3px);
+    /* ============ EXPERIENCE / TIMELINE ============ */
+    .timeline {
+      position: relative;
+      padding-left: 28px;
     }
-
-    .footer-copyright {
-      color: var(--dark-gray);
-      font-size: 0.95rem;
-      text-align: center;
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 8px; top: 8px; bottom: 8px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--accent), var(--accent-2));
+      border-radius: 1px;
+      opacity: 0.5;
     }
+    .tl-item { position: relative; margin-bottom: 28px; }
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -28px; top: 8px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 3px solid var(--content-bg);
+      box-shadow: 0 0 0 1.5px var(--accent);
+    }
+    .tl-date {
+      font-family: var(--sf-mono);
+      font-size: 11px;
+      color: var(--text-3);
+      margin-bottom: 2px;
+    }
+    .tl-company {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .tl-projects { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+    .tl-project {
+      background: var(--card-bg);
+      border: 0.5px solid var(--card-border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      transition: background 0.15s;
+    }
+    .tl-project:hover { background: var(--card-hover); }
+    .tl-project-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+    .tl-project-title { font-weight: 600; font-size: 14px; color: var(--text); }
+    .tl-project-date {
+      font-family: var(--sf-mono);
+      font-size: 11px;
+      color: var(--text-3);
+    }
+    .tl-project-desc { color: var(--text-2); font-size: 13px; line-height: 1.65; white-space: pre-wrap; }
+    .tl-project-desc ul { padding-left: 16px; list-style: disc; }
+    .tl-project-desc li { margin: 2px 0; }
 
-    @media (max-width: 768px) {
-      .contact-grid {
-        grid-template-columns: 1fr;
-        padding: 0 1rem;
-      }
+    /* ============ GROWTH ============ */
+    .growth-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+    }
+    .growth-card {
+      background: var(--card-bg);
+      border: 0.5px solid var(--card-border);
+      border-radius: 12px;
+      padding: 18px;
+      position: relative;
+      transition: transform 0.15s;
+    }
+    .growth-card:hover { transform: translateY(-2px); }
+    .growth-year {
+      display: inline-block;
+      font-family: var(--sf-mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+      background: rgba(10,132,255,0.15);
+      padding: 2px 10px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+    .growth-title { font-weight: 700; font-size: 14px; margin-bottom: 6px; }
+    .growth-desc { color: var(--text-2); font-size: 12.5px; line-height: 1.6; }
 
-      .footer-social {
-        gap: 1rem;
-      }
+    /* ============ PROJECTS / PACKAGES CARDS ============ */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 0.5px solid var(--card-border);
+      border-radius: 12px;
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: transform 0.15s, background 0.15s;
+    }
+    .card:hover { transform: translateY(-2px); background: var(--card-hover); }
+    .card-title {
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card-title .file-icon {
+      width: 16px; height: 16px;
+      border-radius: 3px;
+      background: var(--accent);
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; color: #fff;
+    }
+    .card-desc { color: var(--text-2); font-size: 12.5px; line-height: 1.55; }
+    .card-meta {
+      font-family: var(--sf-mono);
+      font-size: 11px;
+      color: var(--text-3);
+    }
+    .card-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11.5px;
+      font-family: var(--sf-mono);
+      padding: 3px 9px;
+      border-radius: 6px;
+      background: rgba(10,132,255,0.12);
+      color: var(--accent);
+      border: 0.5px solid rgba(10,132,255,0.25);
+    }
+    .card-link:hover { background: rgba(10,132,255,0.22); text-decoration: none; }
+    .pkg-badge { height: 18px; }
 
-      .footer-social a {
-        font-size: 1.3rem;
-        width: 2.5rem;
-        height: 2.5rem;
-      }
+    /* ============ PUBLICATIONS ============ */
+    .pub-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .pub-card {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: 14px;
+      background: var(--card-bg);
+      border: 0.5px solid var(--card-border);
+      border-radius: 12px;
+      padding: 14px;
+      transition: transform 0.15s;
+    }
+    .pub-card:hover { transform: translateY(-2px); }
+    .pub-cover {
+      width: 90px; height: 126px;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    }
+    .pub-cover img { width: 100%; height: 100%; object-fit: cover; }
+    .pub-title { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+    .pub-date { font-family: var(--sf-mono); font-size: 11px; color: var(--text-3); margin-bottom: 6px; }
+    .pub-desc { font-size: 12.5px; color: var(--text-2); line-height: 1.5; margin-bottom: 8px; }
+
+    /* ============ CONTACT ============ */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    .contact-card {
+      background: var(--card-bg);
+      border: 0.5px solid var(--card-border);
+      border-radius: 12px;
+      padding: 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .contact-card .ci {
+      width: 42px; height: 42px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 17px;
+    }
+    .contact-card .ct { font-size: 11px; color: var(--text-3); font-family: var(--sf-mono); }
+    .contact-card .cv { font-size: 13px; font-weight: 600; }
+
+    /* ============ DOCK ============ */
+    .dock {
+      position: fixed;
+      left: 50%;
+      bottom: 14px;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+      padding: 8px 10px;
+      background: var(--dock-bg);
+      backdrop-filter: blur(28px) saturate(180%);
+      -webkit-backdrop-filter: blur(28px) saturate(180%);
+      border: 0.5px solid var(--dock-border);
+      border-radius: 20px;
+      box-shadow: 0 18px 50px rgba(0,0,0,0.35);
+      z-index: 900;
+    }
+    .dock-item {
+      width: 52px; height: 52px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: #fff;
+      cursor: pointer;
+      transition: transform 0.18s var(--ease);
+      position: relative;
+    }
+    .dock-item:hover { transform: translateY(-8px) scale(1.15); }
+    .dock-item + .dock-item:hover { margin-left: 4px; }
+    .dock-item::after {
+      content: attr(data-tip);
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.8);
+      color: #fff;
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 5px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.15s;
+    }
+    .dock-item:hover::after { opacity: 1; }
+    .dock-item.active::before {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.9);
+    }
+    html[data-theme="light"] .dock-item.active::before { background: rgba(0,0,0,0.7); }
+
+    .dock-divider {
+      width: 1px;
+      height: 38px;
+      background: rgba(255,255,255,0.2);
+      margin: 0 4px;
+      align-self: center;
+    }
+    html[data-theme="light"] .dock-divider { background: rgba(0,0,0,0.2); }
+
+    /* Dock item gradient backgrounds */
+    .di-finder { background: linear-gradient(135deg, #4ea1ff, #8be2ff); }
+    .di-terminal { background: linear-gradient(135deg, #1a1a1a, #444); }
+    .di-calendar { background: linear-gradient(135deg, #fff, #f0f0f0); color: #ff3b30; }
+    .di-safari { background: linear-gradient(135deg, #4dd0ff, #007aff); }
+    .di-notes { background: linear-gradient(135deg, #fff4b8, #ffe166); color: #b38600; }
+    .di-mail { background: linear-gradient(135deg, #4dd0ff, #0a84ff); }
+    .di-github { background: linear-gradient(135deg, #24292e, #0d1117); }
+    .di-trash { background: linear-gradient(135deg, #d0d0d0, #a0a0a0); color: #555; }
+    .di-books { background: linear-gradient(135deg, #ff9500, #ff3b30); color: #fff; }
+    .di-grad { background: linear-gradient(135deg, #30d158, #00a86b); }
+    .di-growth { background: linear-gradient(135deg, #aef359, #30d158); color: #0b5420; }
+    .di-contact { background: linear-gradient(135deg, #4dd0ff, #0a84ff); }
+
+    /* ============ RESPONSIVE ============ */
+    @media (max-width: 960px) {
+      .dock-item { width: 46px; height: 46px; font-size: 21px; }
+    }
+    @media (max-width: 720px) {
+      section.panel { padding: 22px 20px 26px; }
+      .about-card { grid-template-columns: 1fr; text-align: center; }
+      .about-avatar { margin: 0 auto; }
+      .about-meta { justify-content: center; }
+      .about-actions { justify-content: center; }
+      .dock { gap: 4px; padding: 6px 8px; }
+      .dock-item { width: 40px; height: 40px; font-size: 18px; }
+      .titlebar .title { font-size: 11px; }
+      .window { min-width: 280px; }
     }
   </style>
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      var menuBtn = document.getElementById('menuBtn');
-      var menu = document.getElementById('menu');
-      if (menuBtn && menu) {
-        menuBtn.onclick = function () {
-          menu.classList.toggle('show');
-        };
-      }
-    });
-  </script>
 </head>
 
 <body>
-  <header>
-    <div class="header-container container">
-      <div class="logo">박정태 (멍개)</div>
-      <button class="mobile-menu-btn" id="menuBtn">
-        <i class="fas fa-bars"></i>
-      </button>
-      <nav>
-        <ul id="menu">
-          <li><a href="#about">About</a></li>
-          <li><a href="#skills">기술</a></li>
-          <li><a href="#experience">경력</a></li>
-          <li><a href="#projects">프로젝트</a></li>
-          <li><a href="#publications">저서</a></li>
-          <li><a href="#lecture">강의</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+  <div class="desktop">
 
-  <section class="hero" id="about">
-    <div class="container hero-content">
-      <section id="npm-packages" class="npm-packages">
-    <div class="container">
-      <div class="section-title">
-        <h2>npm 패키지</h2>
+    <!-- ============ MENU BAR ============ -->
+    <div class="menubar">
+      <div class="menubar-left">
+        <i class="fab fa-apple apple"></i>
+        <span class="app-name">Resume</span>
       </div>
-
-      <div class="npm-packages-list">
-        <div class="npm-package-card">
-          <div class="npm-package-header">
-            <a href="https://www.npmjs.com/package/@namulabsdev/farcaster-sdk" target="_blank"
-              class="npm-package-name">@namulabsdev/farcaster-sdk</a>
-            <img src="https://img.shields.io/npm/v/@namulabsdev/farcaster-sdk?color=2563eb" alt="npm version" />
-          </div>
-          <div class="npm-package-desc">
-            Farcaster SDK<br>
-            <span class="npm-package-meta">2024, 나무랩스</span>
-          </div>
-        </div>
-
-        <div class="npm-package-card">
-          <div class="npm-package-header">
-            <a href="https://www.npmjs.com/package/storybook-ghpage-deploy" target="_blank"
-              class="npm-package-name">storybook-ghpage-deploy</a>
-            <img src="https://img.shields.io/npm/v/storybook-ghpage-deploy?color=2563eb" alt="npm version" />
-          </div>
-          <div class="npm-package-desc">
-            깃허브 페이지를 통해 storybook을 배포하는 샘플<br>
-            <span class="npm-package-meta">2022, 박정태</span>
-          </div>
-        </div>
-        <div class="npm-package-card">
-          <div class="npm-package-header">
-            <a href="https://www.npmjs.com/package/mungrever" target="_blank" class="npm-package-name">mungrever</a>
-            <img src="https://img.shields.io/npm/v/mungrever?color=2563eb" alt="npm version" />
-          </div>
-          <div class="npm-package-desc">
-            forever 형태의 프로세스 관리 도구<br>
-            <span class="npm-package-meta">2022, 박정태</span>
-          </div>
-        </div>
-
-        <div class="npm-package-card">
-          <div class="npm-package-header">
-            <a href="https://www.npmjs.com/package/orderbook-match-engine" target="_blank"
-              class="npm-package-name">orderbook-match-engine</a>
-            <img src="https://img.shields.io/npm/v/orderbook-match-engine?color=2563eb" alt="npm version" />
-          </div>
-          <div class="npm-package-desc">
-            오더북 매칭 엔진<br>
-            <span class="npm-package-meta">2022, 박정태</span>
-          </div>
-        </div>
-
-        <div class="npm-package-card">
-          <div class="npm-package-header">
-            <a href="https://www.npmjs.com/package/@dominantlab/clt-blockchain-sdk" target="_blank"
-              class="npm-package-name">@dominantlab/clt-blockchain-sdk</a>
-            <img src="https://img.shields.io/npm/v/@dominantlab/clt-blockchain-sdk?color=2563eb" alt="npm version" />
-          </div>
-          <div class="npm-package-desc">
-            SDK for IO-Blockchain(IOB)<br>
-            <span class="npm-package-meta">2019, 도미넌트랩</span>
-          </div>
-        </div>
-
-        <div class="npm-package-card">
-          <div class="npm-package-header">
-            <a href="https://www.npmjs.com/package/@mung-office/redux-socket" target="_blank"
-              class="npm-package-name">@mung-office/redux-socket</a>
-            <img src="https://img.shields.io/npm/v/@mung-office/redux-socket?color=2563eb" alt="npm version" />
-          </div>
-          <div class="npm-package-desc">
-            redux 기반의 소켓 연동 라이브러리<br>
-            <span class="npm-package-meta">2020, 박정태</span>
-          </div>
-        </div>
-
-        <div class="npm-package-card">
-          <div class="npm-package-header">
-            <a href="https://www.npmjs.com/package/@mung-office/calendar" target="_blank"
-              class="npm-package-name">@mung-office/calendar</a>
-            <img src="https://img.shields.io/npm/v/@mung-office/calendar?color=2563eb" alt="npm version" />
-          </div>
-          <div class="npm-package-desc">
-            캘린더 컴포넌트<br>
-            <span class="npm-package-meta">2022, 박정태</span>
-          </div>
-        </div>
-
-        <div class="npm-package-card">
-          <div class="npm-package-header">
-            <a href="https://www.npmjs.com/package/@flescompany/design-system" target="_blank"
-              class="npm-package-name">@flescompany/design-system</a>
-            <img src="https://img.shields.io/npm/v/@flescompany/design-system?color=2563eb" alt="npm version" />
-          </div>
-          <div class="npm-package-desc">
-            React 기반 디자인 시스템 UI 컴포넌트 라이브러리<br>
-            <span class="npm-package-meta">2021, fles</span>
-          </div>
-        </div>
+      <div class="menubar-right">
+        <i class="fas fa-battery-three-quarters icon"></i>
+        <i class="fas fa-wifi icon"></i>
+        <i class="fas fa-search icon"></i>
+        <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+          <i class="fas fa-moon" id="themeIcon"></i>
+        </button>
+        <span class="clock" id="clock">--:--</span>
       </div>
     </div>
-  </section>
-      <section id="pypi-packages" class="pypi-packages">
-    <div class="container">
-      <div class="section-title">
-        <h2>PyPI 패키지</h2>
-      </div>
-      <div class="pypi-packages-list">
-        <div class="pypi-package-card">
-          <div class="pypi-package-header">
-            <a href="https://pypi.org/project/bpb/" target="_blank" class="pypi-package-name">bpb</a>
-            <img src="https://img.shields.io/pypi/v/bpb?color=2563eb" alt="pypi version" />
+
+    <!-- ============ DESKTOP AREA ============ -->
+    <div class="desktop-area" id="desktopArea">
+
+      <!-- ABOUT APP -->
+      <div class="window" data-app="about" data-w="720" data-h="540">
+        <div class="titlebar">
+          <div class="traffic-lights">
+            <span class="light close"><i class="fas fa-times"></i></span>
+            <span class="light minimize"><i class="fas fa-minus"></i></span>
+            <span class="light maximize"><i class="fas fa-expand"></i></span>
           </div>
-          <div class="pypi-package-desc">
-            마크다운 문서를 파싱하여 네이버 블로그 포스팅 봇<br>
-            <span class="pypi-package-meta">PyPI, 박정태</span>
-          </div>
+          <div class="title"><i class="fas fa-user" style="margin-right:6px;"></i>About — 박정태</div>
         </div>
-        <div class="pypi-package-card">
-          <div class="pypi-package-header">
-            <a href="https://pypi.org/project/EITRI/" target="_blank" class="pypi-package-name">EITRI</a>
-            <img src="https://img.shields.io/pypi/v/EITRI?color=2563eb" alt="pypi version" />
-          </div>
-          <div class="pypi-package-desc">
-            SDK for IO-Blockchain(IOB) <br>
-            <span class="pypi-package-meta">PyPI, 박정태</span>
-          </div>
+        <div class="window-body">
+
+            <!-- ABOUT -->
+            <section class="panel" id="about">
+              <div class="panel-header">
+                <div class="panel-breadcrumb">~/resume/about.md</div>
+                <div class="panel-title">About</div>
+              </div>
+
+              <div class="about-card">
+                <div class="about-avatar">박</div>
+                <div>
+                  <div class="about-name">박정태 <span style="font-weight:400;color:var(--text-3);font-size:18px;">(멍개)</span></div>
+                  <div class="about-role">$ whoami → Backend · Blockchain · AI Engineer</div>
+                  <div class="about-bio">
+                    거래소, 금융, 공연 예매 등 대규모 트래픽 서비스의 백엔드/인프라를 설계·운영해온 개발자입니다.
+                    블록체인(Ethereum · Solana · Aptos · Hyperledger), 데이터 파이프라인, LLM 기반 에이전트까지
+                    신기술을 빠르게 실무에 녹여내는 것을 즐깁니다. 저서 4권, 다수 강의, 오픈소스 패키지 유지보수로
+                    지식 공유도 이어가고 있습니다.
+                  </div>
+                  <div class="about-meta">
+                    <span><i class="fas fa-map-marker-alt"></i> Seoul, Korea</span>
+                    <span><i class="fas fa-briefcase"></i> 10+ years</span>
+                    <span><i class="fas fa-code-branch"></i> Open Source</span>
+                    <span><i class="fas fa-book"></i> 4 books</span>
+                  </div>
+                  <div class="about-actions">
+                    <a class="btn primary" href="./docs/resume.pdf" download>
+                      <i class="fas fa-download"></i> 이력서 PDF
+                    </a>
+                    <a class="btn" href="./docs/career-description.pdf" download>
+                      <i class="fas fa-file-alt"></i> 경력기술서
+                    </a>
+                    <a class="btn" href="https://github.com/pjt3591oo" target="_blank">
+                      <i class="fab fa-github"></i> GitHub
+                    </a>
+                    <a class="btn" href="https://blog.naver.com/pjt3591oo" target="_blank">
+                      <i class="fas fa-blog"></i> Blog
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </section>
+
         </div>
       </div>
+
+      <!-- SKILLS APP -->
+      <div class="window" data-app="skills" data-w="880" data-h="620">
+        <div class="titlebar">
+          <div class="traffic-lights">
+            <span class="light close"><i class="fas fa-times"></i></span>
+            <span class="light minimize"><i class="fas fa-minus"></i></span>
+            <span class="light maximize"><i class="fas fa-expand"></i></span>
+          </div>
+          <div class="title"><i class="fas fa-terminal" style="margin-right:6px;"></i>Skills — Terminal</div>
+        </div>
+        <div class="window-body">
+
+            <!-- SKILLS -->
+            <section class="panel" id="skills">
+              <div class="panel-header">
+                <div class="panel-breadcrumb">~/resume/skills.sh</div>
+                <div class="panel-title">Skills</div>
+              </div>
+
+              <div class="terminal" style="margin-bottom:22px;">
+                <div class="terminal-header">
+                  <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+                  <span class="t-title">mung@resume — zsh — 80×14</span>
+                </div>
+                <div class="terminal-body">
+                  <div class="line"><span class="prompt">mung@resume</span> <span class="path">~/skills</span> <span class="cmd">$ cat stack.json | jq '.'</span></div>
+                  <div class="line"><span class="comment"># 10+ years of building backend, data and blockchain systems</span></div>
+                  <div class="line"><span class="cmd">{</span></div>
+                  <div class="line">  <span class="key">"backend"</span>: <span class="str">["Node.js", "Nest.js", "Express", "Python", "FastAPI"]</span>,</div>
+                  <div class="line">  <span class="key">"devops"</span>: <span class="str">["AWS", "Docker", "Linux", "Terraform", "CI/CD"]</span>,</div>
+                  <div class="line">  <span class="key">"data_ai"</span>: <span class="str">["Airflow", "Spark", "ELK", "chromaDB", "LLM"]</span>,</div>
+                  <div class="line">  <span class="key">"blockchain"</span>: <span class="str">["Solidity", "Rust", "Move", "Hyperledger"]</span>,</div>
+                  <div class="line">  <span class="key">"database"</span>: <span class="str">["MySQL", "Redis", "MongoDB", "Postgres", "Neo4j"]</span>,</div>
+                  <div class="line">  <span class="key">"frontend"</span>: <span class="str">["TypeScript", "React", "Storybook", "TailwindCSS"]</span></div>
+                  <div class="line"><span class="cmd">}</span></div>
+                </div>
+              </div>
+
+              <div class="skills-grid">
+                <div class="skill-card">
+                  <div class="skill-head">
+                    <div class="icon"><i class="fas fa-server"></i></div>
+                    <h3>Backend</h3>
+                  </div>
+                  <div class="skill-tags">
+                    <span class="tag">Node.js</span><span class="tag">Nest.js</span><span class="tag">Express</span>
+                    <span class="tag">Python</span><span class="tag">FastAPI</span>
+                  </div>
+                  <div class="skill-desc">
+                    거래소, 공연 예매, 데이터 파이프라인, API 서버, 크롤러 등 다양한 백엔드 서비스 개발.
+                    30만 트래픽 대응 등 대규모 트래픽 처리 및 업무 자동화 경험.
+                  </div>
+                </div>
+
+                <div class="skill-card">
+                  <div class="skill-head">
+                    <div class="icon" style="background:linear-gradient(135deg,#ff9500,#ff3b30)"><i class="fas fa-cloud"></i></div>
+                    <h3>DevOps / Infra</h3>
+                  </div>
+                  <div class="skill-tags">
+                    <span class="tag">AWS</span><span class="tag">Docker</span><span class="tag">Linux</span>
+                    <span class="tag">Git</span><span class="tag">CI/CD</span><span class="tag">Terraform</span>
+                  </div>
+                  <div class="skill-desc">
+                    서비스 배포 자동화, ECS/EC2 인프라 관리, CI/CD 파이프라인 구축·운영.
+                    IaC(Terraform) 기반 인프라 관리 경험.
+                  </div>
+                </div>
+
+                <div class="skill-card">
+                  <div class="skill-head">
+                    <div class="icon" style="background:linear-gradient(135deg,#30d158,#00a86b)"><i class="fas fa-database"></i></div>
+                    <h3>Data / AI</h3>
+                  </div>
+                  <div class="skill-tags">
+                    <span class="tag">Python</span><span class="tag">Airflow</span><span class="tag">Spark</span>
+                    <span class="tag">ELK</span><span class="tag">chromaDB</span>
+                  </div>
+                  <div class="skill-desc">
+                    데이터 파이프라인 구축, 전처리, MLOps 환경 구축. chromaDB 기반 유사 이미지 검색 API 구현 경험.
+                  </div>
+                </div>
+
+                <div class="skill-card">
+                  <div class="skill-head">
+                    <div class="icon" style="background:linear-gradient(135deg,#bf5af2,#5e5ce6)"><i class="fas fa-cubes"></i></div>
+                    <h3>Blockchain</h3>
+                  </div>
+                  <div class="skill-tags">
+                    <span class="tag">Solidity</span><span class="tag">Rust</span><span class="tag">Move</span>
+                    <span class="tag">Hyperledger</span><span class="tag">Hardhat</span><span class="tag">Foundry</span>
+                  </div>
+                  <div class="skill-desc">
+                    스마트 컨트랙트, 거래소, NFT, 오더북 등 다양한 블록체인 서비스 개발.
+                    Ethereum · Solana · Aptos · Hyperledger 다수 플랫폼 경험.
+                  </div>
+                </div>
+
+                <div class="skill-card">
+                  <div class="skill-head">
+                    <div class="icon" style="background:linear-gradient(135deg,#64d2ff,#0a84ff)"><i class="fas fa-hdd"></i></div>
+                    <h3>Database</h3>
+                  </div>
+                  <div class="skill-tags">
+                    <span class="tag">MySQL</span><span class="tag">Redis</span><span class="tag">MongoDB</span>
+                    <span class="tag">Postgres</span><span class="tag">Neo4j</span>
+                  </div>
+                  <div class="skill-desc">
+                    데이터 분석, 주문/매출 관리, 대용량 데이터 처리 및 최적화 경험.
+                  </div>
+                </div>
+
+                <div class="skill-card">
+                  <div class="skill-head">
+                    <div class="icon" style="background:linear-gradient(135deg,#ffd60a,#ff9500)"><i class="fas fa-paint-brush"></i></div>
+                    <h3>Frontend / UI</h3>
+                  </div>
+                  <div class="skill-tags">
+                    <span class="tag">TypeScript</span><span class="tag">React</span><span class="tag">Storybook</span>
+                    <span class="tag">TailwindCSS</span><span class="tag">Figma</span>
+                  </div>
+                  <div class="skill-desc">
+                    거래소, parablokOS 지갑, Savle, 공연 예매 등 주요 서비스 프론트엔드 개발 및 디자인 시스템 구축 경험.
+                  </div>
+                </div>
+              </div>
+            </section>
+
+        </div>
+      </div>
+
+      <!-- EXPERIENCE APP -->
+      <div class="window" data-app="experience" data-w="900" data-h="680">
+        <div class="titlebar">
+          <div class="traffic-lights">
+            <span class="light close"><i class="fas fa-times"></i></span>
+            <span class="light minimize"><i class="fas fa-minus"></i></span>
+            <span class="light maximize"><i class="fas fa-expand"></i></span>
+          </div>
+          <div class="title"><i class="far fa-calendar-alt" style="margin-right:6px;"></i>Experience — Timeline</div>
+        </div>
+        <div class="window-body">
+
+            <!-- EXPERIENCE -->
+            <section class="panel" id="experience">
+              <div class="panel-header">
+                <div class="panel-breadcrumb">~/resume/experience/</div>
+                <div class="panel-title">Experience</div>
+                <div class="panel-subtitle">시간순 주요 경력 및 프로젝트</div>
+              </div>
+
+              <div class="timeline">
+                <div class="tl-item">
+                  <div class="tl-date">2025.06 — 2026.01</div>
+                  <div class="tl-company">(주) Maskit</div>
+                  <div class="tl-projects">
+                    <div class="tl-project">
+                      <div class="tl-project-head">
+                        <div class="tl-project-title">공연 예매 시스템 구축 및 운영</div>
+                        <div class="tl-project-date">2025.06 — 2026.01</div>
+                      </div>
+                      <div class="tl-project-desc">- 공연 예매 시스템 설계, 구축 및 운영
+- 약 30만 트래픽 대응을 위한 시스템 최적화 및 안정화
+- 정산 시스템 구축 및 운영
+- 모바일 티켓 및 검표 시스템 개선 및 운영
+- 티켓 관제 시스템 개발
+- 서비스 기획 및 UI/UX 개선 참여
+- 온라인 티켓팅 및 오프라인 모바일 티켓 검표 서비스 운영
+- 현장 운영 효율화를 위한 관리자 시스템 개선
+- QA 프로세스 개선</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="tl-item">
+                  <div class="tl-date">2024.02 — 2025.06</div>
+                  <div class="tl-company">(주) 나무랩스</div>
+                  <div class="tl-projects">
+                    <div class="tl-project">
+                      <div class="tl-project-head">
+                        <div class="tl-project-title">뉴럴 메인넷 구축 및 운영</div>
+                        <div class="tl-project-date">2024.03 — 2024.05</div>
+                      </div>
+                      <div class="tl-project-desc">- Optimism 스택 기반 L2 블록체인 메인넷 아키텍처 설계 및 구축 총괄
+- 네트워크 노드 설치, 설정 및 안정적인 운영관리 (모니터링, 트러블슈팅, 업데이트)
+- L2 네트워크 성능 최적화 및 보안 강화 작업 수행</div>
+                    </div>
+                    <div class="tl-project">
+                      <div class="tl-project-head">
+                        <div class="tl-project-title">parablokOS 암호화폐 지갑</div>
+                        <div class="tl-project-date">2024.05 — 2024.06</div>
+                      </div>
+                      <div class="tl-project-desc">- 스마트 컨트랙트 지갑(Contract Wallet) 연동 기능 설계 및 개발
+- L1↔L2 자산 이동을 위한 브릿지 시스템 스마트 컨트랙트 및 백엔드 로직 개발
+- 지갑 내 자산 관리 및 트랜잭션 처리 로직 구현</div>
+                    </div>
+                    <div class="tl-project">
+                      <div class="tl-project-head">
+                        <div class="tl-project-title">NIPA 정부과제</div>
+                        <div class="tl-project-date">2024.06 — 2024.08</div>
+                      </div>
+                      <div class="tl-project-desc">- 계정 추상화(Account Abstraction) 도입 및 관련 기능 연구
+- Farcaster 프로토콜 기반 IP 콘텐츠 등록/검증 및 저작권 보호 기능 개발
+- vector DB 기반 이미지 유사도 API 서버 개발
+- Farcaster SDK 개발</div>
+                    </div>
+                    <div class="tl-project">
+                      <div class="tl-project-head">
+                        <div class="tl-project-title">Fan Quest — Aptos 기반 크리에이터 마케팅 플랫폼</div>
+                        <div class="tl-project-date">2024.08 — 2024.11</div>
+                      </div>
+                      <div class="tl-project-desc">- Aptos 블록체인 기반 크리에이터 마케팅 플랫폼 백엔드 설계 및 개발
+- Aptos 출석·포인트 이력을 스마트 컨트랙트로 관리
+- Aptos 서명 기반 사용자 인증 시스템 구축
+- Aptos Sponsor Transaction으로 수수료 대납 시스템 구현 및 최적화</div>
+                    </div>
+                    <div class="tl-project">
+                      <div class="tl-project-head">
+                        <div class="tl-project-title">RWA 플랫폼</div>
+                        <div class="tl-project-date">2024.11 — 2025.02</div>
+                      </div>
+                      <div class="tl-project-desc">- Tron 네트워크 기반 실물자산(RWA) 연계 투자/유통 플랫폼 기획·개발 총괄
+- 핵심 기능(펀딩, LP 토큰, 스왑) Tron 스마트 컨트랙트 설계 및 개발
+- 자산 스왑·브릿지 시스템 기획 및 기술 설계
+- 서비스 웹 애플리케이션(프론트엔드/백엔드) 개발</div>
+                    </div>
+                    <div class="tl-project">
+                      <div class="tl-project-head">
+                        <div class="tl-project-title">내면의 여정 — AI 심리상담</div>
+                        <div class="tl-project-date">2025.03</div>
+                      </div>
+                      <div class="tl-project-desc">- GPT-4.5 기반 인공지능 심리상담 서비스 아키텍처 설계
+- LLM API 연동 및 상담 시나리오/대화 흐름 최적화 프롬프트 엔지니어링
+- 상담 내용 관리 및 사용자 인터페이스 등 웹 애플리케이션 개발</div>
+                    </div>
+                    <div class="tl-project">
+                      <div class="tl-project-head">
+                        <div class="tl-project-title">개발자 역량 시스템</div>
+                        <div class="tl-project-date">2025.04</div>
+                      </div>
+                      <div class="tl-project-desc">- Gemini 기반 개발자 역량 평가 시스템 기획·설계
+- 역량 평가 결과 시각화 및 사용자 인터페이스 개발</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="tl-item">
+                  <div class="tl-date">2022.07 — 2024.02</div>
+                  <div class="tl-company">부엔까미노</div>
+                  <div class="tl-projects">
+                    <div class="tl-project">
+                      <div class="tl-project-head">
+                        <div class="tl-project-title">세이블(Savle) 서비스 개발 & 시스템 구축</div>
+                        <div class="tl-project-date">2022.07 — 2024.02</div>
+                      </div>
+                      <div class="tl-project-desc">- 목표 기반 저축 및 생활비 예산 관리 서비스 '세이블' 백엔드 설계·개발 총괄
+- NestJS 프레임워크 활용
+- NCP 기반 인프라 구축 및 운영 환경 설정
+- 데이터베이스 스키마 설계, 최적화 및 데이터 관리
+- 오픈뱅킹 API 연동 및 금융 데이터 처리 로직 구현</div>
+                    </div>
+                    <div class="tl-project">
+                      <div class="tl-project-head">
+                        <div class="tl-project-title">사내 시스템 보안 및 정보보호 담당 (CISO 역할)</div>
+                        <div class="tl-project-date">2022.07 — 2024.02</div>
+                      </div>
+                      <div class="tl-project-desc">- 사내 정보보호 정책 수립 및 보안 규정 준수 관리
+- 중요 정보 접근 통제·유출 방지를 위한 네트워크 망 분리 설계·구축
+- 서버, 네트워크 장비 등 IT 자산 도입 검토 및 보안 설정 관리
+- 정보보호 관련 문서 작성 및 체계적 관리
+- 정기/비정기 보안 점검 수립·수행·결과 관리</div>
+                    </div>
+                    <div class="tl-project">
+                      <div class="tl-project-head">
+                        <div class="tl-project-title">오픈뱅킹 사후점검 수행</div>
+                        <div class="tl-project-date">2023.04 — 2023.08</div>
+                      </div>
+                      <div class="tl-project-desc">- 오픈뱅킹 규정에 따른 애플리케이션 취약점 점검 및 결과 보고
+- 기업 내부 시스템 및 정보 처리 환경 보안 점검
+- 점검 결과 발견된 보안 취약점·위험 요소 분석 및 개선 조치 추적</div>
+                    </div>
+                    <div class="tl-project">
+                      <div class="tl-project-head">
+                        <div class="tl-project-title">업무 프로세스 개선</div>
+                        <div class="tl-project-date"></div>
+                      </div>
+                      <div class="tl-project-desc">- Notion, Slack, Figma 기반 개발/기획/디자인 간 업무 소통 프로세스 정의·개선
+- Notion 기반 업무 백로그 관리 시스템 구축 및 가이드라인 제시
+- 심각성·피드백·중요도를 지표화해 업무 우선순위 주간 배정</div>
+                    </div>
+                    <div class="tl-project">
+                      <div class="tl-project-head">
+                        <div class="tl-project-title">금융 상품 크롤러 시스템 개발</div>
+                        <div class="tl-project-date">2023.10 — 2023.12</div>
+                      </div>
+                      <div class="tl-project-desc">- 은행/금융기관 예·적금 정보 자동 수집 크롤러 시스템 설계·개발
+- Python + Scrapy/Selenium/BeautifulSoup 활용
+- 수집 데이터 정제·정규화 및 DB 저장 파이프라인 구축
+- 주기 크롤링 및 사이트 구조 변경 대응 유지보수</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="tl-item">
+                  <div class="tl-date">2019.01 — 2020.03</div>
+                  <div class="tl-company">도미넌트랩</div>
+                  <div class="tl-projects">
+                    <div class="tl-project">
+                      <div class="tl-project-head">
+                        <div class="tl-project-title">암호화폐 거래소 시스템 개발 및 운영</div>
+                        <div class="tl-project-date"></div>
+                      </div>
+                      <div class="tl-project-desc">- Nest.js 백엔드 + React 프론트엔드 시스템 구축·개발
+- Bitcoin, Ethereum, ERC-20 멀티코인 지갑 시스템 설계·구현
+- 고성능 트레이딩을 위한 오더북·매칭 시스템 핵심 알고리즘 개발·최적화
+- 마켓 메이킹 시뮬레이션 기반 시스템 부하·트래픽 테스트 및 안정성 확보
+- 거래소 시스템 운영·배포 관리</div>
+                    </div>
+                    <div class="tl-project">
+                      <div class="tl-project-head">
+                        <div class="tl-project-title">암호화폐 지갑 시스템 개발</div>
+                      </div>
+                      <div class="tl-project-desc">- React 기반 웹 멀티 암호화폐 지갑 시스템 구축
+- 다양한 암호화폐 통합 관리 멀티월렛 기능 구현</div>
+                    </div>
+                    <div class="tl-project">
+                      <div class="tl-project-head">
+                        <div class="tl-project-title">암호화폐 결제 연동 시스템 (쇼핑몰 기반)</div>
+                      </div>
+                      <div class="tl-project-desc">- 암호화폐 결제 서비스 제공 지갑 서버 구축·관리
+- 외부 서비스 연동 결제 API 서버 개발·운영</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="tl-item">
+                  <div class="tl-date">2018.03 — 2019.01</div>
+                  <div class="tl-company">글로스퍼(Glosfer)</div>
+                  <div class="tl-projects">
+                    <div class="tl-project">
+                      <div class="tl-project-head">
+                        <div class="tl-project-title">비즈니스온커뮤니케이션 — 스마트빌 전자계약 시스템 (Ethereum)</div>
+                      </div>
+                      <div class="tl-project-desc">- Ethereum 기반 전자계약 시스템 설계·구축 참여
+- 4개 블록체인 노드 및 1개 엔드포인트 구성, 모니터링 환경 설정
+- 계약 핵심 정보 블록체인 온체인 저장 로직 개발(스마트 컨트랙트 연동)
+- PoA 합의 알고리즘 기반 프라이빗 네트워크 환경 구축</div>
+                    </div>
+                    <div class="tl-project">
+                      <div class="tl-project-head">
+                        <div class="tl-project-title">영등포 구청 — GS 인증 제안 평가 시스템 (Hyperledger Fabric)</div>
+                      </div>
+                      <div class="tl-project-desc">- Hyperledger Fabric 기반 제안 평가 결과 기록 시스템 구축 주도
+- 물리 장비 3대에 블록체인 노드 구성 및 네트워크 환경 설정
+- 평가 결과 데이터 원장 저장·관리 기능 개발(Chaincode)
+- PBFT 합의 알고리즘 기반 컨소시엄 네트워크 구축</div>
+                    </div>
+                    <div class="tl-project">
+                      <div class="tl-project-head">
+                        <div class="tl-project-title">해수부 항만공사 — 컨테이너 반출입증 통합발급 (LG U+ Cloud)</div>
+                      </div>
+                      <div class="tl-project-desc">- 항만 물류 블록체인 기반 컨테이너 부두 간 반출입증 통합발급 프로젝트
+- LG U+ 클라우드 환경에서 블록체인 네트워크 구성·개발
+- 부두 간 반출입증 정보 공유·통합 관리 블록체인 연동 모듈 개발</div>
+                    </div>
+                    <div class="tl-project">
+                      <div class="tl-project-head">
+                        <div class="tl-project-title">블록체인 기반 검색엔진 개발</div>
+                      </div>
+                      <div class="tl-project-desc">- Elasticsearch + Hyperledger Fabric 연동 블록체인 데이터 검색 시스템 개발
+- 블록체인 원장 데이터 인덱싱 및 검색 기능 구현</div>
+                    </div>
+                    <div class="tl-project">
+                      <div class="tl-project-head">
+                        <div class="tl-project-title">Hycon 지갑 서버/클라이언트 개발</div>
+                      </div>
+                      <div class="tl-project-desc">- Hycon 블록체인 지갑 서버(Node.js) 및 클라이언트(Electron + Vue.js) 개발
+- Hycon 연동 SDK 개발 및 기술 문서 작성</div>
+                    </div>
+                    <div class="tl-project">
+                      <div class="tl-project-head">
+                        <div class="tl-project-title">Telegram 챗봇 시스템 개발 및 운영</div>
+                      </div>
+                      <div class="tl-project-desc">- Telegram 챗봇 활용 외국인 대상 커뮤니케이션 지원(번역 기능)</div>
+                    </div>
+                    <div class="tl-project">
+                      <div class="tl-project-head">
+                        <div class="tl-project-title">서비스 장애 및 거래소 시세 실시간 알림</div>
+                      </div>
+                      <div class="tl-project-desc">- 보도국 사이트 위젯 데이터 제공 API 개발
+- 환율 및 코인 시세 정보 제공 API 개발·운영</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+        </div>
+      </div>
+
+      <!-- PROJECTS APP -->
+      <div class="window" data-app="projects" data-w="860" data-h="640">
+        <div class="titlebar">
+          <div class="traffic-lights">
+            <span class="light close"><i class="fas fa-times"></i></span>
+            <span class="light minimize"><i class="fas fa-minus"></i></span>
+            <span class="light maximize"><i class="fas fa-expand"></i></span>
+          </div>
+          <div class="title"><i class="far fa-folder-open" style="margin-right:6px;"></i>Projects</div>
+        </div>
+        <div class="window-body">
+
+            <!-- PROJECTS -->
+            <section class="panel" id="projects">
+              <div class="panel-header">
+                <div class="panel-breadcrumb">~/resume/projects/</div>
+                <div class="panel-title">Projects</div>
+                <div class="panel-subtitle">사이드/오픈소스 프로젝트</div>
+              </div>
+              <div class="card-grid">
+                <div class="card">
+                  <div class="card-title"><span class="file-icon">JS</span>NestJS 보일러플레이트</div>
+                  <div class="card-desc">NestJS 프로젝트 보일러플레이트 설계·구현·테스트</div>
+                  <div class="card-links">
+                    <a class="card-link" href="https://github.com/pjt3591oo/nest-architecture-layout" target="_blank"><i class="fab fa-github"></i> repo</a>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-title"><span class="file-icon">TS</span>WebRTC 화상 채팅 PoC</div>
+                  <div class="card-desc">WebRTC 기반 화상 채팅 시스템 설계·구현</div>
+                  <div class="card-links">
+                    <a class="card-link" href="https://blog.naver.com/pjt3591oo/222645733090" target="_blank"><i class="fas fa-blog"></i> part 1</a>
+                    <a class="card-link" href="https://blog.naver.com/pjt3591oo/222646463734" target="_blank"><i class="fas fa-blog"></i> part 2</a>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-title"><span class="file-icon">PY</span>MLOps & 데이터 파이프라인</div>
+                  <div class="card-desc">MLOps 구축, 모델 학습 및 배포 자동화</div>
+                  <div class="card-links">
+                    <a class="card-link" href="https://blog.naver.com/pjt3591oo/222760459902" target="_blank">argocd</a>
+                    <a class="card-link" href="https://blog.naver.com/pjt3591oo/222517292174" target="_blank">airflow</a>
+                    <a class="card-link" href="https://blog.naver.com/pjt3591oo/221619310268" target="_blank">ELK</a>
+                    <a class="card-link" href="https://blog.naver.com/pjt3591oo/222724676035" target="_blank">Spark</a>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-title"><span class="file-icon">SH</span>CI/CD 파이프라인 구축</div>
+                  <div class="card-desc">CI/CD 파이프라인 구축, 배포 자동화</div>
+                  <div class="card-links">
+                    <a class="card-link" href="https://blog.naver.com/pjt3591oo/223194521702" target="_blank">NCP CI/CD</a>
+                    <a class="card-link" href="https://blog.naver.com/pjt3591oo/222437276868" target="_blank">GH Actions + S3</a>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-title"><span class="file-icon">JS</span>채팅 애플리케이션</div>
+                  <div class="card-desc">채팅 애플리케이션 개발 및 배포</div>
+                  <div class="card-links">
+                    <a class="card-link" href="https://blog.naver.com/pjt3591oo/222494203552" target="_blank"><i class="fas fa-blog"></i> blog</a>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-title"><span class="file-icon">AI</span>AI 기반 깃허브 분석</div>
+                  <div class="card-desc">AI 기반 깃허브 프로젝트 분석 및 추천 서비스</div>
+                  <div class="card-links">
+                    <a class="card-link" href="https://developer-evaluation-tool.vercel.app/" target="_blank"><i class="fas fa-external-link-alt"></i> demo</a>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-title"><span class="file-icon">AI</span>RAG 블로그 검색</div>
+                  <div class="card-desc">RAG를 활용한 블로그 검색 시스템 설계·구현</div>
+                  <div class="card-links">
+                    <a class="card-link" href="https://github.com/pjt3591oo/blog-rag" target="_blank"><i class="fab fa-github"></i> repo</a>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-title"><span class="file-icon">FW</span>프레임워크 복제본 구현</div>
+                  <div class="card-desc">동작 원리 이해를 위한 미니 프레임워크/라이브러리 구현</div>
+                  <div class="card-links">
+                    <a class="card-link" href="https://github.com/pjt3591oo/mungpress" target="_blank">mungpress</a>
+                    <a class="card-link" href="https://github.com/pjt3591oo/mini_react" target="_blank">mini-react</a>
+                    <a class="card-link" href="https://github.com/pjt3591oo/nestpy" target="_blank">nestpy</a>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-title"><span class="file-icon">AI</span>askbiz 시스템 설계</div>
+                  <div class="card-desc">제한된 리소스 환경에서 LLM 기반 askbiz 아키텍처 설계·개발, 프로토콜 설계</div>
+                  <div class="card-links">
+                    <a class="card-link" href="https://m.journalist.or.kr/m/m_article.html?no=54848" target="_blank"><i class="fas fa-newspaper"></i> 기사</a>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-title"><span class="file-icon">AI</span>골프 규정 음성 챗봇</div>
+                  <div class="card-desc">골프 규정 정보 제공 및 게임 플레이 지원 음성인식 기반 챗봇 구축</div>
+                </div>
+                <div class="card">
+                  <div class="card-title"><span class="file-icon">BC</span>Fabric 네트워크 관리</div>
+                  <div class="card-desc">Hyperledger Fabric 네트워크 관리 시스템 개발</div>
+                </div>
+              </div>
+            </section>
+
+        </div>
+      </div>
+
+      <!-- PACKAGES APP -->
+      <div class="window" data-app="packages" data-w="860" data-h="640">
+        <div class="titlebar">
+          <div class="traffic-lights">
+            <span class="light close"><i class="fas fa-times"></i></span>
+            <span class="light minimize"><i class="fas fa-minus"></i></span>
+            <span class="light maximize"><i class="fas fa-expand"></i></span>
+          </div>
+          <div class="title"><i class="fas fa-cube" style="margin-right:6px;"></i>Packages</div>
+        </div>
+        <div class="window-body">
+
+            <!-- PACKAGES -->
+            <section class="panel" id="packages">
+              <div class="panel-header">
+                <div class="panel-breadcrumb">~/resume/packages/</div>
+                <div class="panel-title">Packages</div>
+                <div class="panel-subtitle">npm / PyPI 배포 패키지</div>
+              </div>
+
+              <h3 style="font-size:13px;font-family:var(--sf-mono);color:var(--text-3);margin-bottom:10px;">
+                <i class="fab fa-npm" style="color:#cb3837;"></i> npm
+              </h3>
+              <div class="card-grid" style="margin-bottom:22px;">
+                <div class="card">
+                  <div class="card-title"><a href="https://www.npmjs.com/package/@namulabsdev/farcaster-sdk" target="_blank">@namulabsdev/farcaster-sdk</a></div>
+                  <img class="pkg-badge" src="https://img.shields.io/npm/v/@namulabsdev/farcaster-sdk?color=0a84ff&style=flat-square" alt="v" />
+                  <div class="card-desc">Farcaster SDK</div>
+                  <div class="card-meta">2024 · 나무랩스</div>
+                </div>
+                <div class="card">
+                  <div class="card-title"><a href="https://www.npmjs.com/package/storybook-ghpage-deploy" target="_blank">storybook-ghpage-deploy</a></div>
+                  <img class="pkg-badge" src="https://img.shields.io/npm/v/storybook-ghpage-deploy?color=0a84ff&style=flat-square" alt="v" />
+                  <div class="card-desc">깃허브 페이지를 통해 Storybook을 배포하는 샘플</div>
+                  <div class="card-meta">2022 · 박정태</div>
+                </div>
+                <div class="card">
+                  <div class="card-title"><a href="https://www.npmjs.com/package/mungrever" target="_blank">mungrever</a></div>
+                  <img class="pkg-badge" src="https://img.shields.io/npm/v/mungrever?color=0a84ff&style=flat-square" alt="v" />
+                  <div class="card-desc">forever 형태의 프로세스 관리 도구</div>
+                  <div class="card-meta">2022 · 박정태</div>
+                </div>
+                <div class="card">
+                  <div class="card-title"><a href="https://www.npmjs.com/package/orderbook-match-engine" target="_blank">orderbook-match-engine</a></div>
+                  <img class="pkg-badge" src="https://img.shields.io/npm/v/orderbook-match-engine?color=0a84ff&style=flat-square" alt="v" />
+                  <div class="card-desc">오더북 매칭 엔진</div>
+                  <div class="card-meta">2022 · 박정태</div>
+                </div>
+                <div class="card">
+                  <div class="card-title"><a href="https://www.npmjs.com/package/@dominantlab/clt-blockchain-sdk" target="_blank">@dominantlab/clt-blockchain-sdk</a></div>
+                  <img class="pkg-badge" src="https://img.shields.io/npm/v/@dominantlab/clt-blockchain-sdk?color=0a84ff&style=flat-square" alt="v" />
+                  <div class="card-desc">SDK for IO-Blockchain (IOB)</div>
+                  <div class="card-meta">2019 · 도미넌트랩</div>
+                </div>
+                <div class="card">
+                  <div class="card-title"><a href="https://www.npmjs.com/package/@mung-office/redux-socket" target="_blank">@mung-office/redux-socket</a></div>
+                  <img class="pkg-badge" src="https://img.shields.io/npm/v/@mung-office/redux-socket?color=0a84ff&style=flat-square" alt="v" />
+                  <div class="card-desc">redux 기반 소켓 연동 라이브러리</div>
+                  <div class="card-meta">2020 · 박정태</div>
+                </div>
+                <div class="card">
+                  <div class="card-title"><a href="https://www.npmjs.com/package/@mung-office/calendar" target="_blank">@mung-office/calendar</a></div>
+                  <img class="pkg-badge" src="https://img.shields.io/npm/v/@mung-office/calendar?color=0a84ff&style=flat-square" alt="v" />
+                  <div class="card-desc">캘린더 컴포넌트</div>
+                  <div class="card-meta">2022 · 박정태</div>
+                </div>
+                <div class="card">
+                  <div class="card-title"><a href="https://www.npmjs.com/package/@flescompany/design-system" target="_blank">@flescompany/design-system</a></div>
+                  <img class="pkg-badge" src="https://img.shields.io/npm/v/@flescompany/design-system?color=0a84ff&style=flat-square" alt="v" />
+                  <div class="card-desc">React 기반 디자인 시스템 UI 컴포넌트 라이브러리</div>
+                  <div class="card-meta">2021 · fles</div>
+                </div>
+              </div>
+
+              <h3 style="font-size:13px;font-family:var(--sf-mono);color:var(--text-3);margin-bottom:10px;">
+                <i class="fab fa-python" style="color:#3776ab;"></i> PyPI
+              </h3>
+              <div class="card-grid">
+                <div class="card">
+                  <div class="card-title"><a href="https://pypi.org/project/bpb/" target="_blank">bpb</a></div>
+                  <img class="pkg-badge" src="https://img.shields.io/pypi/v/bpb?color=0a84ff&style=flat-square" alt="v" />
+                  <div class="card-desc">마크다운 문서를 파싱하여 네이버 블로그에 포스팅하는 봇</div>
+                  <div class="card-meta">PyPI · 박정태</div>
+                </div>
+                <div class="card">
+                  <div class="card-title"><a href="https://pypi.org/project/EITRI/" target="_blank">EITRI</a></div>
+                  <img class="pkg-badge" src="https://img.shields.io/pypi/v/EITRI?color=0a84ff&style=flat-square" alt="v" />
+                  <div class="card-desc">SDK for IO-Blockchain (IOB)</div>
+                  <div class="card-meta">PyPI · 박정태</div>
+                </div>
+              </div>
+            </section>
+
+        </div>
+      </div>
+
+      <!-- PUBLICATIONS APP -->
+      <div class="window" data-app="publications" data-w="780" data-h="620">
+        <div class="titlebar">
+          <div class="traffic-lights">
+            <span class="light close"><i class="fas fa-times"></i></span>
+            <span class="light minimize"><i class="fas fa-minus"></i></span>
+            <span class="light maximize"><i class="fas fa-expand"></i></span>
+          </div>
+          <div class="title"><i class="fas fa-book" style="margin-right:6px;"></i>Publications — Books</div>
+        </div>
+        <div class="window-body">
+
+            <!-- PUBLICATIONS -->
+            <section class="panel" id="publications">
+              <div class="panel-header">
+                <div class="panel-breadcrumb">~/resume/publications/</div>
+                <div class="panel-title">Publications</div>
+                <div class="panel-subtitle">저서 및 출판</div>
+              </div>
+              <div class="pub-grid">
+                <div class="pub-card">
+                  <div class="pub-cover"><img src="./images/nft_book.jpg" alt="이토록 쉬운 NFT 개발 스타터 팩" /></div>
+                  <div>
+                    <div class="pub-title">이토록 쉬운 NFT 개발 스타터 팩</div>
+                    <div class="pub-date">2022.06</div>
+                    <div class="pub-desc">NFT 개발의 기초부터 실전까지, 실습 중심의 입문서</div>
+                    <a class="card-link" href="https://product.kyobobook.co.kr/detail/S000061353476" target="_blank"><i class="fas fa-book"></i> 교보문고</a>
+                  </div>
+                </div>
+                <div class="pub-card">
+                  <div class="pub-cover"><img src="./images/blockchain_book.jpg" alt="블록체인 프로젝트" /></div>
+                  <div>
+                    <div class="pub-title">블록체인 프로젝트</div>
+                    <div class="pub-date">2019.07</div>
+                    <div class="pub-desc">실전 블록체인 서비스 구축 경험과 노하우를 담은 책</div>
+                    <a class="card-link" href="https://product.kyobobook.co.kr/detail/S000000833233" target="_blank"><i class="fas fa-book"></i> 교보문고</a>
+                  </div>
+                </div>
+                <div class="pub-card">
+                  <div class="pub-cover"><img src="./images/js_book.jpg" alt="자바스크립트로 서버와 클라이언트 구축하기" /></div>
+                  <div>
+                    <div class="pub-title">자바스크립트로 서버와 클라이언트 구축하기</div>
+                    <div class="pub-date">2018.06</div>
+                    <div class="pub-desc">Node.js와 JS로 풀스택 개발을 경험할 수 있는 실전서</div>
+                    <a class="card-link" href="https://product.kyobobook.co.kr/detail/S000000833207" target="_blank"><i class="fas fa-book"></i> 교보문고</a>
+                  </div>
+                </div>
+                <div class="pub-card">
+                  <div class="pub-cover"><img src="./images/python_crawler_book.jpg" alt="파이썬으로 배우는 웹 크롤러" /></div>
+                  <div>
+                    <div class="pub-title">파이썬으로 배우는 웹 크롤러</div>
+                    <div class="pub-date">2018.01</div>
+                    <div class="pub-desc">파이썬으로 웹 크롤러를 쉽고 빠르게 개발하는 방법</div>
+                    <a class="card-link" href="https://product.kyobobook.co.kr/detail/S000000833198" target="_blank"><i class="fas fa-book"></i> 교보문고</a>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+        </div>
+      </div>
+
+      <!-- BLOG APP -->
+      <div class="window" data-app="blog" data-w="760" data-h="580">
+        <div class="titlebar">
+          <div class="traffic-lights">
+            <span class="light close"><i class="fas fa-times"></i></span>
+            <span class="light minimize"><i class="fas fa-minus"></i></span>
+            <span class="light maximize"><i class="fas fa-expand"></i></span>
+          </div>
+          <div class="title"><i class="fas fa-rss" style="margin-right:6px;"></i>Blog Series</div>
+        </div>
+        <div class="window-body">
+
+            <!-- BLOG -->
+            <section class="panel" id="blog">
+              <div class="panel-header">
+                <div class="panel-breadcrumb">~/resume/blog-series/</div>
+                <div class="panel-title">Blog Series</div>
+                <div class="panel-subtitle">기술 블로그 시리즈</div>
+              </div>
+              <div class="card-grid">
+                <a class="card" href="https://www.notion.so/54f074c28203490586ee90325c5a4813" target="_blank">
+                  <div class="card-title"><i class="fas fa-network-wired" style="color:var(--accent);"></i> 네트워크</div>
+                </a>
+                <a class="card" href="https://www.notion.so/381cbb45c07f4de9b7f720ace18d33be" target="_blank">
+                  <div class="card-title"><i class="fas fa-fingerprint" style="color:var(--accent-2);"></i> 핀테크 백엔드 — 인증인가</div>
+                </a>
+                <a class="card" href="https://www.notion.so/b793d304661d42bbad2a736495170712" target="_blank">
+                  <div class="card-title"><i class="fas fa-comments" style="color:var(--accent-green);"></i> 분산 환경 메시지 처리</div>
+                </a>
+                <a class="card" href="https://www.notion.so/0116288994884e719b05813498feb8e8" target="_blank">
+                  <div class="card-title"><i class="fas fa-code" style="color:var(--accent-orange);"></i> IaC</div>
+                </a>
+                <a class="card" href="https://www.notion.so/e05b891eb07e4e17bf4e82b24da42e3b" target="_blank">
+                  <div class="card-title"><i class="fas fa-leaf" style="color:#30d158;"></i> 스프링부트 시작하기</div>
+                </a>
+                <a class="card" href="https://www.notion.so/blockchain-14b6635f37e680768063fee7775e8289" target="_blank">
+                  <div class="card-title"><i class="fas fa-cubes" style="color:var(--accent);"></i> 블록체인 시리즈</div>
+                </a>
+                <a class="card" href="https://www.notion.so/Agent-14b6635f37e68024a43fdfa3d4582ba4" target="_blank">
+                  <div class="card-title"><i class="fas fa-robot" style="color:var(--accent-2);"></i> Agent 시리즈</div>
+                </a>
+                <a class="card" href="https://www.notion.so/1db6635f37e6806dafc4dac3965e4b74" target="_blank">
+                  <div class="card-title"><i class="fas fa-book-open" style="color:var(--accent-orange);"></i> 멍개의 회고록</div>
+                </a>
+                <a class="card" href="https://sponge-palm-382.notion.site/1de6635f37e680e5820eea39cf5c51b7?pvs=73" target="_blank">
+                  <div class="card-title"><i class="fas fa-sitemap" style="color:var(--accent-green);"></i> 시스템 설계</div>
+                </a>
+              </div>
+            </section>
+
+        </div>
+      </div>
+
+      <!-- LECTURES APP -->
+      <div class="window" data-app="lectures" data-w="820" data-h="620">
+        <div class="titlebar">
+          <div class="traffic-lights">
+            <span class="light close"><i class="fas fa-times"></i></span>
+            <span class="light minimize"><i class="fas fa-minus"></i></span>
+            <span class="light maximize"><i class="fas fa-expand"></i></span>
+          </div>
+          <div class="title"><i class="fas fa-chalkboard-teacher" style="margin-right:6px;"></i>Lectures</div>
+        </div>
+        <div class="window-body">
+
+            <!-- LECTURES -->
+            <section class="panel" id="lectures">
+              <div class="panel-header">
+                <div class="panel-breadcrumb">~/resume/lectures/</div>
+                <div class="panel-title">Lectures</div>
+                <div class="panel-subtitle">강의 이력</div>
+              </div>
+              <div class="card-grid">
+                <div class="card"><div class="card-title">인공지능 시대에서 살아남기</div><div class="card-meta">2025.01.10 · 세경고등학교</div></div>
+                <div class="card"><div class="card-title">블록체인 NFT 과정</div><div class="card-meta">2022.10.26 ~ 2022.10.28 · 코스콤</div></div>
+                <div class="card"><div class="card-title">2022 블록체인 NFT 과정</div><div class="card-meta">2022.07.31 ~ 2022.10.15 · 한국디지털융합진흥원</div></div>
+                <div class="card"><div class="card-title">웹 애플리케이션 개발 — JS & jQuery 실무</div><div class="card-meta">2022.06.18 ~ 2022.06.25 · 한국SW기술진흥협회</div></div>
+                <div class="card"><div class="card-title">ERC20, ERC721을 활용한 NFT 만들기</div><div class="card-meta">2021.12.22 ~ 2021.12.24 · 패스트캠퍼스 — 신용보증기금</div></div>
+                <div class="card"><div class="card-title">ICT Code Academy 블록체인 교육과정</div><div class="card-meta">2021.07 ~ 2021.10 · 한국디지털융합진흥원</div></div>
+                <div class="card"><div class="card-title">블록체인(이더리움) 개발입문 과정</div><div class="card-meta">2021.06 ~ 2021.07 · 패스트캠퍼스 — KB증권</div></div>
+                <div class="card"><div class="card-title">이더리움을 활용한 dApp 개발·운용</div><div class="card-meta">2020.10 ~ 2020.12 · 한국디지털융합진흥원</div></div>
+                <div class="card"><div class="card-title">데이터 분석 기초</div><div class="card-meta">2020.11.18 · 서울시 교육청</div></div>
+                <div class="card"><div class="card-title">빅데이터 크롤러 & Node.js 쇼핑몰 구축</div><div class="card-meta">2017.05 ~ 2020.09 · 코딩애플</div></div>
+                <div class="card"><div class="card-title">블록체인 시스템 엔지니어 양성과정</div><div class="card-meta">2019.06 ~ 2019.11 · MOB 코리아, fn노에듀</div></div>
+                <div class="card"><div class="card-title">Ethereum, Hyperledger Fabric App 개발</div><div class="card-meta">2018.05 ~ 2019.05 · 패스트캠퍼스</div></div>
+                <div class="card"><div class="card-title">서울핀테크아카데미 — 블록체인 동향·보안</div><div class="card-meta">2019 ~ 2020 · 금융투자교육원</div></div>
+                <div class="card"><div class="card-title">개발자 관점에서 바라본 블록체인</div><div class="card-meta">2018.11.12 · 동양미래대학</div></div>
+                <div class="card"><div class="card-title">Ethereum Dapp 개발 프로젝트</div><div class="card-meta">2018 ~ 2019 · YAPP, 신한은행 데이터시스템, KISA</div></div>
+                <div class="card"><div class="card-title">꿈, 희망, 진로</div><div class="card-meta">2018.09.21 · 세경고등학교</div></div>
+                <div class="card"><div class="card-title">블록체인 기초개념 및 원리</div><div class="card-meta">2018.06.15 · 세경고등학교</div></div>
+                <div class="card"><div class="card-title">프로그래밍 기초 — 파이썬</div><div class="card-meta">2017.04.09 · 세경고등학교</div></div>
+                <div class="card"><div class="card-title">대학생활 및 취업/창업</div><div class="card-meta">2016.08.25 · 세경고등학교</div></div>
+              </div>
+            </section>
+
+        </div>
+      </div>
+
+      <!-- GROWTH APP -->
+      <div class="window" data-app="growth" data-w="780" data-h="560">
+        <div class="titlebar">
+          <div class="traffic-lights">
+            <span class="light close"><i class="fas fa-times"></i></span>
+            <span class="light minimize"><i class="fas fa-minus"></i></span>
+            <span class="light maximize"><i class="fas fa-expand"></i></span>
+          </div>
+          <div class="title"><i class="fas fa-seedling" style="margin-right:6px;"></i>Growth Story</div>
+        </div>
+        <div class="window-body">
+
+            <!-- GROWTH -->
+            <section class="panel" id="growth">
+              <div class="panel-header">
+                <div class="panel-breadcrumb">~/resume/growth-story.md</div>
+                <div class="panel-title">Growth Story</div>
+                <div class="panel-subtitle">개발자로서의 성장 여정</div>
+              </div>
+              <div class="growth-grid">
+                <div class="growth-card">
+                  <div class="growth-year">2012 ~</div>
+                  <div class="growth-title">지식 공유와 커뮤니티</div>
+                  <div class="growth-desc">강의, 저서, 오픈소스, 블로그 등 다양한 방식으로 지식을 나누며 개발자로서의 영향력을 확장.</div>
+                </div>
+                <div class="growth-card">
+                  <div class="growth-year">2015 ~</div>
+                  <div class="growth-title">데이터·자동화, 자연어 처리에 눈뜨다</div>
+                  <div class="growth-desc">다양한 크롤러와 파이프라인을 설계하며 데이터 기반 문제 해결의 재미를 알게 됨. word2vec 등 자연어 처리에 관심.</div>
+                </div>
+                <div class="growth-card">
+                  <div class="growth-year">2017 ~</div>
+                  <div class="growth-title">신기술과 아키텍처 도전</div>
+                  <div class="growth-desc">블록체인, AI, MLOps, IaC 등 최신 기술을 빠르게 습득하고 실무에 적용.</div>
+                </div>
+                <div class="growth-card">
+                  <div class="growth-year">2019 ~</div>
+                  <div class="growth-title">대규모 서비스와 인프라 경험</div>
+                  <div class="growth-desc">거래소·금융·블록체인 실서비스 백엔드/인프라 구축하며 대규모 트래픽 대응과 DevOps 필요성 체감.</div>
+                </div>
+                <div class="growth-card">
+                  <div class="growth-year">2019 ~</div>
+                  <div class="growth-title">리더십과 협업</div>
+                  <div class="growth-desc">팀 리딩, 멘토링, 디자인 시스템 도입 등 협업과 리더십 경험으로 더 큰 임팩트 창출.</div>
+                </div>
+                <div class="growth-card">
+                  <div class="growth-year">2024 ~</div>
+                  <div class="growth-title">인공지능과 에이전트</div>
+                  <div class="growth-desc">인공지능과 에이전트를 활용한 문제 해결, 자동화 시스템 구축.</div>
+                </div>
+              </div>
+            </section>
+
+        </div>
+      </div>
+
+      <!-- CONTACT APP -->
+      <div class="window" data-app="contact" data-w="700" data-h="540">
+        <div class="titlebar">
+          <div class="traffic-lights">
+            <span class="light close"><i class="fas fa-times"></i></span>
+            <span class="light minimize"><i class="fas fa-minus"></i></span>
+            <span class="light maximize"><i class="fas fa-expand"></i></span>
+          </div>
+          <div class="title"><i class="fas fa-envelope" style="margin-right:6px;"></i>Contact</div>
+        </div>
+        <div class="window-body">
+
+            <!-- CONTACT -->
+            <section class="panel" id="contact">
+              <div class="panel-header">
+                <div class="panel-breadcrumb">~/resume/contact.txt</div>
+                <div class="panel-title">Contact</div>
+              </div>
+              <div class="contact-grid">
+                <a class="contact-card" href="mailto:pjt3591oo@gmail.com">
+                  <div class="ci"><i class="fas fa-envelope"></i></div>
+                  <div>
+                    <div class="ct">Gmail</div>
+                    <div class="cv">pjt3591oo@gmail.com</div>
+                  </div>
+                </a>
+                <a class="contact-card" href="mailto:pjt3591oo@naver.com">
+                  <div class="ci" style="background:linear-gradient(135deg,#03c75a,#00a43a);"><i class="fas fa-envelope"></i></div>
+                  <div>
+                    <div class="ct">Naver</div>
+                    <div class="cv">pjt3591oo@naver.com</div>
+                  </div>
+                </a>
+                <a class="contact-card" href="https://github.com/pjt3591oo" target="_blank">
+                  <div class="ci" style="background:linear-gradient(135deg,#24292e,#0d1117);"><i class="fab fa-github"></i></div>
+                  <div>
+                    <div class="ct">GitHub</div>
+                    <div class="cv">pjt3591oo</div>
+                  </div>
+                </a>
+                <a class="contact-card" href="https://blog.naver.com/pjt3591oo" target="_blank">
+                  <div class="ci" style="background:linear-gradient(135deg,#03c75a,#00a43a);"><i class="fas fa-blog"></i></div>
+                  <div>
+                    <div class="ct">Blog</div>
+                    <div class="cv">blog.naver.com/pjt3591oo</div>
+                  </div>
+                </a>
+                <a class="contact-card" href="https://stackoverflow.com/users/8667760/" target="_blank">
+                  <div class="ci" style="background:linear-gradient(135deg,#f48024,#bc5b10);"><i class="fab fa-stack-overflow"></i></div>
+                  <div>
+                    <div class="ct">Stack Overflow</div>
+                    <div class="cv">멍개 (mung)</div>
+                  </div>
+                </a>
+                <a class="contact-card" href="./docs/resume.pdf" download>
+                  <div class="ci" style="background:linear-gradient(135deg,#ff3b30,#c91e10);"><i class="fas fa-file-pdf"></i></div>
+                  <div>
+                    <div class="ct">Download</div>
+                    <div class="cv">resume.pdf</div>
+                  </div>
+                </a>
+              </div>
+              <div style="margin-top:30px;font-family:var(--sf-mono);font-size:11px;color:var(--text-3);text-align:center;">
+                © 2025 박정태(멍개). Built with coffee ☕ on macOS-style UI.
+              </div>
+            </section>
+        </div>
+      </div>
+
     </div>
-  </section>
+
+    <!-- ============ DOCK ============ -->
+    <div class="dock" id="dock">
+      <div class="dock-item di-finder" data-app="about" data-tip="About.app"><i class="fas fa-user"></i></div>
+      <div class="dock-item di-terminal" data-app="skills" data-tip="Skills.app"><i class="fas fa-terminal"></i></div>
+      <div class="dock-item di-calendar" data-app="experience" data-tip="Experience.app"><i class="far fa-calendar-alt"></i></div>
+      <div class="dock-item di-notes" data-app="projects" data-tip="Projects.app"><i class="far fa-folder-open"></i></div>
+      <div class="dock-item di-safari" data-app="packages" data-tip="Packages.app"><i class="fas fa-cube"></i></div>
+      <div class="dock-item di-books" data-app="publications" data-tip="Publications.app"><i class="fas fa-book"></i></div>
+      <div class="dock-item di-mail" data-app="blog" data-tip="Blog.app"><i class="fas fa-rss"></i></div>
+      <div class="dock-item di-grad" data-app="lectures" data-tip="Lectures.app"><i class="fas fa-chalkboard-teacher"></i></div>
+      <div class="dock-item di-growth" data-app="growth" data-tip="Growth.app"><i class="fas fa-seedling"></i></div>
+      <div class="dock-item di-contact" data-app="contact" data-tip="Contact.app"><i class="fas fa-envelope"></i></div>
+      <div class="dock-divider"></div>
+      <a class="dock-item di-github" href="https://github.com/pjt3591oo" target="_blank" data-tip="GitHub"><i class="fab fa-github"></i></a>
+      <div class="dock-item di-trash" data-tip="Trash"><i class="fas fa-trash"></i></div>
     </div>
-  </section>
 
-  <!-- <section id="intro-video" class="intro-video" style="padding: 4rem 0; background-color: var(--white);">
-    <div class="container">
-      <div class="section-title">
-        <h2>소개 영상</h2>
-      </div>
-      <div style="max-width: 800px; margin: 0 auto;">
-        <video controls style="width: 100%; border-radius: 16px; box-shadow: var(--shadow-lg);">
-          <source src="./resource/video.mp4" type="video/mp4">
-          브라우저가 비디오를 지원하지 않습니다.
-        </video>
-        <p style="text-align: center; margin-top: 1rem; color: var(--secondary-color); font-size: 0.95rem;">
-          NotebookLM으로 생성한 이력서 소개 영상입니다.
-        </p>
-      </div>
-    </div>
-  </section> -->
+  </div>
 
-  <section id="skills" class="skills">
-    <div class="container">
-      <div class="section-title">
-        <h2>기술</h2>
-      </div>
-      <div class="skills-grid">
+  <script>
+    (function () {
+      var html = document.documentElement;
 
-        <div class="skill-category">
-          <h3>백엔드</h3>
-          <div class="skill-tags">
-            <div class="skill-tag">Node.js</div>
-            <div class="skill-tag">Nest.js</div>
-            <div class="skill-tag">Express</div>
-            <div class="skill-tag">Python</div>
-            <div class="skill-tag">FastAPI</div>
-          </div>
-          <div class="skill-desc" style="margin-top:1rem; color:var(--dark-gray); font-size:0.97rem;">
-            거래소 시스템, 공연 예매 시스템, 데이터 파이프라인, API 서버, 크롤러 제작 등 다양한 백엔드 서비스 개발<br><br>
-            30만 트래픽 대응 등 대규모 트래픽 처리 및 업무 자동화 경험
-          </div>
-        </div>
-        <div class="skill-category">
-          <h3>DevOps / 인프라</h3>
-          <div class="skill-tags">
-            <div class="skill-tag">AWS</div>
-            <div class="skill-tag">Docker</div>
-            <div class="skill-tag">Linux</div>
-            <div class="skill-tag">Git</div>
-            <div class="skill-tag">CI/CD</div>
-            <div class="skill-tag">Terraform</div>
-          </div>
-          <div class="skill-desc" style="margin-top:1rem; color:var(--dark-gray); font-size:0.97rem;">
-            서비스 배포 자동화, ECS/EC2 인프라 관리, CI/CD 파이프라인 구축 및 운영<br><br>
-            브랜치 전략, 배포 자동화, 서버 운영 경험<br><br>
-            IaC(Terraform) 기반 인프라 관리 경험
-          </div>
-        </div>
-        <div class="skill-category">
-          <h3>데이터 / AI</h3>
-          <div class="skill-tags">
-            <div class="skill-tag">Python</div>
-            <div class="skill-tag">Airflow</div>
-            <div class="skill-tag">Spark</div>
-            <div class="skill-tag">ELK</div>
-            <div class="skill-tag">chromaDB</div>
-          </div>
-          <div class="skill-desc" style="margin-top:1rem; color:var(--dark-gray); font-size:0.97rem;">
-            데이터 파이프라인 구축, 데이터 분석 및 전처리, MLOps 환경 구축<br><br>
-            airflow, spark, ELK 등 데이터 엔지니어링 경험<br><br>
-            chromaDB 기반 유사 이미지 검색 API 구현 경험
-          </div>
-        </div>
-        <div class="skill-category">
-          <h3>블록체인</h3>
-          <div class="skill-tags">
-            <div class="skill-tag">Solidity</div>
-            <div class="skill-tag">Rust</div>
-            <div class="skill-tag">Move</div>
-            <div class="skill-tag">Hyperledger Fabric</div>
-            <div class="skill-tag">Truffle</div>
-            <div class="skill-tag">Hardhat</div>
-            <div class="skill-tag">Foundry</div>
-          </div>
-          <div class="skill-desc" style="margin-top:1rem; color:var(--dark-gray); font-size:0.97rem;">
-            스마트 컨트랙트, 거래소, NFT, 오더북 등 다양한 블록체인 서비스 개발<br><br>
-            Ethereum, Solana, Aptos, Hyperledger 등 다양한 플랫폼 경험
-          </div>
-        </div>
-        <div class="skill-category">
-          <h3>데이터베이스</h3>
-          <div class="skill-tags">
-            <div class="skill-tag">MySQL</div>
-            <div class="skill-tag">SQL</div>
-            <div class="skill-tag">Redis</div>
-            <div class="skill-tag">MongoDB</div>
-            <div class="skill-tag">Postgres</div>
-            <div class="skill-tag">Neo4j</div>
-          </div>
-          <div class="skill-desc" style="margin-top:1rem; color:var(--dark-gray); font-size:0.97rem;">
-            데이터 분석, 주문/매출 관리, 대용량 데이터 처리 및 최적화 경험
-          </div>
-        </div>
-        
-        <div class="skill-category">
-          <h3>프론트엔드 / UI/UX</h3>
-          <div class="skill-tags">
-            <div class="skill-tag">JavaScript</div>
-            <div class="skill-tag">TypeScript</div>
-            <div class="skill-tag">React</div>
-            <div class="skill-tag">Storybook</div>
-            <div class="skill-tag">TailwindCSS</div>
-            <div class="skill-tag">Figma</div>
-          </div>
-          <div class="skill-desc" style="margin-top:1rem; color:var(--dark-gray); font-size:0.97rem;">
-            거래소, parablokOS 지갑, Savle, 공연 예매 시스템 등 주요 서비스 프론트엔드 개발 및 디자인 시스템 구축 경험<br><br>
-            Storybook 기반 UI 컴포넌트 표준화 및 재사용성 강화<br><br>
-            서비스 기획 및 UI/UX 개선, 현장 운영 효율화를 위한 관리자 시스템 설계 경험
-          </div>
-        </div>
+      // ============ THEME ============
+      var themeToggle = document.getElementById('themeToggle');
+      var themeIcon = document.getElementById('themeIcon');
+      var saved = localStorage.getItem('theme') || 'dark';
+      html.setAttribute('data-theme', saved);
+      themeIcon.className = saved === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+      themeToggle.addEventListener('click', function () {
+        var next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        themeIcon.className = next === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+      });
 
-      </div>
-    </div>
-  </section>
+      // ============ CLOCK ============
+      var clockEl = document.getElementById('clock');
+      function updateClock() {
+        var d = new Date();
+        var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        var h = d.getHours(), m = d.getMinutes();
+        var ampm = h >= 12 ? 'PM' : 'AM';
+        var h12 = h % 12 || 12;
+        var pad = function (n) { return n < 10 ? '0' + n : n; };
+        clockEl.textContent = days[d.getDay()] + ' ' + months[d.getMonth()] + ' ' + d.getDate() + ' ' + h12 + ':' + pad(m) + ' ' + ampm;
+      }
+      updateClock();
+      setInterval(updateClock, 30000);
 
-  <section id="experience" class="experience">
-    <div class="container">
-      <div class="section-title">
-        <h2>경력</h2>
-      </div>
-      <div class="timeline">
-        <div class="timeline-item">
-          <div class="timeline-content">
-            <div class="timeline-date">2025.06 - 2026.01</div>
-            <h3 class="timeline-title">(주) Maskit</h3>
-            <div class="timeline-projects">
-              <div class="project-item">
-                <div class="project-title">공연 예매 시스템 구축 및 운영</div>
-                <div class="project-date">2025.06 - 2026.01</div>
-                <div class="project-desc">
-                    - 공연 예매 시스템 설계, 구축 및 운영<br>
-                    - 약 30만 트래픽 대응을 위한 시스템 최적화 및 안정화<br>
-                    - 정산 시스템 구축 및 운영<br>
-                    - 모바일 티켓 및 검표 시스템 개선 및 운영<br>
-                    - 티켓 관제 시스템 개발<br>
-                    - 서비스 기획 및 UI/UX 개선 참여<br>
-                    - 온라인 티켓팅 및 오프라인 모바일 티켓 검표 서비스 운영<br>
-                    - 현장 운영 효율화를 위한 관리자 시스템 개선
-                    - QA 프로세스 개선
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">
-            <div class="timeline-date">2024.02 - 2025.06</div>
-            <h3 class="timeline-title">(주) 나무랩스</h3>
-            <div class="timeline-projects">
-              <div class="project-item">
-                <div class="project-title">뉴럴 메인넷 구축 및 운영</div>
-                <div class="project-date">2024.03 - 2024.05</div>
-                <div class="project-desc">
-                    - Optimism 스택 기반의 L2 블록체인 메인넷 아키텍처 설계 및 구축 총괄 <br>
-                    - 네트워크 노드 설치, 설정 및 안정적인 운영관리 (모니터링, 트러블슈팅, 업데이트 포함)<br>
-                    - L2 네트워크 성능 최적화 및 보안 강화 작업 수행
-                </div>
-              </div>
-              <div class="project-item">
-                <div class="project-title">parablokOS 암호화폐 지갑</div>
-                <div class="project-date">2024.05 - 2024.06</div>
-                <div class="project-desc">
-                    - 스마트 컨트랙트 지갑(Contract Wallet) 연동 기능 설계 및 개발<br>
-                    - L1과 L2 간 자산 이동을 위한브릿지(Bridge) 시스템 스마트 컨트랙트 및 백엔드 로직 개발 <br>
-                    - 지갑 내 자산 관리 및 트랜잭션 처리 로직 구현
-                </div>
-              </div>
-              <div class="project-item">
-                <div class="project-title">NIPA 정부과제</div>
-                <div class="project-date">2024.06 - 2024.08</div>
-                <div class="project-desc">
-                    - 계정 추상화(Account Abstraction) 개념 도입 및 관련 기능 연구<br>
-                    - Farcaster 프로토콜 기반 IP 콘텐츠등록/검증 및 저작권 보호 기능 개발<br>
-                    - vector DB를 활용한 이미지 유사도 API 서버 개발 <br>
-                    - Farcaster SDK 개발
-                </div>
-              </div>
-              <div class="project-item">
-                <div class="project-title">fan quest - aptos 기반의 크리에이터 마케팅 플랫폼</div>
-                <div class="project-date">2024.08 - 2024.11</div>
-                <div class="project-desc">
-                    - Aptos 블록체인 기반 크리에이터 마케팅 플랫폼 백엔드 시스템 설계 및 개발<br>
-                    - Aptos 출석, 포인트 이력은 스마트 컨트랙트를 통해 관리<br>
-                    - Aptos 서명 기능을 활용한 사용자 인증 시스템 구축<br>
-                    - Aptos Sponsor Transaction 기능을 이용한 사용자 트랜잭션 수수료 대납 시스템 구현 및 최적화
+      // ============ WINDOW MANAGER ============
+      var desktop = document.getElementById('desktopArea');
+      var menubarAppName = document.querySelector('.menubar .app-name');
+      var windows = Array.prototype.slice.call(document.querySelectorAll('.window[data-app]'));
+      var dockItems = document.querySelectorAll('.dock-item[data-app]');
 
-                </div>
-              </div>
-              <div class="project-item">
-                <div class="project-title">RWA 플랫폼</div>
-                <div class="project-date">2024.11 - 2025.02</div>
-                <div class="project-desc">
-                    - Tron 네트워크 기반 실물자산(RWA) 연계 투자/유통 플랫폼 서비스 기획 / 개발 총괄<br>
-                    - 플랫폼 핵심 기능(펀딩, LP 토큰, 스왑) 관련 Tron 스마트 컨트랙트 설계 및 개발<br>
-                    - 플랫폼 내 자산 스왑(Swap) 및 브릿지(Bridge) 시스템 기획 및 기술 설계(개발까지 진행되지 않음)<br>
-                    - 서비스 웹 어플리케이션(프론트엔드/백엔드) 개발
-                </div>
-              </div>
-              <div class="project-item">
-                <div class="project-title">내면의 여정</div>
-                <div class="project-date">2025.03</div>
-                <div class="project-desc">
-                    - GPT-4.5 기반 인공지능 심리상담 서비스 아키텍처 설계<br>
-                    - LLM API 연동 및 상담 시나리오/대화 흐름 최적화를 위한 프롬프트 엔지니어링 수행<br>
-                    - 상담 내용 관리 및 사용자 인터페이스 등 웹 어플리케이션 개발<br>
-                </div>
-              </div>
-              <div class="project-item">
-                <div class="project-title">개발자 역량 시스템</div>
-                <div class="project-date">2025.04</div>
-                <div class="project-desc">
-                    - Gemini (또는 최신 LLM/Code Analysis AI) 기반 개발자 역량 평가 시스템 기획 및 설계<br>
-                    - 역량 평가 결과 시각화 및 사용자 인터페이스 개발<br>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">
-            <div class="timeline-date">2022.07 - 2024.02</div>
-            <h3 class="timeline-title">부엔까미노</h3>
-            <div class="timeline-projects">
-              <div class="project-item">
-                <div class="project-title">세이블(Savle) 서비스 개발 & 시스템 구축</div>
-                <div class="project-date">2022.07 - 2024.02</div>
-                <div class="project-desc">
-                    - 목표 기반 저축 및 생활비 예산 관리 서비스 '세이블'의 백엔드 시스템 설계 및 개발 총괄<br>
-                    - NestJS 프레임워크 활용<br>
-                    - Naver Cloud Platform(NCP) 기반 인프라(서버, DB 등) 구축 및 운영 환경 설정<br>
-                    - 데이터베이스 스키마 설계, 최적화 및 데이터 관리<br>
-                    - 오픈뱅킹 API 연동 및 관련 금융 데이터 처리 로직 구현
-                </div>
-              </div>
-              <div class="project-item">
-                <div class="project-title">사내 시스템 보안 및 정보보호 담당 (CISO 역할 수행 등)</div>
-                <div class="project-date">2022.07 - 2024.02</div>
-                <div class="project-desc">
-                    - 사내 정보보호 정책 수립 및 보안 규정 준수 관리<br>
-                    - 중요 정보 접근 통제 및 유출 방지를 위한 네트워크 망 분리 설계 및 구축<br>
-                    - 서버, 네트워크 장비 등 IT 자산 도입 검토 및 보안 설정 관리<br>
-                    - 정보보호 관련 문서(지침, 가이드라인, 보고서 등) 작성 및 체계적인 관리<br>
-                    - 정기/비정기 보안 점검 계획 수립, 수행 및 결과 관리
-                </div>
-              </div>
-              <div class="project-item">
-                <div class="project-title">오픈뱅킹 사후점검 수행</div>
-                <div class="project-date">2023.04 - 2023.08</div>
-                <div class="project-desc">
-                    - 오픈뱅킹 규정에 따른 정기적인 애플리케이션(세이블 앱) 취약점 점검 수행 및 결과 보고<br>
-                    - 기업 내부 시스템 및 정보 처리 환경에 대한 보안 점검(기업보안점검) 수행<br>
-                    - 점검 결과 발견된 보안 취약점 및 위험 요소 분석 및 개선 조치 추적 관리
-                </div>
-              </div>
-              <div class="project-item">
-                <div class="project-title">업무 프로세스 개선</div>
-                <div class="project-date"></div>
-                <div class="project-desc">
-                    - Notion, Slack, Figma 등 협업 도구를 활용한 개발/기획/디자인 간 업무 소통 프로세스 정의 및 개선<br>
-                    - Notion 기반의 체계적인 업무 백로그(요구사항, 이슈 등) 관리 시스템 구축 및 운영 가이드라인 제시<br>
-                    - 심각성, 사용자 피드백, 중요도 등의 지표를 별도로 점수화 시켜 업무 우선순위 배정<br>
-                    - 업무 우선순위는 매 주마다 합의하에 진행
-                </div>
-              </div>
-              <div class="project-item">
-                <div class="project-title">금융 상품 크롤러 시스템 개발 (예/적금 비교 추천 서비스)</div>
-                <div class="project-date">2023.10 - 2023.12</div>
-                <div class="project-desc">
-                    - 은행/금융기관 웹사이트의 예금, 적금 등 금융 상품 정보 자동 수집을 위한 웹 크롤러 시스템 설계 및 개발<br>
-                    - Python (또는 해당 언어) 및 관련 라이브러리(예: Scrapy, Selenium, BeautifulSoup) 활용<br>
-                    - 수집 데이터 정제(Parsing), 정규화 및 DB 저장을 위한 데이터 파이프라인 구축<br>
-                    - 주기적인 크롤링 실행 및 웹사이트 구조 변경에 대응하기 위한 유지보수 작업 수행
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      var zCounter = 100;
+      var openOrder = 0;
+      var state = {}; // { about: {initialized, x, y, w, h, prev} }
 
-        <div class="timeline-item">
-          <div class="timeline-content">
-            <div class="timeline-date">2019.01 - 2020.03</div>
-            <h3 class="timeline-title">도미넌트랩</h3>
-            <div class="timeline-projects">
-              <div class="project-item">
-                <div class="project-title">암호화폐 거래소 시스템 개발 및 운영</div>
-                <div class="project-desc">
-                    - nest.js 기반 백엔드 및 React 기반 프론트엔드 시스템 전반 구축 및 개발<br>
-                    - Bitcoin, Ethereum, ERC-20 토큰을 지원하는 멀티코인 지갑 시스템 설계 및 구현<br>
-                    - 고성능 트레이딩을 위한 오더북(Order Book) 및 매칭(Match) 시스템 핵심 알고리즘 개발 및 최적화<br>
-                    - 마켓 메이킹 시뮬레이션을 활용한 시스템 부하 및 트래픽 테스트 수행, 안정성 확보<br>
-                    - 구축된 거래소 시스템의 운영 및 배포 관리 담당
-                </div>
-              </div>
-              <div class="project-item">
-                <div class="project-title">암호화폐 지갑 시스템 개발</div>
-                <div class="project-desc">
-                    - React 기반 웹 환경의 멀티 암호화폐 지갑 시스템 구축<br>
-                    - 다양한 암호화폐를 통합 관리할 수 있는 멀티월렛 기능 구현<br>
-                </div>
-              </div>
-              <div class="project-item">
-                <div class="project-title">암호화폐 결제 연동 시스템 개발 (쇼핑몰 기반)</div>
-                <div class="project-desc">
-                    - 암호화폐 결제 서비스 제공을 위한 지갑 서버 구축 및 관리<br>
-                    - 쇼핑몰 등 외부 서비스 연동을 위한 결제 API 제공 서버 개발 및 운영<br>
-                </div>
-              </div>
+      var titleMap = {
+        about: 'About',
+        skills: 'Skills',
+        experience: 'Experience',
+        projects: 'Projects',
+        packages: 'Packages',
+        publications: 'Publications',
+        blog: 'Blog',
+        lectures: 'Lectures',
+        growth: 'Growth',
+        contact: 'Contact'
+      };
 
-            </div>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-content">
-            <div class="timeline-date">2018.03 - 2019.01</div>
-            <h3 class="timeline-title">글로스퍼(Glosfer)</h3>
-            <div class="timeline-projects">
-              <div class="project-item">
-                <div class="project-title">비즈니스온커뮤니케이션 - 스마트빌 전자계약 시스템 (Ethereum)</div>
-                <div class="project-desc">
-                    - Ethereum 블록체인 기반의 전자계약 시스템 설계 및 구축 참여<br>
-                    - 4개 블록체인 노드 및 1개 엔드포인트 구성, 시스템 모니터링 환경 설정<br>
-                    - 계약 핵심 정보의 블록체인 온체인 저장 로직 개발 (스마트 컨트랙트 연동)<br>
-                    - PoA(Proof of Authority) 합의 알고리즘 기반의 프라이빗 네트워크 환경 구축<br>
-                </div>
-              </div>
-              <div class="project-item">
-                <div class="project-title">영등포 구청 - GS 인증 제안 평가 시스템 (Hyperledger Fabric)</div>
-                <div class="project-desc">
-                    - Hyperledger Fabric 기반의 제안 평가 결과 기록 시스템 구축 주도<br>
-                    - 물리 장비 3대에 블록체인 노드 구성 및 네트워크 환경 설정<br>
-                    - 평가 결과 데이터의 블록체인 원장 저장 및 관리 기능 개발 (Chaincode 개발 등)<br>
-                    - PBFT(Practical Byzantine Fault Tolerance) 합의 알고리즘 기반의 컨소시엄 네트워크 구축<br>
-                </div>
-              </div>
-              <div class="project-item">
-                <div class="project-title">해수부 항만공사 - TTA 인증 컨테이너 반출입증 통합발급 (블록체인, LG U+ Cloud)</div>
-                <div class="project-desc">
-                    - 항만 물류 시스템 블록체인 기반 컨테이너 부두 간 반출입증 통합발급 프로젝트 참여<br>
-                    - LG U+ 클라우드 환경에서 블록체인 네트워크 구성 및 시스템 개발<br>
-                    - 부두 간 반출입증 정보 공유 및 통합 관리를 위한 블록체인 연동 모듈 개발<br>
-                </div>
-              </div>
-              <div class="project-item">
-                <div class="project-title">블록체인 기반 검색엔진 개발</div>
-                <div class="project-desc">
-                    - Elasticsearch와 Hyperledger Fabric을 연동하여 블록체인 데이터 검색 시스템 개발<br>
-                    - 블록체인 원장의 데이터 인덱싱 및 검색 기능 구현<br>
-                </div>
-              </div>
-              <div class="project-item">
-                <div class="project-title">Hycon 지갑 서버/클라이언트 개발</div>
-                <div class="project-desc">
-                    - 특정 블록체인(Hycon)의 지갑 서버(Node.js) 및 클라이언트(Electron + Vue.js) 개발<br>
-                    - Hycon 블록체인 연동을 위한 SDK 개발 및 기술 문서 작성<br>
-                </div>
-              </div>
-              <div class="project-item">
-                <div class="project-title">Telegram 챗봇 시스템 개발 및 운영</div>
-                <div class="project-desc">
-                    - Telegram 챗봇을 활용한 외국인 대상 커뮤니케이션 지원 (번역 기능 도입)<br>
-                </div>
-              </div>
-              <div class="project-item">
-                <div class="project-title">서비스 장애 및 거래소 시세 정보 실시간 알림 기능 개발</div>
-                <div class="project-desc">
-                    - 보도국 사이트 위젯 데이터 제공 API 개발<br>
-                    - 보도국 사이트 위젯에 필요한 환율 정보 및 코인 시세 정보를 제공하는 API 개발 및 운영<br>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
- 
-      </div>
-    </div>
-  </section>
+      function getArea() {
+        return { w: desktop.clientWidth, h: desktop.clientHeight };
+      }
 
-  <section id="growth-story" class="growth-story">
-    <div class="container">
-      <div class="section-title">
-        <h2>성장 스토리</h2>
-      </div>
-      <div class="growth-timeline">
-        <div class="growth-card">
-          <div class="growth-year">2012 ~</div>
-          <div class="growth-title">지식 공유와 커뮤니티</div>
-          <div class="growth-desc">강의, 저서, 오픈소스, 블로그 등 다양한 방식으로 지식을 나누며, 개발자로서의 영향력을 확장.</div>
-        </div>
+      function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
 
-        <div class="growth-card">
-          <div class="growth-year">2015 ~</div>
-          <div class="growth-title">데이터/자동화 그리고 자연어 처리에 눈뜨다</div>
-          <div class="growth-desc">다양한 크롤러와 데이터 파이프라인을 직접 설계하며, 데이터 기반 문제 해결의 재미와 중요성을 깨달음. word2vec 등 자연어 처리, 머신러닝에 관심을 가지기
-            시작</div>
-        </div>
-        <div class="growth-card">
-          <div class="growth-year">2017 ~</div>
-          <div class="growth-title">신기술과 아키텍처 도전</div>
-          <div class="growth-desc">블록체인, AI, MLOps, IaC 등 최신 기술을 빠르게 습득하고, 실무에 적용하며 성장.</div>
-        </div>
-        <div class="growth-card">
-          <div class="growth-year">2019 ~</div>
-          <div class="growth-title">대규모 서비스와 인프라 경험</div>
-          <div class="growth-desc">거래소, 금융, 블록체인 등 실서비스 백엔드/인프라를 구축하며, 대규모 트래픽과 장애 대응, DevOps의 필요성을 체감.</div>
-        </div>
-        <div class="growth-card">
-          <div class="growth-year">2019 ~</div>
-          <div class="growth-title">리더십과 협업</div>
-          <div class="growth-desc">팀 리딩, 멘토링, 디자인 시스템 도입 등 협업과 리더십 경험을 통해 더 큰 임팩트를 만들어냄.</div>
-        </div>
-        <div class="growth-card">
-          <div class="growth-year">2024 ~</div>
-          <div class="growth-title">인공지능과 에이전트</div>
-          <div class="growth-desc">인공지능과 에이전트를 활용한 문제 해결, 자동화 시스템 구축.</div>
-        </div>
+      function initWindow(win, idx) {
+        var id = win.getAttribute('data-app');
+        var w = parseInt(win.getAttribute('data-w'), 10) || 720;
+        var h = parseInt(win.getAttribute('data-h'), 10) || 540;
+        var area = getArea();
 
-      </div>
-    </div>
-  </section>
+        w = Math.min(w, area.w - 40);
+        h = Math.min(h, area.h - 120);
 
-  <section id="projects" class="projects">
-    <div class="container">
-      <div class="section-title">
-        <h2>프로젝트</h2>
-      </div>
-      <div class="projects-grid">
-        <div class="project-card">
-          <div class="project-card-content">
-            <div class="project-card-title">nestjs 프로젝트 보일러 플레이트</div>
-            <div class="project-card-desc">nestjs 프로젝트 보일러 플레이트, nestjs 프로젝트 보일러 플레이트 설계, 구현, 테스트.</div>
-            <div class="project-card-links">
-              <a href="https://github.com/pjt3591oo/nest-architecture-layout" target="_blank"
-                class="project-link-btn"><i class="fas fa-blog"></i> 저장소</a>
-              <!-- <a href="https://youtube.com/yourvideo" target="_blank" class="project-link-btn"><i class="fab fa-youtube"></i> YouTube</a> -->
-            </div>
-          </div>
-        </div>
-        <div class="project-card">
-          <div class="project-card-content">
-            <div class="project-card-title">WebRTC 기반 화상 채팅 PoC</div>
-            <div class="project-card-desc">WebRTC 기반 화상 채팅 시스템 구축. 화상 채팅 시스템 설계, 구현, 테스트.</div>
-            <div class="project-card-links">
-              <a href="https://blog.naver.com/pjt3591oo/222645733090" target="_blank" class="project-link-btn"><i
-                  class="fas fa-blog"></i> 블로그 1편</a>
-              <a href="https://blog.naver.com/pjt3591oo/222646463734" target="_blank" class="project-link-btn"><i
-                  class="fas fa-blog"></i> 블로그 2편</a>
-              <!-- <a href="https://youtube.com/yourvideo" target="_blank" class="project-link-btn"><i class="fab fa-youtube"></i> YouTube</a> -->
-            </div>
-          </div>
-        </div>
-        <div class="project-card">
-          <div class="project-card-content">
-            <div class="project-card-title">mlops 구축 & 데이터 파이프라인</div>
-            <div class="project-card-desc">mlops 구축. 모델 학습 및 배포 자동화.</div>
-            <div class="project-card-links">
-              <a href="https://blog.naver.com/pjt3591oo/222760459902" target="_blank" class="project-link-btn"> argocd +
-                github actions</a>
-              <a href="https://blog.naver.com/pjt3591oo/222517292174" target="_blank" class="project-link-btn">
-                airflow</a>
-              <a href="https://blog.naver.com/pjt3591oo/221619310268" target="_blank" class="project-link-btn"> ELK</a>
-              <a href="https://blog.naver.com/pjt3591oo/222724676035" target="_blank" class="project-link-btn">
-                Spark</a>
-            </div>
-          </div>
-        </div>
+        // cascade: center + small offset
+        var baseX = Math.max(20, (area.w - w) / 2 - 120);
+        var baseY = Math.max(20, (area.h - h) / 2 - 60);
+        var x = baseX + (idx % 6) * 32;
+        var y = baseY + (idx % 6) * 26;
 
-        <div class="project-card">
-          <div class="project-card-content">
-            <div class="project-card-title">CI/CD 파이프라인 구축</div>
-            <div class="project-card-desc">CI/CD 파이프라인 구축, 배포 자동화.</div>
-            <div class="project-card-links">
-              <a href="https://blog.naver.com/pjt3591oo/223194521702" target="_blank" class="project-link-btn"><i
-                  class="fas fa-blog"></i> NCP CI/CD</a>
-              <a href="https://blog.naver.com/pjt3591oo/222437276868" target="_blank" class="project-link-btn"><i
-                  class="fas fa-blog"></i> github actions + s3</a>
-            </div>
-          </div>
-        </div>
+        win.style.width = w + 'px';
+        win.style.height = h + 'px';
+        win.style.left = x + 'px';
+        win.style.top = y + 'px';
 
-        <div class="project-card">
-          <div class="project-card-content">
-            <div class="project-card-title">채팅 어플리케이션</div>
-            <div class="project-card-desc">채팅 어플리케이션 개발, 배포.</div>
-            <div class="project-card-links">
-              <a href="https://blog.naver.com/pjt3591oo/222494203552" target="_blank" class="project-link-btn"><i
-                  class="fas fa-blog"></i> 블로그</a>
-            </div>
-          </div>
-        </div>
+        state[id] = { initialized: true, maximized: false, prev: null };
+      }
 
-        <div class="project-card">
-          <div class="project-card-content">
-            <div class="project-card-title">AI 기반 깃허브 분석 프로젝트</div>
-            <div class="project-card-desc">AI 기반 깃허브 분석 프로젝트, 깃허브 프로젝트 분석, 프로젝트 추천.</div>
-            <div class="project-card-links">
-              <a href="https://developer-evaluation-tool.vercel.app/" target="_blank" class="project-link-btn"> 페이지</a>
-            </div>
-          </div>
-        </div>
+      function focusWindow(win) {
+        windows.forEach(function (w) { w.classList.remove('focused'); });
+        win.classList.add('focused');
+        zCounter += 1;
+        win.style.zIndex = zCounter;
+        var id = win.getAttribute('data-app');
+        if (menubarAppName && titleMap[id]) menubarAppName.textContent = titleMap[id];
+        updateDockActive();
+      }
 
-        <div class="project-card">
-          <div class="project-card-content">
-            <div class="project-card-title">RAG를 활용한 블로그 검색 시스템</div>
-            <div class="project-card-desc">RAG를 활용한 블로그 검색 시스템, 블로그 검색 시스템 설계, 구현, 테스트.</div>
-            <div class="project-card-links">
-              <a href="https://github.com/pjt3591oo/blog-rag" target="_blank" class="project-link-btn"> 저장소</a>
-            </div>
-          </div>
-        </div>
+      function isOpen(win) {
+        return win.classList.contains('open');
+      }
 
-        <div class="project-card">
-          <div class="project-card-content">
-            <div class="project-card-title">프레임워크 & 라이브러리 개발</div>
-            <div class="project-card-desc">자주 사용했던 프레임워크 & 라이브러리 동작원리 이해를 위한 간단한 프로젝트</div>
-            <div class="project-card-links">
-              <a href="https://github.com/pjt3591oo/mungpress" target="_blank" class="project-link-btn">
-                mungpress(express) </a>
-              <a href="https://github.com/pjt3591oo/mini_react" target="_blank" class="project-link-btn">
-                mini-react(react)</a>
-              <a href="https://github.com/pjt3591oo/nestpy" target="_blank" class="project-link-btn"> nestpy(nestjs)</a>
-            </div>
-          </div>
-        </div>
-        
-        <div class="project-card">
-          <div class="project-card-content">
-            <div class="project-card-title">askbiz 시스템 설계 아키텍처 설계 및 개발</div>
-            <div class="project-card-desc">제한 된 리소스 환경에서 LLM 기반 서비스(askbiz) 시스템 아키텍처 설계 및 개발 / 프로토콜 설계 및 개발</div>
-            <div class="project-card-links">
-              <a href="https://m.journalist.or.kr/m/m_article.html?no=54848" target="_blank" class="project-link-btn">
-                기사
-              </a>
-            </div>
-          </div>
-        </div>
-        
-        <div class="project-card">
-          <div class="project-card-content">
-            <div class="project-card-title">골프 규정 챗봇(with 음성인식) 시스템 개발</div>
-            <div class="project-card-desc">골프 규정에 대한 정보 제공 및 사용자 게임 플레이 지원을 위한 음성인식 기반 챗봇 시스템 구축</div>
-          </div>
-        </div>
+      function openApp(id) {
+        var win = document.querySelector('.window[data-app="' + id + '"]');
+        if (!win) return;
+        if (!state[id] || !state[id].initialized) {
+          initWindow(win, openOrder++);
+        }
+        if (!isOpen(win)) {
+          win.classList.add('open');
+        }
+        focusWindow(win);
+      }
 
-        <div class="project-card">
-          <div class="project-card-content">
-            <div class="project-card-title">네트워크 관리 시스템 개발</div>
-            <div class="project-card-desc">Hyperledger Fabric 네트워크 관리 시스템 개발</div>
-          </div>
-        </div>
-        
-      </div>
-    </div>
-  </section>
+      function closeApp(win) {
+        win.classList.remove('open');
+        win.classList.remove('focused');
+        var id = win.getAttribute('data-app');
+        if (state[id]) state[id].initialized = false; // reset cascade next open
+        updateDockActive();
+        // focus another if exists
+        var remaining = windows.filter(function (w) { return isOpen(w); });
+        if (remaining.length) {
+          focusWindow(remaining[remaining.length - 1]);
+        } else if (menubarAppName) {
+          menubarAppName.textContent = 'Resume';
+        }
+      }
 
-  <section id="publications" class="publications">
-    <div class="container">
-      <div class="section-title">
-        <h2>저서/출판</h2>
-      </div>
-      <div class="publications-list">
-        <div class="publication-card">
-          <div class="publication-cover">
-            <img src="./images/nft_book.jpg" alt="이토록 쉬운 NFT 개발 스타터 팩"
-              style="height:100%;object-fit:cover;" />
-          </div>
-          <div class="publication-content">
-            <div class="publication-title">이토록 쉬운 NFT 개발 스타터 팩</div>
-            <div class="publication-date">2022.06</div>
-            <div class="publication-desc">NFT 개발의 기초부터 실전까지, 실습 중심의 입문서</div>
-            <a class="publication-link" href="https://product.kyobobook.co.kr/detail/S000061353476"
-              target="_blank">교보문고에서 보기</a>
-          </div>
-        </div>
-        <div class="publication-card">
-          <div class="publication-cover">
-            <img src="./images/blockchain_book.jpg" alt="블록체인 프로젝트" style="height:100%;object-fit:cover;" />
-          </div>
-          <div class="publication-content">
-            <div class="publication-title">블록체인 프로젝트</div>
-            <div class="publication-date">2019.07</div>
-            <div class="publication-desc">실전 블록체인 서비스 구축 경험과 노하우를 담은 책</div>
-            <a class="publication-link" href="https://product.kyobobook.co.kr/detail/S000000833233"
-              target="_blank">교보문고에서 보기</a>
-          </div>
-        </div>
-        <div class="publication-card">
-          <div class="publication-cover">
-            <img src="./images/js_book.jpg" alt="자바스크립트로 서버와 클라이언트 구축하기"
-              style="height:100%;object-fit:cover;" />
-          </div>
-          <div class="publication-content">
-            <div class="publication-title">자바스크립트로 서버와 클라이언트 구축하기</div>
-            <div class="publication-date">2018.06</div>
-            <div class="publication-desc">Node.js와 JS로 풀스택 개발을 경험할 수 있는 실전서</div>
-            <a class="publication-link" href="https://product.kyobobook.co.kr/detail/S000000833207"
-              target="_blank">교보문고에서 보기</a>
-          </div>
-        </div>
-        <div class="publication-card">
-          <div class="publication-cover">
-            <img src="./images/python_crawler_book.jpg" alt="파이썬으로 배우는 웹 크롤러"
-              style="height:100%;object-fit:cover;" />
-          </div>
-          <div class="publication-content">
-            <div class="publication-title">파이썬으로 배우는 웹 크롤러</div>
-            <div class="publication-date">2018.01</div>
-            <div class="publication-desc">파이썬으로 웹 크롤러를 쉽고 빠르게 개발하는 방법</div>
-            <a class="publication-link" href="https://product.kyobobook.co.kr/detail/S000000833198"
-              target="_blank">교보문고에서 보기</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+      function minimizeApp(win) {
+        win.classList.add('minimizing');
+        setTimeout(function () {
+          win.classList.remove('open');
+          win.classList.remove('minimizing');
+          win.classList.remove('focused');
+          updateDockActive();
+        }, 320);
+      }
 
-  <section id="blog-series" class="blog-series">
-    <div class="container">
-      <div class="section-title">
-        <h2>블로그 시리즈</h2>
-      </div>
-      <div class="blog-series-list">
-        <div class="blog-series-card">
-          <a href="https://www.notion.so/54f074c28203490586ee90325c5a4813" target="_blank"
-            class="blog-series-title"><i class="fas fa-network-wired"></i> 네트워크</a>
-        </div>
-        <div class="blog-series-card">
-          <a href="https://www.notion.so/381cbb45c07f4de9b7f720ace18d33be" target="_blank" class="blog-series-title"><i class="fas fa-fingerprint"></i> 핀테크
-            서비스 백엔드 개발자가 알려주는 시리즈 - 인증인가 편</a>
-        </div>
-        <div class="blog-series-card">
-          <a href="https://www.notion.so/b793d304661d42bbad2a736495170712" target="_blank" class="blog-series-title"><i class="fas fa-comments"></i> 분산
-            환경 메시지 처리</a>
-        </div>
-        <div class="blog-series-card">
-          <a href="https://www.notion.so/0116288994884e719b05813498feb8e8" target="_blank"
-            class="blog-series-title"><i class="fas fa-code"></i> IAC</a>
-        </div>
-        <div class="blog-series-card">
-          <a href="https://www.notion.so/e05b891eb07e4e17bf4e82b24da42e3b" target="_blank"
-            class="blog-series-title"><i class="fas fa-leaf"></i> 스프링부트 시작하기</a>
-        </div>
-        <div class="blog-series-card">
-          <a href="https://www.notion.so/blockchain-14b6635f37e680768063fee7775e8289" target="_blank"
-            class="blog-series-title"><i class="fas fa-cubes"></i> 블록체인 시리즈</a>
-        </div>
-        <div class="blog-series-card">
-          <a href="https://www.notion.so/Agent-14b6635f37e68024a43fdfa3d4582ba4" target="_blank"
-            class="blog-series-title"><i class="fas fa-robot"></i> Agent 시리즈</a>
-        </div>
-        <div class="blog-series-card">
-          <a href="https://www.notion.so/1db6635f37e6806dafc4dac3965e4b74" target="_blank" class="blog-series-title"><i class="fas fa-book-open"></i> 멍개의
-            회고록</a>
-        </div>
-        <div class="blog-series-card">
-          <a href="https://sponge-palm-382.notion.site/1de6635f37e680e5820eea39cf5c51b7?pvs=73" target="_blank"
-            class="blog-series-title"><i class="fas fa-sitemap"></i> 시스템 설계</a>
-        </div>
-      </div>
-    </div>
-  </section>
+      function maximizeApp(win) {
+        var id = win.getAttribute('data-app');
+        var st = state[id];
+        if (!st) return;
+        if (st.maximized) {
+          // restore
+          win.style.left = st.prev.left;
+          win.style.top = st.prev.top;
+          win.style.width = st.prev.width;
+          win.style.height = st.prev.height;
+          st.maximized = false;
+        } else {
+          st.prev = {
+            left: win.style.left, top: win.style.top,
+            width: win.style.width, height: win.style.height
+          };
+          win.style.left = '8px';
+          win.style.top = '8px';
+          win.style.width = 'calc(100% - 16px)';
+          win.style.height = 'calc(100% - 16px)';
+          st.maximized = true;
+        }
+      }
 
-  <section id="lecture" class="lecture">
-    <div class="container">
-      <div class="section-title">
-        <h2>강의</h2>
-      </div>
-      <div class="blog-list">
-        <div class="blog-card">
-          <div class="blog-card-content">
-            <div class="blog-card-title">인공지능 시대에서 살아남기</div>
-            <div class="blog-card-date">2025.01.10</div>
-            <div class="blog-card-desc">세경고등학교</div>
-          </div>
-        </div>
-        <div class="blog-card">
-          <div class="blog-card-content">
-            <div class="blog-card-title">블록체인 NFT 과정</div>
-            <div class="blog-card-date">2022.10.26 ~ 2022.10.28</div>
-            <div class="blog-card-desc">코스콤</div>
-          </div>
-        </div>
-        <div class="blog-card">
-          <div class="blog-card-content">
-            <div class="blog-card-title">2022 블록체인 NFT 과정</div>
-            <div class="blog-card-date">2022.07.31 ~ 2022.10.15</div>
-            <div class="blog-card-desc">한국디지털융합진흥원</div>
-          </div>
-        </div>
-        <div class="blog-card">
-          <div class="blog-card-content">
-            <div class="blog-card-title">웹 어플리케이션개발 자바스크립트 및 jQuery 실무</div>
-            <div class="blog-card-date">2022.06.18 ~ 2022.06.25</div>
-            <div class="blog-card-desc">한국소프트웨어기술진흥협회</div>
-          </div>
-        </div>
-        <div class="blog-card">
-          <div class="blog-card-content">
-            <div class="blog-card-title">이더리움 ERC20, ERC721을 활용한 NFT 만들기</div>
-            <div class="blog-card-date">2021.12.22 ~ 2021.12.24</div>
-            <div class="blog-card-desc">패스트캠퍼스 - 신용보증기금</div>
-          </div>
-        </div>
-        <div class="blog-card">
-          <div class="blog-card-content">
-            <div class="blog-card-title">2021년도 ICT Code Academy 블록체인 교육과정<br>리엑트 기반의 ERC20 토큰 지갑, ERC721 NFT 생성기 만들기
-            </div>
-            <div class="blog-card-date">2021.07 ~ 2021.10</div>
-            <div class="blog-card-desc">한국디지털융합진흥원</div>
-          </div>
-        </div>
-        <div class="blog-card">
-          <div class="blog-card-content">
-            <div class="blog-card-title">블록체인(이더리움) 개발입문 과정</div>
-            <div class="blog-card-date">2021.06 ~ 2021.07</div>
-            <div class="blog-card-desc">패스트캠퍼스 - KB증권</div>
-          </div>
-        </div>
-        <div class="blog-card">
-          <div class="blog-card-content">
-            <div class="blog-card-title">지역 ICT이노베이션스퀘어 운영 사업(블록체인)<br>이더리움을 활용한 dApp개발, 운용과정</div>
-            <div class="blog-card-date">2020.10 ~ 2020.12</div>
-            <div class="blog-card-desc">한국디지털융합진흥원</div>
-          </div>
-        </div>
-        <div class="blog-card">
-          <div class="blog-card-content">
-            <div class="blog-card-title">데이터 분석 기초</div>
-            <div class="blog-card-date">2020.11.18</div>
-            <div class="blog-card-desc">서울시 교육청</div>
-          </div>
-        </div>
-        <div class="blog-card">
-          <div class="blog-card-content">
-            <div class="blog-card-title">빅데이터 분석을 위한 웹 크롤러 개발 & node.js로 만들어보는 쇼핑몰 구축 프로젝트</div>
-            <div class="blog-card-date">2017.05 ~ 2020.09</div>
-            <div class="blog-card-desc">코딩애플</div>
-          </div>
-        </div>
-        <div class="blog-card">
-          <div class="blog-card-content">
-            <div class="blog-card-title">혁신성장 청년인재 집중양성 사업<br>블록체인 시스템 엔지니어 양성과정</div>
-            <div class="blog-card-date">2019.06 ~ 2019.11</div>
-            <div class="blog-card-desc">MOB 코리아, fn노에듀</div>
-          </div>
-        </div>
-        <div class="blog-card">
-          <div class="blog-card-content">
-            <div class="blog-card-title">Ethereum, Hyperledger Fabric 기반의 App 개발</div>
-            <div class="blog-card-date">2018.05 ~ 2019.05</div>
-            <div class="blog-card-desc">패스트 캠퍼스</div>
-          </div>
-        </div>
-        <div class="blog-card">
-          <div class="blog-card-content">
-            <div class="blog-card-title">서울핀테크아카데미 (블록체인 동향 및 보안관점)</div>
-            <div class="blog-card-date">2020.10.31, 2019.10.19, 2019.06.22</div>
-            <div class="blog-card-desc">금융투자교육원</div>
-          </div>
-        </div>
-        <div class="blog-card">
-          <div class="blog-card-content">
-            <div class="blog-card-title">개발자 관점에서 바라본 블록체인</div>
-            <div class="blog-card-date">2018.11.12</div>
-            <div class="blog-card-desc">동양미래대학</div>
-          </div>
-        </div>
-        <div class="blog-card">
-          <div class="blog-card-content">
-            <div class="blog-card-title">Ethereum을 활용한 Dapp개발 프로젝트</div>
-            <div class="blog-card-date">2018.11.11 ~ 2018.12.15, 2018.04.03 ~ 2018.04.04, 2019.07.25, 2019.03.12,
-              2018.10.11, 2018.03.29 ~ 2018.03.30</div>
-            <div class="blog-card-desc">YAPP 연합동아리, 신한은행 데이터시스템, Kisa</div>
-          </div>
-        </div>
-        <div class="blog-card">
-          <div class="blog-card-content">
-            <div class="blog-card-title">꿈, 희망, 진로</div>
-            <div class="blog-card-date">2018.09.21</div>
-            <div class="blog-card-desc">세경고등학교</div>
-          </div>
-        </div>
-        <div class="blog-card">
-          <div class="blog-card-content">
-            <div class="blog-card-title">블록체인 기초개념 및 원리</div>
-            <div class="blog-card-date">2018.06.15</div>
-            <div class="blog-card-desc">세경고등학교</div>
-          </div>
-        </div>
-        <div class="blog-card">
-          <div class="blog-card-content">
-            <div class="blog-card-title">프로그래밍 기초 - 파이썬 활용</div>
-            <div class="blog-card-date">2017.04.09</div>
-            <div class="blog-card-desc">세경고등학교</div>
-          </div>
-        </div>
-        <div class="blog-card">
-          <div class="blog-card-content">
-            <div class="blog-card-title">대학생활 및 취업/창업</div>
-            <div class="blog-card-date">2016.08.25</div>
-            <div class="blog-card-desc">세경고등학교</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+      function updateDockActive() {
+        dockItems.forEach(function (el) {
+          var id = el.getAttribute('data-app');
+          var win = document.querySelector('.window[data-app="' + id + '"]');
+          el.classList.toggle('active', !!(win && isOpen(win)));
+        });
+      }
 
-  <section id="contact" class="contact">
-    <div class="container">
-      <div class="section-title">
-        <h2>Contact</h2>
-      </div>
-      <div class="contact-grid">
-        <div class="contact-card">
-          <i class="fas fa-envelope"></i>
-          <h3>Email</h3>
-          <p><a href="mailto:pjt3591oo@gmail.com" class="contact-link">pjt3591oo@gmail.com</a></p>
-        </div>
-        <div class="contact-card">
-          <i class="fas fa-envelope"></i>
-          <h3>Email</h3>
-          <p><a href="mailto:pjt3591oo@naver.com" class="contact-link">pjt3591oo@naver.com</a></p>
-        </div>
-      </div>
-      <div style="text-align:center; margin-top:2.5rem;">
-        <a href="./docs/resume.pdf" class="contact-link" download>이력서 다운로드 (PDF)</a>
-        <a href="./docs/career-description.pdf" class="contact-link" download style="margin-left:1.2rem;">경력기술서 다운로드 (PDF)</a>
-      </div>
-    </div>
-  </section>
+      // ============ WIRE UP WINDOWS ============
+      windows.forEach(function (win) {
+        // focus on mousedown
+        win.addEventListener('mousedown', function () { focusWindow(win); });
 
-  <footer>
-    <div class="container footer-content">
-      <div class="footer-social">
-        <a href="https://blog.naver.com/pjt3591oo" target="_blank" title="기술 블로그"><i class="fas fa-blog"></i></a>
-        <a href="https://github.com/pjt3591oo" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-        <a href="https://stackoverflow.com/users/8667760/멍개-mung" target="_blank" title="Stack Overflow"><i
-            class="fab fa-stack-overflow"></i></a>
-      </div>
-      <p class="footer-copyright">&copy; 2025 박정태(멍개). All rights reserved.</p>
-    </div>
-  </footer>
+        // traffic lights
+        var closeBtn = win.querySelector('.light.close');
+        var minBtn = win.querySelector('.light.minimize');
+        var maxBtn = win.querySelector('.light.maximize');
+        if (closeBtn) closeBtn.addEventListener('click', function (e) {
+          e.stopPropagation(); closeApp(win);
+        });
+        if (minBtn) minBtn.addEventListener('click', function (e) {
+          e.stopPropagation(); minimizeApp(win);
+        });
+        if (maxBtn) maxBtn.addEventListener('click', function (e) {
+          e.stopPropagation(); maximizeApp(win);
+        });
 
+        // drag by titlebar
+        var titlebar = win.querySelector('.titlebar');
+        var dragging = false;
+        var startX = 0, startY = 0, baseLeft = 0, baseTop = 0;
 
+        titlebar.addEventListener('mousedown', function (e) {
+          if (e.target.closest('.traffic-lights')) return;
+          dragging = true;
+          focusWindow(win);
+          startX = e.clientX;
+          startY = e.clientY;
+          baseLeft = win.offsetLeft;
+          baseTop = win.offsetTop;
+          document.body.style.userSelect = 'none';
+        });
+        document.addEventListener('mousemove', function (e) {
+          if (!dragging) return;
+          var area = getArea();
+          var nx = clamp(baseLeft + (e.clientX - startX), -win.offsetWidth + 80, area.w - 80);
+          var ny = clamp(baseTop + (e.clientY - startY), 0, area.h - 40);
+          win.style.left = nx + 'px';
+          win.style.top = ny + 'px';
+        });
+        document.addEventListener('mouseup', function () {
+          if (dragging) { dragging = false; document.body.style.userSelect = ''; }
+        });
+
+        titlebar.addEventListener('dblclick', function (e) {
+          if (e.target.closest('.traffic-lights')) return;
+          maximizeApp(win);
+        });
+      });
+
+      // ============ DOCK ============
+      dockItems.forEach(function (el) {
+        el.addEventListener('click', function () {
+          var id = el.getAttribute('data-app');
+          if (!id) return;
+          var win = document.querySelector('.window[data-app="' + id + '"]');
+          if (!win) return;
+          if (isOpen(win) && win.classList.contains('focused')) {
+            minimizeApp(win);
+          } else {
+            openApp(id);
+          }
+        });
+      });
+
+      // ============ BOOT ============
+      // Open About by default
+      openApp('about');
+    })();
+  </script>
 </body>
 
 </html>
