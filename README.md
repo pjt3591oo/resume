@@ -3,6 +3,8 @@
 macOS 데스크탑을 테마로 한 인터랙티브 웹 이력서입니다.
 각 섹션은 독립된 "앱 윈도우"로 열리며, Dock에서 원하는 앱을 실행해볼 수 있습니다.
 
+![Resume Preview](./images/thumbnail.png)
+
 🔗 **Live**: [https://pjt3591oo.github.io/resume](https://pjt3591oo.github.io/resume)
 
 ---
